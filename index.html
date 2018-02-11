@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="./dist/css/style.css">
-        <title>Document</title>
+        <title>Traveler App - Home</title>
     </head>
     <body>
         <header class="tl-PageHeader">
@@ -13,14 +13,132 @@
                 <ul>
                     <li>
                         <a href="#">
-                            <img src="http://via.placeholder.com/350x150" alt="Traveler Logo">
+                            <img src="http://via.placeholder.com/350x150" alt="Traveler logo">
                         </a>
                     </li>
                 </ul>
             </nav>
         </header>
         <main class="tl-IndexPage">
-            heelo
+            <article class="tl-Card">
+                <section>
+                    <img src="http://via.placeholder.com/350x150" alt="General impression">
+                    <h1>Traveler</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, ex? Ducimus, beatae? Qui vel magni necessitatibus quasi aut tempora nisi optio. Quasi, in ipsam. Modi doloribus itaque reprehenderit vel dolores.</p>
+                </section>
+
+                <section>
+                    <h2>Available Travelers</h2>
+                    <section>
+                        <h3>Henk Smits</h3>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, porro.</p>
+                        <img src="http://via.placeholder.com/350x150" alt="Available traveler">
+                    </section>
+                    <section>
+                        <h3>Frank Fransen</h3>
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt, porro.</p>
+                        <img src="http://via.placeholder.com/350x150" alt="Available traveler">
+                    </section>
+                </section>
+            </article>
+            <form action="#">
+                <div>
+                    <h2>Sign up for free! Don't worry it will remain free, forever!</h2>
+                    <fieldset>
+                        <legend>Account information</legend>
+
+                        <label for="sign-up-name">
+                            <span>Full name:</span>
+                            <input
+                                type="text"
+                                name="sign-up-name"
+                                id="sign-up-name"
+                                placeholder="Name"
+                            >
+                        </label>
+
+                        <label for="sign-up-email">
+                            <span>Email address:</span>
+                            <input
+                                type="email"
+                                name="sign-up-email"
+                                id="sign-up-email"
+                                placeholder="Email"
+                            >
+                        </label>
+
+                        <label for="sign-up-password">
+                            <span>Password:</span>
+                            <input
+                                type="password"
+                                name="sign-up-password"
+                                id="sign-up-password"
+                                placeholder="Password"
+                            >
+                        </label>
+
+                        <label for="sign-up-repeat-password">
+                            <span>Repeat password:</span>
+                            <input
+                                type="password"
+                                name="sign-up-repeat-password"
+                                id="sign-up-repeat-password"
+                                placeholder="Repeat password"
+                            >
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Gender information</legend>
+
+                        <div>
+                            <span>Your gender:</span>
+                            <label for="sign-up-own-gender-male">
+                                <span>Male</span>
+                                <input
+                                    type="radio"
+                                    name="sign-up-own-gender"
+                                    id="sign-up-own-gender-male"
+                                    value="male"
+                                    checked
+                                >
+                            </label>
+                            <label for="sign-up-own-gender-female">
+                                <span>Female</span>
+                                <input
+                                    type="radio"
+                                    name="sign-up-own-gender"
+                                    id="sign-up-own-gender-female"
+                                    value="female"
+                                >
+                            </label>
+                        </div>
+
+                        <div>
+                            <span>Looking for a:</span>
+                            <label for="sign-up-looking-for-gender-male">
+                                <span>Male</span>
+                                <input
+                                    type="radio"
+                                    name="sign-up-looking-for-gender"
+                                    id="sign-up-looking-for-gender-male"
+                                    value="male"
+                                >
+                            </label>
+                            <label for="sign-up-looking-for-gender-female">
+                                <span>Female</span>
+                                <input
+                                    type="radio"
+                                    name="sign-up-looking-for-gender"
+                                    id="sign-up-looking-for-gender-female"
+                                    value="female"
+                                    checked
+                                >
+                            </label>
+                        </div>
+                    </fieldset>
+                    <button type="submit">Travel away!</button>
+                </div>
+            </form>
         </main>
     </body>
 </html>
