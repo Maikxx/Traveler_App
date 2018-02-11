@@ -18,7 +18,6 @@
                 <form action="#" class="tl-Questionaire">
                     <fieldset>
                         <legend>Looking for in a match</legend>
-
                         <div class="tl-Questionaire_Question">
                             <label for="questionaire-match-likes-nature-yes">Is it necessary for your matches to like nature?</label>
                             <label for="questionaire-match-likes-nature-yes">
@@ -49,6 +48,86 @@
                                     type="text"
                                     name="questionaire-most-important-in-relationship"
                                     id="questionaire-most-important-in-relationship"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire_Question">
+                            <label for="questionaire-max-match-distance">
+                                <span>What is the maximum distance (in km's) your match may be away from you?</span>
+                                <input
+                                    type="number"
+                                    name="questionaire-max-match-distance"
+                                    id="questionaire-max-match-distance"
+                                    min="0"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire_Question">
+                            <label for="questionaire-min-search-age">
+                                <span>What are the minimum and <label for="questionaire-max-search-age">maximum ages you want to include in your matchresults?</label></span>
+                                <input
+                                    type="number"
+                                    name="questionaire-min-search-age"
+                                    id="questionaire-min-search-age"
+                                    min="0"
+                                    required
+                                >
+
+                                <input
+                                    type="number"
+                                    name="questionaire-max-search-age"
+                                    id="questionaire-max-search-age"
+                                    min="0"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire_Question">
+                            <label for="questionaire-important-match-has-made-trips-yes">Is it important that your match has already made a lot (more than 5) of trips?</label>
+                            <label for="questionaire-important-match-has-made-trips-yes">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-important-match-has-made-trips"
+                                    id="questionaire-important-match-has-made-trips-yes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-important-match-has-made-trips-no">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-important-match-has-made-trips"
+                                    id="questionaire-important-match-has-made-trips-no"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire_Question">
+                            <label for="questionaire-wants-to-travel-fast-yes">Do you want to travel as soon as possible with your match?</label>
+                            <label for="questionaire-wants-to-travel-fast-yes">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-wants-to-travel-fast"
+                                    id="questionaire-wants-to-travel-fast-yes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-wants-to-travel-fast-no">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-wants-to-travel-fast"
+                                    id="questionaire-wants-to-travel-fast-no"
                                     required
                                 >
                             </label>
