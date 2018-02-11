@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="./dist/css/style.css">
+        <link rel="stylesheet" href="../dist/css/style.css">
         <title>Traveler App - Questionaire</title>
     </head>
     <body>
@@ -16,9 +16,9 @@
 
             <section>
                 <form action="#" class="tl-Questionaire">
-                    <fieldset>
+                    <fieldset class="tl-Questionaire__Subject">
                         <legend>Looking for in a match</legend>
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-match-likes-nature-yes">Is it necessary for your matches to like nature?</label>
                             <label for="questionaire-match-likes-nature-yes">
                                 <span>Yes</span>
@@ -41,7 +41,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-most-important-in-relationship">
                                 <span>What do you find the most important in a relationship?</span>
                                 <input
@@ -53,7 +53,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-max-match-distance">
                                 <span>What is the maximum distance (in km's) your match may be away from you?</span>
                                 <input
@@ -66,7 +66,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-min-search-age">
                                 <span>What are the minimum and <label for="questionaire-max-search-age">maximum ages you want to include in your matchresults?</label></span>
                                 <input
@@ -87,7 +87,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-important-match-has-made-trips-yes">Is it important that your match has already made a lot (more than 5) of trips?</label>
                             <label for="questionaire-important-match-has-made-trips-yes">
                                 <span>Yes</span>
@@ -110,7 +110,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-wants-to-travel-fast-yes">Do you want to travel as soon as possible with your match?</label>
                             <label for="questionaire-wants-to-travel-fast-yes">
                                 <span>Yes</span>
@@ -134,13 +134,145 @@
                         </div>
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset class="tl-Questionaire__Subject">
                         <legend>Travel</legend>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-favorite-holiday-destination">
+                                <span>What is your favorite holiday destination, you have visited?</span>
+                                <input
+                                    type="text"
+                                    name="questionaire-favorite-holiday-destination"
+                                    id="questionaire-favorite-holiday-destination"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-holiday-formats-roundtrip">What is, or are, your favorite holiday format(s)?</label>
+                            <label for="questionaire-holiday-formats-roundtrip">
+                                <span>Roundtrips</span>
+                                <input
+                                    type="checkbox"
+                                    name="questionaire-holiday-formats"
+                                    id="questionaire-holiday-formats-roundtrip"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-holiday-formats-family-travel">
+                                <span>Travelling with family</span>
+                                <input
+                                    type="checkbox"
+                                    name="questionaire-holiday-formats"
+                                    id="questionaire-holiday-formats-family-travel"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-holiday-formats-bike-holidays">
+                                <span>Bike holidays</span>
+                                <input
+                                    type="checkbox"
+                                    name="questionaire-holiday-formats"
+                                    id="questionaire-holiday-formats-bike-holidays"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-holiday-formats-hike-holidays">
+                                <span>Hike holidays</span>
+                                <input
+                                    type="checkbox"
+                                    name="questionaire-holiday-formats"
+                                    id="questionaire-holiday-formats-hike-holidays"
+                                    required
+                                >
+                            </label>
+
+
+                            <label for="questionaire-holiday-formats-backpacking">
+                                <span>Backpacking</span>
+                                <input
+                                    type="checkbox"
+                                    name="questionaire-holiday-formats"
+                                    id="questionaire-holiday-formats-backpacking"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-plans-ahead-often">Do you plan your holidays far ahead?</label>
+                            <label for="questionaire-plans-ahead-often">
+                                <span>Often</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-plans-ahead"
+                                    id="questionaire-plans-ahead-often"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-plans-ahead-sometimes">
+                                <span>Sometimes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-plans-ahead"
+                                    id="questionaire-plans-ahead-sometimes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-plans-ahead-no">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-plans-ahead"
+                                    id="questionaire-plans-ahead-no"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-likes-to-hike-yes">Do you plan your holidays far ahead?</label>
+                            <label for="questionaire-likes-to-hike-yes">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-likes-to-hike"
+                                    id="questionaire-likes-to-hike-yes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-likes-to-hike-sometimes">
+                                <span>Sometimes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-likes-to-hike"
+                                    id="questionaire-likes-to-hike-sometimes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-likes-to-hike-no">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-likes-to-hike"
+                                    id="questionaire-likes-to-hike-no"
+                                    required
+                                >
+                            </label>
+                        </div>
                     </fieldset>
 
-                    <fieldset>
+                    <fieldset class="tl-Questionaire__Subject">
                         <legend>Personal information</legend>
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-wants-to-marry-yes">Do you want to marry, eventually?</label>
                             <label for="questionaire-wants-to-marry-yes">
                                 <span>Yes</span>
@@ -173,7 +305,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-relationship-reason">
                                 <span>What is the foremost reason that you want a relationship?</span>
                                 <input
@@ -185,40 +317,11 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
-                            <label for="questionaire-hobbies-sports">What are your hobbies?</label>
-                            <label for="questionaire-hobbies-sports">
-                                <span>Sports</span>
-                                <input
-                                    type="checkbox"
-                                    name="questionaire-hobbies"
-                                    id="questionaire-hobbies-sports"
-                                    required
-                                >
-                            </label>
+                        <div class="tl-Questionaire-Question">
 
-                            <label for="questionaire-hobbies-movies">
-                                <span>Movies</span>
-                                <input
-                                    type="checkbox"
-                                    name="questionaire-hobbies"
-                                    id="questionaire-hobbies-movies"
-                                    required
-                                >
-                            </label>
-
-                            <label for="questionaire-hobbies-traveling">
-                                <span>Traveling</span>
-                                <input
-                                    type="checkbox"
-                                    name="questionaire-hobbies"
-                                    id="questionaire-hobbies-traveling"
-                                    required
-                                >
-                            </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-children-yes">Do you want, or already have, children?</label>
                             <label for="questionaire-children-yes">
                                 <span>Yes</span>
@@ -251,7 +354,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-drinks-alcohol-often">Do you drink alcohol?</label>
                             <label for="questionaire-drinks-alcohol-often">
                                 <span>Yes, often</span>
@@ -284,7 +387,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-smokes-often">Do you smoke?</label>
                             <label for="questionaire-smokes-often">
                                 <span>Yes, often</span>
@@ -317,7 +420,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-likes-nature-yes">Do you like to be in the nature?</label>
                             <label for="questionaire-likes-nature-yes">
                                 <span>Yes</span>
@@ -340,7 +443,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-music-genre">
                                 <span>What kind of music genre, do you listen to most often?</span>
                                 <input
@@ -352,7 +455,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-yearly-earns-less-than-25k">How much do you earn, on a yearly basis?</label>
                             <label for="questionaire-yearly-earns-less-than-25k">
                                 <span>Less than 25K</span>
@@ -385,7 +488,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-birthdate">
                                 <span>Enter your birthdate:</span>
                                 <input
@@ -399,7 +502,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-hometown">
                                 <span>Where do you live?</span>
                                 <input
@@ -411,7 +514,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-job-title">
                                 <span>What is your job title?</span>
                                 <input
@@ -423,7 +526,7 @@
                             </label>
                         </div>
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-length">
                                 <span>What is your length?</span>
                                 <input
@@ -436,7 +539,7 @@
                         </div>
 
 
-                        <div class="tl-Questionaire_Question">
+                        <div class="tl-Questionaire-Question">
                             <label for="questionaire-profile-image">
                                 <span>Upload a profile image of yourself:</span>
                                 <small>This can be either a .png, .jpg or .jpeg file.</small>

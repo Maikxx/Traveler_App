@@ -1,0 +1,36 @@
+.tl-QuestionairePage {
+    padding: 12px;
+
+    > header {
+        margin-bottom: 24px;
+    }
+
+    .tl-Questionaire {
+        button {
+            border: 1px solid black;
+        }
+
+        &__Subject {
+            border: 0;
+
+            > legend {
+                font-weight: 900;
+                font-size: 120%;
+                margin-bottom: 12px;
+            }
+
+            input:not([type = "radio"]):not([type = "checkbox"]) {
+                border: 1px solid black;
+            }
+        }
+    }
+
+    .tl-Questionaire-Question {
+        padding: 12px 0;
+        border-bottom: 1px solid lightgrey;
+
+        &:first-of-type {
+            border-top: 1px solid lightgrey;
+        }
+    }
+}
