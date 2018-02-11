@@ -32,5 +32,9 @@
         &:first-of-type {
             border-top: 1px solid lightgrey;
         }
+
+        > label {
+            display: block;
+        }
     }
 }
