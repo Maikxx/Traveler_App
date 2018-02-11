@@ -11,7 +11,8 @@
         <main class="tl-QuestionairePage">
             <header>
                 <h1>Fill out these questions, in order to use Traveler</h1>
-                <span>These questions will help us find the perfect matches, based on your answers</span>
+                <small>These questions will help us find the perfect matches, based on your answers.</small>
+                <small>Warning: Please don't leave the page while in progress!</small>
             </header>
 
             <section>
@@ -136,6 +137,19 @@
 
                     <fieldset class="tl-Questionaire__Subject">
                         <legend>Travel</legend>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-where-have-you-been">
+                                <span>To which destinations have you traveled already?</span>
+                                <small>Please separate with comma's.</small>
+                                <input
+                                    type="text"
+                                    name="questionaire-where-have-you-been"
+                                    id="questionaire-where-have-you-been"
+                                    required
+                                >
+                            </label>
+                        </div>
 
                         <div class="tl-Questionaire-Question">
                             <label for="questionaire-favorite-holiday-destination">
@@ -264,6 +278,78 @@
                                     type="radio"
                                     name="questionaire-likes-to-hike"
                                     id="questionaire-likes-to-hike-no"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-likes-trans-atlantic-yes">Do you like to travel trans-atlantic more, than within the continent?</label>
+                            <label for="questionaire-likes-trans-atlantic-yes">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-likes-trans-atlantic"
+                                    id="questionaire-likes-trans-atlantic-yes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-likes-trans-atlantic-sometimes">
+                                <span>Sometimes</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-likes-trans-atlantic"
+                                    id="questionaire-likes-trans-atlantic-sometimes"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-likes-trans-atlantic-no">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-likes-trans-atlantic"
+                                    id="questionaire-likes-trans-atlantic-no"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-where-do-you-want-to-go">
+                                <span>To which destinations do you want to travel to, in the near future?</span>
+                                <small>Please separate with comma's.</small>
+                                <input
+                                    type="text"
+                                    name="questionaire-where-do-you-want-to-go"
+                                    id="questionaire-where-do-you-want-to-go"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-amount-of-trips-made">
+                                <span>How much holiday destinations have you visited?</span>
+                                <input
+                                    type="number"
+                                    name="questionaire-amount-of-trips-made"
+                                    id="questionaire-amount-of-trips-made"
+                                    min="0"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-favorite-travel-time">
+                                <span>What is your favorite travel time (in weeks)?</span>
+                                <input
+                                    type="number"
+                                    name="questionaire-favorite-travel-time"
+                                    id="questionaire-favorite-travel-time"
+                                    min="0"
                                     required
                                 >
                             </label>
