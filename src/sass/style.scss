@@ -1,4 +1,4 @@
-@import 'imports';
+@import 'includes/imports';
 
 * {
     box-sizing: border-box;
@@ -10,4 +10,4 @@ html, body {
     font-family: 'Open Sans', sans-serif;
 }
 
-@import 'Questionaire';
+@import 'pages/Questionaire';
