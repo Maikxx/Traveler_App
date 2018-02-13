@@ -9,7 +9,20 @@
 
     .tl-Questionaire {
         button {
-            border: 1px solid $form-border-color;
+            margin-top: 12px;
+            margin: 12px 0 0;
+            border: 0;
+            background-color: $cta-background-color;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 2px;
+            color: white;
+            transition: 100ms ease-in-out background-color;
+
+            &:hover {
+                background-color: $cta-hover-background-color;
+            }
         }
 
         &__Subject {

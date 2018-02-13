@@ -2,10 +2,64 @@
 
 .tl-IndexPage {
     padding: 12px;
+
+    .tl-Card {
+        .tl-TitleSection {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 12px;
+
+            h1 {
+                width: 50%;
+                text-align: center;
+                font-size: 150%;
+                letter-spacing: 0.7px;
+            }
+
+            img {
+                max-width: 50%;
+            }
+
+            p {
+                margin: 12px 0;
+            }
+        }
+
+        .tl-BriefTravelerDisplays {
+            display: flex;
+            flex-wrap: wrap;
+
+            h2 {
+                margin-bottom: 12px;
+            }
+
+            .tl-BriefTravelerDisplay {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                background-color: $brief-traveler-display-background-color;
+                border-radius: 2px;
+                padding: 6px;
+                justify-content: space-between;
+
+                img {
+                    max-width: 20%;
+                    border-radius: 50%;
+                    min-height: 4em;
+                }
+
+                & + .tl-BriefTravelerDisplay {
+                    margin-top: 12px;
+                    padding-top: 12px;
+                }
+            }
+        }
+    }
 }
 
 .tl-SignUpForm {
-    margin: 36px 0;
+    margin: 24px 0;
 
     h2 {
         font-size: 20px;
@@ -63,5 +117,10 @@
         font-size: 16px;
         border-radius: 2px;
         color: white;
+        transition: 100ms ease-in-out background-color;
+
+        &:hover {
+            background-color: $cta-hover-background-color;
+        }
     }
 }
