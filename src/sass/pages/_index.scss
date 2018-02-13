@@ -1,0 +1,67 @@
+@import '../includes/variables';
+
+.tl-IndexPage {
+    padding: 12px;
+}
+
+.tl-SignUpForm {
+    margin: 36px 0;
+
+    h2 {
+        font-size: 20px;
+    }
+
+    fieldset {
+        border: 0;
+
+        > legend {
+            font-weight: 900;
+            font-size: 105%;
+            margin-bottom: 12px;
+            padding-top: 24px;
+        }
+
+        input:not([type = "radio"]) {
+            border: 1px solid $form-border-color;
+            padding: 12px 2px;
+            font-size: 16px;
+            width: 100%;
+        }
+    }
+
+    .tl-FormField {
+        padding: 12px 0;
+        border-bottom: 1px solid $form-border-color;
+
+        &:first-of-type {
+            border-top: 1px solid $form-border-color;
+        }
+
+        > label {
+            display: block;
+            color: $form-text-color;
+
+            &:first-of-type {
+                font-size: 14px;
+
+                span {
+                    display: block;
+                    margin-bottom: 6px;
+                    font-size: inherit;
+                }
+            }
+        }
+    }
+
+    button {
+        margin-top: 12px;
+        margin: 12px 0 0;
+        border: 0;
+        background-color: $cta-background-color;
+        padding: 6px 12px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 2px;
+        color: white;
+    }
+}
