@@ -26,10 +26,16 @@ input:not([type = radio]):not([type = checkbox]) {
     }
 
     &:valid {
-        border: 1px solid $color-green;
+        border: 1px solid $input-valid-border-color;
 
         &:focus {
-            outline: 2px solid $color-green;
+            outline: 2px solid $input-valid-border-color;
+        }
+    }
+
+    &:invalid {
+        &:focus {
+            outline: 2px solid crimson;
         }
     }
 }
