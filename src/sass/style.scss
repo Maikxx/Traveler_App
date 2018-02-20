@@ -24,6 +24,14 @@ input:not([type = radio]):not([type = checkbox]) {
     &::placeholder {
         opacity: 0.3;
     }
+
+    &:valid {
+        border: 1px solid $color-green;
+
+        &:focus {
+            outline: 2px solid $color-green;
+        }
+    }
 }
 
 .tl-Card {
