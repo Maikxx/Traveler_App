@@ -1,5 +1,7 @@
 @import '../includes/variables';
 
+
+
 .tl-IndexPage {
     padding: 12px;
 
@@ -32,6 +34,7 @@
 
             h2 {
                 margin-bottom: 12px;
+                width: 100%;
             }
 
             .tl-BriefTravelerDisplay {
@@ -73,13 +76,6 @@
             font-size: 105%;
             margin-bottom: 12px;
             padding-top: 24px;
-        }
-
-        input:not([type = "radio"]) {
-            border: 1px solid $form-border-color;
-            padding: 12px 2px;
-            font-size: 16px;
-            width: 100%;
         }
     }
 
