@@ -1,0 +1,74 @@
+@import '../includes/variables';
+@import '../includes/spacing';
+
+.tl-MatchProfile {
+    padding: getSpacing(1);
+
+    .tl-Card--MatchProfileCard {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        border-radius: 2px;
+        padding: getSpacing(0.5);
+        justify-content: space-between;
+        background-color: rgba(255, 255, 255, 0.8);
+        width: 100%;
+        position: relative;
+
+        header {
+            width: 50%;
+
+            h1 {
+                font-size: 120%;
+                margin-bottom: getSpacing(1);
+            }
+
+            img {
+                max-width: getSpacing(5);
+                border-radius: 50%;
+                min-height: getSpacing(5);
+            }
+        }
+
+        p {
+            margin: getSpacing(3) 0 0;
+            width: 45%;
+        }
+
+        .tl-FullProfileInformation {
+            list-style: none;
+            width: 100%;
+            margin-top: getSpacing(1);
+
+            .tl-Field {
+                display: flex;
+                justify-content: space-between;
+
+                &__title {
+                    font-weight: bold;
+                    color: $form-text-color;
+                    max-width: 50%;
+                    align-self: flex-start;
+                }
+
+                &__value {
+                    vertical-align: bottom;
+                    max-width: 40%;
+                    text-align: right;
+                    align-self: center;
+                }
+
+                & + .tl-Field {
+                    margin-top: getSpacing(0.5);
+                    padding-top: getSpacing(0.5);
+                    border-top: 1px solid $form-border-color;
+                }
+
+                &.divider-bottom + .tl-Field {
+                    border-top: 2px solid $form-border-color;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}

@@ -16,7 +16,7 @@
             </header>
 
             <section>
-                <form action="#" class="tl-Questionaire">
+                <form action="./matches_overview.html" class="tl-Questionaire">
                     <fieldset class="tl-Questionaire__Subject">
                         <legend>Looking for, in a match</legend>
                         <div class="tl-Questionaire-Question">
@@ -257,7 +257,7 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="questionaire-likes-to-hike-yes">Do you plan your holidays far ahead?</label>
+                            <label for="questionaire-likes-to-hike-yes">Do you like to hike?</label>
                             <label for="questionaire-likes-to-hike-yes">
                                 <span>Yes</span>
                                 <input
@@ -408,19 +408,29 @@
                                     name="questionaire-relationship-reason"
                                     id="questionaire-relationship-reason"
                                     required
-                                    placeholder="Being able to travel the world with that someone."
+                                    placeholder="Being able to travel the world with that someone"
                                 >
                             </label>
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="questionaire-children-yes">Do you want, or already have, children?</label>
-                            <label for="questionaire-children-yes">
-                                <span>Yes</span>
+                            <label for="questionaire-children-yes-have-them">Do you want, or already have, children?</label>
+                            <label for="questionaire-children-yes-have-them">
+                                <span>Yes, I have them</span>
                                 <input
                                     type="radio"
                                     name="questionaire-children"
-                                    id="questionaire-children-yes"
+                                    id="questionaire-children-yes-have-them"
+                                    required
+                                >
+                            </label>
+
+                            <label for="questionaire-children-yes-want-them">
+                                <span>Yes, I want them</span>
+                                <input
+                                    type="radio"
+                                    name="questionaire-children"
+                                    id="questionaire-children-yes-want-them"
                                     required
                                 >
                             </label>
@@ -632,6 +642,17 @@
                                     required
                                     placeholder="183"
                                 >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="questionaire-profile-description">
+                                <span>Please write a description, that you want to be shown on your profile, publicly!</span>
+                                <textarea
+                                    name="questionaire-profile-description"
+                                    id="questionaire-profile-description"
+                                    required
+                                ></textarea>
                             </label>
                         </div>
 
