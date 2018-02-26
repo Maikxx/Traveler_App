@@ -8,17 +8,51 @@
         <title>Traveler App - Home</title>
     </head>
     <body>
-        <!-- <header class="tl-PageHeader">
-            <nav>
-                <ul>
-                    <li>
-                        <a href="#">
-                            <img src="http://via.placeholder.com/350x150" alt="Traveler logo">
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </header> -->
+        <header class="tl-PageHeader">
+            <ol>
+                <li>
+                    <a href="./index.html">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <label class="tl-NavigationToggle">
+                        <img src="./src/img/man-user.svg" alt="menu-toggle">
+                        <input type="checkbox" name="menu-toggle" id="menu-toggle">
+                    </label>
+                </li>
+            </ol>
+        </header>
+
+        <nav class="tl-Navigation">
+            <form action="html/matches_overview.html">
+                <fieldset>
+                    <legend>Sign In</legend>
+                    <label>
+                        <span>Email</span>
+                        <input
+                            type="email"
+                            name="sign-in-email"
+                            id="sign-in-email"
+                            placeholder="Email"
+                            required
+                        >
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input
+                            type="password"
+                            name="sign-in-password"
+                            id="sign-in-password"
+                            placeholder="Password"
+                            required
+                        >
+                    </label>
+                    <button type="submit">Sign In</button>
+                </fieldset>
+            </form>
+        </nav>
+
         <main class="tl-IndexPage">
             <article class="tl-Card tl-Card--TravelCard">
                 <header class="tl-TitleSection">

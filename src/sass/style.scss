@@ -1,5 +1,6 @@
 @import 'includes/imports';
 @import 'includes/variables';
+@import 'includes/spacing';
 
 * {
     box-sizing: border-box;
@@ -36,6 +37,126 @@ input:not([type = radio]):not([type = checkbox]) {
     &:invalid {
         &:focus {
             outline: 2px solid crimson;
+        }
+    }
+}
+
+.tl-PageHeader {
+    width: 100%;
+
+    ol {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
+        height: 100%;
+        background-color: #fff;
+        padding: getSpacing(1);
+
+        li {
+            width: 20%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            &:last-of-type {
+                justify-content: flex-end;
+            }
+        }
+
+        img[alt="menu-toggle"] {
+            width: auto;
+            height: 100%;
+            max-height: 1.5em;
+            cursor: pointer;
+        }
+
+        .tl-NavigationToggle {
+            display: flex;
+            align-items: center;
+
+            input {
+                position: absolute;
+                left: -9999px;
+                top: -9999px;
+            }
+        }
+    }
+}
+
+.tl-Navigation {
+    padding: getSpacing(1);
+    background-color: #fff;
+    border-top: 1px solid $form-border-color;
+
+    fieldset {
+        border: 0;
+
+        legend {
+            display: hidden;
+            position: absolute;
+            left:  -9999px;
+            top: -9999px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+
+            span {
+                color: $form-text-color;
+                flex: 1;
+                font-size: 80%;
+            }
+
+            input {
+                flex: 3;
+
+            }
+
+            & + label {
+                margin-top: getSpacing(1);
+            }
+        }
+
+        button {
+            display: block;
+            border: 0;
+            background-color: $cta-background-color;
+            padding: getSpacing(0.5) getSpacing(1);
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            transition: 100ms ease-in-out background-color;
+            text-decoration: none;
+            margin-top: getSpacing(1);
+
+            &:hover {
+                background-color: $cta-hover-background-color;
+            }
+        }
+    }
+
+    ol {
+        list-style: none;
+
+        li {
+            padding: getSpacing(0.5);
+
+            a {
+                text-decoration: none;
+                color: #000;
+            }
+
+            & + li {
+                border-top: 1px solid #000;
+            }
         }
     }
 }
