@@ -73,23 +73,11 @@
 
         footer {
             width: 100%;
+            margin-top: getSpacing(1);
 
-            a {
-                display: block;
-                border: 0;
-                background-color: $cta-background-color;
-                padding: getSpacing(0.5) getSpacing(1);
-                cursor: pointer;
-                font-size: 16px;
-                border-radius: 2px;
-                color: white;
-                transition: 100ms ease-in-out background-color;
-                text-decoration: none;
+            .tl-CTA-Button {
                 width: 100%;
-
-                &:hover {
-                    background-color: $cta-hover-background-color;
-                }
+                text-align: center;
             }
         }
     }
