@@ -1,42 +1,18 @@
 @import '../includes/variables';
+@import '../includes/spacing';
 
 .tl-Chat {
     &__header {
         width: 100%;
         background-color: $chat-header-background-color;
+        padding: getSpacing(1);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-        ol {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-            height: 100%;
-            background-color: #fff;
-            padding: getSpacing(1);
-
-            li {
-                width: 20%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-
-                a {
-                    text-decoration: none;
-                    color: #000;
-                }
-            }
-
-            .tl-NavigationToggle {
-                display: flex;
-                align-items: center;
-
-                input {
-                    position: absolute;
-                    left: -9999px;
-                    top: -9999px;
-                }
-            }
+        a {
+            text-decoration: none;
+            color: $chat-header-text-color;
         }
     }
 }
