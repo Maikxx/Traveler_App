@@ -52,7 +52,7 @@ input:not([type = radio]):not([type = checkbox]) {
         align-items: center;
         list-style: none;
         height: 100%;
-        background-color: #fff;
+        background-color: $page-header-background-color;
         padding: getSpacing(1);
 
         li {
@@ -63,7 +63,7 @@ input:not([type = radio]):not([type = checkbox]) {
 
             a {
                 text-decoration: none;
-                color: #000;
+                color: #fff;
             }
 
             &:last-of-type {
