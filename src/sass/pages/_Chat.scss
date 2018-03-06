@@ -2,6 +2,11 @@
 @import '../includes/spacing';
 
 .tl-Chat {
+    $navHeight: 46px;
+
+    height: 100%;
+    width: 100%;
+
     &__header {
         width: 100%;
         background-color: $chat-header-background-color;
@@ -9,10 +14,166 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        box-shadow: 0px 3px 3px 0px rgba(50, 50, 50, 0.1);
 
         a {
             text-decoration: none;
             color: $chat-header-text-color;
+        }
+    }
+
+    &__content-wrapper {
+        overflow-y: scroll;
+        height: calc(100vh - #{$navHeight});
+        background-color: $chat-content-background-color;
+        width: 100%;
+
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+
+        &::-webkit-scrollbar {
+          width: 0 !important
+        }
+    }
+
+    &__content {
+        padding: ($navHeight - ($navHeight / 1.5) / 2) 0;
+        position: relative;
+        margin-bottom: $navHeight / 2;
+    }
+
+    &__footer {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        height: $navHeight;
+        background: #fff;
+        width: 100%;
+        box-shadow: 0px -3px 3px 0px rgba(50, 50, 50, 0.1);
+    }
+
+    // https://codepen.io/anon/pen/QQebgb
+    textarea {
+        height: 100%;
+        border: none;
+        width: calc(100% - #{$navHeight});
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: getSpacing(0.5) getSpacing(1) 0;
+        resize: none;
+        overflow: scroll;
+        font-size: 16px;
+        font-weight: 300;
+        -ms-overflow-style: none;
+        overflow: -moz-scrollbars-none;
+
+        &::-webkit-scrollbar {
+            width: 0 !important
+        }
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    &__chat-send-button {
+        position: fixed;
+        height: $navHeight / 1.5;
+        width: $navHeight / 1.5;
+        border-radius: 50%;
+        border: 0;
+        background: $chat-send-button-background-color;
+        color: #fff;
+
+        bottom: ($navHeight - ($navHeight/1.5)) / 2;
+        right: ($navHeight - ($navHeight/1.5)) / 2;
+
+        &::before {
+            content: '';
+            background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/104946/ic_send_white_48dp.png) no-repeat center center;
+            background-size: $navHeight/2.5;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+        }
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__message-wrapper {
+        position: relative;
+        overflow: hidden;
+
+        width: 100%;
+        margin: (($navHeight - ($navHeight / 1.5)) / 2) 0;
+        padding: (($navHeight - ($navHeight / 1.5)) / 2) 12px;
+    }
+
+    &__circle-wrapper {
+        height: $navHeight;
+        width: $navHeight;
+        border-radius: 50%;
+    }
+
+    &__text-wrapper {
+        padding: ($navHeight - ($navHeight / 1.5)) / 2;
+        min-height: $navHeight / 1.5;
+        width: 80%;
+        margin: 0 ($navHeight - ($navHeight / 1.5)) / 2;
+        box-shadow: 0px 1px 0px 0px rgba(50, 50, 50, 0.3);
+        border-radius: 2px;
+        font-weight: 300;
+        position: relative;
+        opacity: 1;
+
+        &::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+    }
+
+    &__message-them {
+        .tl-Chat__circle-wrapper, .tl-Chat__text-wrapper {
+            background: $chat-other-person-color;
+            float: left;
+            color: #fff;
+        }
+
+        .tl-Chat__text-wrapper {
+            &::before {
+                border-width: 0 10px 10px 0;
+                border-color: transparent $chat-other-person-color transparent transparent;
+                position: absolute;
+                top: 0;
+                left: -9px;
+            }
+        }
+    }
+
+    &__message-me {
+        .tl-Chat__circle-wrapper, .tl-Chat__text-wrapper {
+            background: $chat-myself-color;
+            float: right;
+            color: #000;
+        }
+
+        .tl-Chat__text-wrapper {
+            background: #fff;
+
+            &::before {
+                border-width: 10px 10px 0 0;
+                border-color: #fff transparent transparent transparent;
+                position: absolute;
+                top: 0;
+                right: -9px;
+            }
         }
     }
 }
