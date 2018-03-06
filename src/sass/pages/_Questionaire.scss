@@ -1,21 +1,22 @@
 @import '../includes/variables';
+@import 'includes/spacing';
 
 .tl-QuestionairePage {
-    padding: 12px;
+    padding: getSpacing(1);
 
     > header {
-        margin-bottom: 24px;
+        margin-bottom: getSpacing(2);
     }
 
     .tl-Questionaire {
         button {
-            margin-top: 12px;
-            margin: 12px 0 0;
+            margin-top: getSpacing(1);
+            margin: getSpacing(1) 0 0;
             border: 0;
             background-color: $cta-background-color;
-            padding: 6px 12px;
+            padding: getSpacing(0.5) getSpacing(1);
             cursor: pointer;
-            font-size: 16px;
+            font-size: 1getSpacing(0.5);
             border-radius: 2px;
             color: white;
             transition: 100ms ease-in-out background-color;
@@ -31,7 +32,7 @@
             > legend {
                 font-weight: 900;
                 font-size: 120%;
-                margin-bottom: 12px;
+                margin-bottom: getSpacing(1);
             }
 
             & + .tl-Questionaire__Subject {
@@ -43,7 +44,7 @@
     }
 
     .tl-Questionaire-Question {
-        padding: 12px 0;
+        padding: getSpacing(1) 0;
         border-bottom: 1px solid $form-border-color;
 
         &:first-of-type {
@@ -58,12 +59,19 @@
                 span,
                 small {
                     display: block;
-                    margin-bottom: 6px;
+                    margin-bottom: getSpacing(0.5);
                 }
             }
 
-            input + input {
-                margin-top: 6px;
+            input + input,
+            input + textarea {
+                margin-top: getSpacing(0.5);
+            }
+
+            textarea {
+                padding: getSpacing(0.5) getSpacing(0.25);
+                resize: vertical;
+                min-height: getSpacing(3);
             }
         }
     }

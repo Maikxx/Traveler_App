@@ -16,9 +16,10 @@ body {
     background-color: rgba(254, 250, 235, 0.6);
 }
 
+textarea,
 input:not([type = radio]):not([type = checkbox]) {
     border: 1px solid $form-border-color;
-    padding: 12px 2px;
+    padding: getSpacing(1) getSpacing(0.25);
     font-size: 16px;
     width: 100%;
 
@@ -163,7 +164,7 @@ input:not([type = radio]):not([type = checkbox]) {
 
 .tl-Card {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    padding: 12px;
+    padding: getSpacing(1);
 }
 
 @import 'pages/index';
