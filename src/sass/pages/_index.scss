@@ -120,19 +120,7 @@
         }
     }
 
-    button {
-        margin: getSpacing(1) 0 0;
-        border: 0;
-        background-color: $cta-background-color;
-        padding: getSpacing(0.5) getSpacing(1);
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 2px;
-        color: white;
-        transition: 100ms ease-in-out background-color;
-
-        &:hover {
-            background-color: $cta-hover-background-color;
-        }
+    .tl-CTA-Button {
+        margin-top: getSpacing(1);
     }
 }

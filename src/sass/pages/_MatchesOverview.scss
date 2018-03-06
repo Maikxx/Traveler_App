@@ -83,23 +83,6 @@
             position: absolute;
             right: 0;
             bottom: 0;
-
-            .tl-ShowFullProfileButton {
-                display: block;
-                border: 0;
-                background-color: $cta-background-color;
-                padding: getSpacing(0.5) getSpacing(1);
-                cursor: pointer;
-                font-size: 16px;
-                border-radius: 2px;
-                color: white;
-                transition: 100ms ease-in-out background-color;
-                text-decoration: none;
-
-                &:hover {
-                    background-color: $cta-hover-background-color;
-                }
-            }
         }
     }
 }
