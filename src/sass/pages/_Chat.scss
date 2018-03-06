@@ -37,7 +37,7 @@
     }
 
     &__content {
-        padding: ($navHeight - ($navHeight / 1.5) / 2) 0;
+        padding: 12px 0 ($navHeight - ($navHeight / 1.5) / 2);
         position: relative;
         margin-bottom: $navHeight / 2;
     }
