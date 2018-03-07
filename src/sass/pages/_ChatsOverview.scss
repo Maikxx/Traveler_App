@@ -71,8 +71,8 @@
     }
 
     &__delete-chat {
-        height: 24px;
-        width: 24px;
+        padding: getSpacing(1.5);
+        cursor: pointer;
         background: url('/src/img/rubbish-bin.svg') no-repeat center;
         background-size: cover;
         align-self: flex-end;
