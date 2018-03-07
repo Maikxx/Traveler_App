@@ -1,3 +1,71 @@
+@import '../includes/spacing';
+
 .tl-ChatsOverviewPage {
-    //
+    width: 100%;
+    height: 100%;
+    padding: 0 getSpacing(1);
+
+    &__page-title {
+        font-size: 130%;
+        letter-spacing: 0.4px;
+        margin: getSpacing(1) 0;
+    }
+
+    &__chats {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__chat {
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+        + .tl-ChatsOverviewPage__chat {
+            margin-top: getSpacing(1);
+        }
+    }
+
+    &__link-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        padding: getSpacing(0.5) getSpacing(1);
+        color: #000;
+    }
+
+    &__profile-image {
+        height: getSpacing(5);
+        width: getSpacing(5);
+        border-radius: 50%;
+    }
+
+    &__profile-name {
+        letter-spacing: 0.4px;
+        font-size: 110%;
+        max-width: 20%;
+    }
+
+    &__last-message {
+        max-width: 50%;
+        position: relative;
+        line-height: 1.5;
+
+        &--by-me {
+            padding-left: 15px;
+            &::before {
+                display: inline-block;
+                content: '';
+                height: 12px;
+                width: 12px;
+                background: url('/src/img/back-arrow.svg') no-repeat center;
+                background-size: cover;
+                position: absolute;
+                left: 0;
+                top: 6px;
+            }
+        }
+    }
 }

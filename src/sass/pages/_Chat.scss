@@ -19,6 +19,20 @@
         a {
             text-decoration: none;
             color: $chat-header-text-color;
+            display: block;
+            position: relative;
+            padding-left: 22px;
+
+            &::before {
+                content: '';
+                height: 16px;
+                width: 16px;
+                background: url('/src/img/left-arrow.svg') no-repeat center;
+                background-size: cover;
+                position: absolute;
+                top: 3px;
+                left: 0;
+            }
         }
     }
 

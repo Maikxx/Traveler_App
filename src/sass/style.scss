@@ -53,7 +53,7 @@ input:not([type = radio]):not([type = checkbox]) {
         list-style: none;
         height: 100%;
         background-color: $page-header-background-color;
-        padding: getSpacing(1);
+        padding: 0 getSpacing(1);
 
         li {
             width: 20%;
@@ -64,6 +64,8 @@ input:not([type = radio]):not([type = checkbox]) {
             a {
                 text-decoration: none;
                 color: #fff;
+                padding: getSpacing(1) 0;
+                display: inline-block;
             }
 
             &:last-of-type {
@@ -71,16 +73,16 @@ input:not([type = radio]):not([type = checkbox]) {
             }
         }
 
-        img[alt="menu-toggle"] {
-            width: auto;
-            height: 100%;
-            max-height: 1.5em;
-            cursor: pointer;
-        }
-
         .tl-NavigationToggle {
             display: flex;
             align-items: center;
+
+            img[alt="menu-toggle"] {
+                width: auto;
+                height: 100%;
+                max-height: 1.5em;
+                cursor: pointer;
+            }
 
             input {
                 position: absolute;
@@ -131,11 +133,12 @@ input:not([type = radio]):not([type = checkbox]) {
         list-style: none;
 
         li {
-            padding: getSpacing(0.5);
-
             a {
                 text-decoration: none;
                 color: #000;
+                padding: getSpacing(0.5);
+                display: inline-block;
+                width: 100%;
             }
 
             & + li {
