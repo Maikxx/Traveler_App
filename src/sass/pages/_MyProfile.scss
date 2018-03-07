@@ -81,4 +81,80 @@
             }
         }
     }
+
+    .tl-Card--MyProfileFormCard {
+        margin-top: getSpacing(1);
+        background-color: rgba(255, 255, 255, 0.8);
+
+        legend,
+        label,
+        label > span {
+            color: $form-text-color;
+        }
+
+        input,
+        textarea {
+            color: #000;
+        }
+    }
+
+    &__subject {
+        border: 0;
+
+        > legend {
+            font-weight: 900;
+            font-size: 120%;
+            margin-bottom: getSpacing(1);
+        }
+
+        & + .tl-MyProfilePage__subject {
+            > legend {
+                padding-top: 24px;
+            }
+        }
+    }
+
+    &__question {
+        padding: getSpacing(1) 0;
+        border-bottom: 1px solid $form-border-color;
+
+        &:first-of-type {
+            border-top: 1px solid $form-border-color;
+        }
+
+        > label {
+            display: block;
+            color: $form-text-color;
+
+            &:first-of-type {
+                span,
+                small {
+                    display: block;
+                    margin-bottom: getSpacing(0.5);
+                }
+            }
+
+            input + input,
+            input + textarea {
+                margin-top: getSpacing(0.5);
+            }
+
+            textarea {
+                padding: getSpacing(0.5) getSpacing(0.25);
+                resize: vertical;
+                min-height: getSpacing(5);
+            }
+        }
+    }
+
+    &__form-footer {
+        display: flex;
+        flex-direction: row;
+        margin-top: getSpacing(1);
+        width: 100%;
+
+        .tl-CTA-Button {
+            flex: 1;
+        }
+    }
 }

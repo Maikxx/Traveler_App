@@ -17,6 +17,7 @@ body {
 }
 
 .tl-Questionaire-Question textarea,
+.tl-MyProfilePage__question textarea,
 input:not([type = radio]):not([type = checkbox]) {
     border: 1px solid $form-border-color;
     padding: getSpacing(1) getSpacing(0.25);
@@ -167,6 +168,15 @@ input:not([type = radio]):not([type = checkbox]) {
 
     &:hover {
         background-color: $cta-hover-background-color;
+    }
+
+    &--light {
+        background-color: $cta-light-background-color;
+        color: #000;
+
+        &:hover {
+            background-color: darken($cta-light-background-color, 5%);
+        }
     }
 }
 

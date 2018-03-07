@@ -11,10 +11,6 @@
     .tl-Questionaire {
         .tl-CTA-Button {
             margin-top: getSpacing(1);
-
-            &:hover {
-                background-color: $cta-hover-background-color;
-            }
         }
 
         &__Subject {
