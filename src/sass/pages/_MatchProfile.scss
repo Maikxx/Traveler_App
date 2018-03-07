@@ -16,23 +16,23 @@
         position: relative;
 
         header {
-            width: 50%;
+            width: 100%;
+            margin-bottom: getSpacing(2);
 
             h1 {
                 font-size: 120%;
-                margin-bottom: getSpacing(1);
-            }
-
-            img {
-                max-width: getSpacing(10);
-                border-radius: 50%;
-                min-height: getSpacing(10);
             }
         }
 
+        img {
+            max-width: getSpacing(10);
+            border-radius: 50%;
+            min-height: getSpacing(10);
+        }
+
         p {
-            margin: getSpacing(3) 0 0;
             width: 45%;
+            margin-bottom: getSpacing(2);
         }
 
         .tl-FullProfileInformation {
