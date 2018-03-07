@@ -29,8 +29,8 @@
     &__link-container {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
         text-decoration: none;
         padding: getSpacing(0.5) getSpacing(1);
         color: #000;
@@ -44,13 +44,14 @@
 
     &__profile-name {
         letter-spacing: 0.4px;
+        margin-left: getSpacing(1);
         font-size: 110%;
-        max-width: 20%;
     }
 
     &__last-message {
-        max-width: 50%;
         position: relative;
+        margin-top: getSpacing(1);
+        width: 90%;
         line-height: 1.5;
 
         &--by-me {
@@ -67,5 +68,14 @@
                 top: 6px;
             }
         }
+    }
+
+    &__delete-chat {
+        height: 24px;
+        width: 24px;
+        background: url('/src/img/rubbish-bin.svg') no-repeat center;
+        background-size: cover;
+        align-self: flex-end;
+        border: 0;
     }
 }
