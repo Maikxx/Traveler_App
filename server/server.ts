@@ -9,7 +9,7 @@ app.set('view engine', 'ejs')
 app.set('views', 'views')
 app.use(express.static('public'))
 
-// Routes
+// Get Routes
 app.get('/', renderIndex)
 app.get('/chat', renderChat)
 app.get('/chats', renderChats)
@@ -18,9 +18,14 @@ app.get('/matches_overview', renderMatchesOverview)
 app.get('/my_profile', renderMyProfile)
 app.get('/questionaire', renderQuestionaire)
 
+// Post Endpoints
+app.post('/sign-in', handleSignIn)
+app.post('/sign-up', handleSignUp)
+
 // Serving
 app.listen(8000)
 
+// Get Routes
 function renderIndex (req: any, res: any) {
     res.render('index.ejs')
 }
@@ -47,4 +52,15 @@ function renderMyProfile (req: any, res: any) {
 
 function renderQuestionaire (req: any, res: any) {
     res.render('questionaire.ejs')
+}
+
+// Post Endpoints
+function handleSignUp (req: any, res: any) {
+    // Verify the user here
+    res.redirect('/questionaire')
+}
+
+function handleSignIn (req: any, res: any) {
+    // Verify the user here
+    res.redirect('/matches_overview')
 }
