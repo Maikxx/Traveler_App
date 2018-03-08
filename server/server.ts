@@ -19,8 +19,14 @@ app.get('/my_profile', renderMyProfile)
 app.get('/questionaire', renderQuestionaire)
 
 // Post Endpoints
-app.post('/sign-in', handleSignIn)
-app.post('/sign-up', handleSignUp)
+app.post('/sign_in', handleSignIn)
+app.post('/sign_up', handleSignUp)
+app.post('/log_out', handleLogOut)
+app.post('/send_message', handleSendMessage)
+app.post('/edit_profile', handleProfileEdit)
+app.post('/save_edited_profile', handleSaveEditedProfile)
+app.post('/delete_account', handleDeleteAccount)
+app.post('/handle_questionaire_save', handleQuestionaireSave)
 
 // Serving
 app.listen(8000)
@@ -31,6 +37,7 @@ function renderIndex (req: any, res: any) {
 }
 
 function renderChat (req: any, res: any) {
+    // Needs to be :id
     res.render('chat.ejs')
 }
 
@@ -39,6 +46,7 @@ function renderChats (req: any, res: any) {
 }
 
 function renderMatchProfile (req: any, res: any) {
+    // Needs to be :id
     res.render('match_profile.ejs')
 }
 
@@ -63,4 +71,29 @@ function handleSignUp (req: any, res: any) {
 function handleSignIn (req: any, res: any) {
     // Verify the user here
     res.redirect('/matches_overview')
+}
+
+function handleQuestionaireSave (req: any, res: any) {
+    // Todo
+    res.redirect('/matches_overview')
+}
+
+function handleLogOut (req: any, res: any) {
+    // Todo
+}
+
+function handleSendMessage (req: any, res: any) {
+    // Todo
+}
+
+function handleProfileEdit (req: any, res: any) {
+    // Todo
+}
+
+function handleSaveEditedProfile (req: any, res: any) {
+    // Todo
+}
+
+function handleDeleteAccount (req: any, res: any) {
+    // Todo
 }

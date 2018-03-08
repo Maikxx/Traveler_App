@@ -140,13 +140,14 @@
                 </ol>
 
                 <footer>
-                    <a href="#" class="tl-CTA-Button">
+                    <!-- Needs to be a POST request -->
+                    <a href="/edit_profile" class="tl-CTA-Button">
                         Edit Profile
                     </a>
                 </footer>
             </section>
 
-            <form action="#" class="tl-Card tl-Card--MyProfileFormCard">
+            <form action="/save_edited_profile" method="POST" class="tl-Card tl-Card--MyProfileFormCard">
                 <fieldset class="tl-MyProfilePage__subject">
                     <legend>Looking for, in a match</legend>
                     <div class="tl-MyProfilePage__question">
@@ -787,6 +788,7 @@
                     </div>
                 </fieldset>
 
+                <!-- /delete_account -->
                 <button
                     onclick=""
                     type="button"
