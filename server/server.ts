@@ -29,7 +29,7 @@ const app = express()
 const storage = multer.diskStorage({
     destination: (request: object, file: FileType, callback: any) => {
         // Define a place to save the uploaded images.
-        callback(null, 'public/visitorProfileImage/')
+        callback(null, 'public/visitorProfileImages/')
     },
     filename: (request: object, file: FileType, callback: any) => {
         const {
