@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 
 console.log('Re(starting)')
 
@@ -8,12 +9,14 @@ const app = express()
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 // Get Routes
 app.get('/', renderIndex)
-app.get('/chat', renderChat)
+app.get('/chat/:id', renderChat)
 app.get('/chats', renderChats)
-app.get('/match_profile', renderMatchProfile)
+app.get('/match_profile/:id', renderMatchProfile)
 app.get('/matches_overview', renderMatchesOverview)
 app.get('/my_profile', renderMyProfile)
 app.get('/questionaire', renderQuestionaire)
@@ -83,7 +86,7 @@ function handleLogOut (req: any, res: any) {
 }
 
 function handleSendMessage (req: any, res: any) {
-    // Todo
+
 }
 
 function handleProfileEdit (req: any, res: any) {
