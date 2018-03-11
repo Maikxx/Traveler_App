@@ -45,6 +45,8 @@ input:not([type = radio]):not([type = checkbox]) {
 
 .tl-PageHeader {
     width: 100%;
+    position: relative;
+    z-index: 5;
 
     ol {
         display: flex;
@@ -98,6 +100,10 @@ input:not([type = radio]):not([type = checkbox]) {
     padding: getSpacing(1);
     background-color: #fff;
     border-top: 1px solid $form-border-color;
+    margin-top: -150px;
+    position: relative;
+    cursor: none;
+    z-index: 0;
 
     fieldset {
         border: 0;
@@ -146,6 +152,37 @@ input:not([type = radio]):not([type = checkbox]) {
                 border-top: 1px solid #000;
             }
         }
+    }
+
+    &.nav-toggled {
+        margin-top: 0;
+        cursor: initial;
+
+
+        + .tl-ChatsOverviewPage,
+        + .tl-MatchProfilePage,
+        + .tl-MatchesOverviewPage,
+        + .tl-MyProfilePage {
+            margin-top: 0;
+        }
+    }
+
+    &,
+    + .tl-ChatsOverviewPage,
+    + .tl-MatchProfilePage,
+    + .tl-MatchesOverviewPage,
+    + .tl-MyProfilePage {
+        transition: 300ms ease-in-out all;
+    }
+
+    + .tl-ChatsOverviewPage,
+    + .tl-MatchesOverviewPage,
+    + .tl-MyProfilePage {
+        margin-top: 30px;
+    }
+
+    + .tl-MatchProfilePage {
+        margin-top: -12px;
     }
 }
 
