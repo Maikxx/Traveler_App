@@ -88,7 +88,7 @@ app.get('/questionaire', questionaireRoute)
 
 // Post Endpoints
 app.post('/sign_in/:id', signInController)
-app.post('/sign_up/:id', signUpController)
+app.post('/sign_up/', signUpController)
 app.post('/log_out/:id', logOutController)
 app.post('/send_message/:id', sendMessageController)
 app.post('/edit_profile/:id', profileEditController)

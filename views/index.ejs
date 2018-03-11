@@ -78,19 +78,19 @@
                     </section>
                 </section>
             </article>
-            <form action="/sign_up/1" class="tl-SignUpForm" method="POST">
+            <form action="/sign_up/" class="tl-SignUpForm" method="POST">
                 <div>
                     <h2>Sign up for free! Don't worry it will remain free, forever!</h2>
                     <fieldset>
                         <legend>Account information</legend>
 
                         <div class="tl-FormField">
-                            <label for="sign-up-name">
+                            <label for="name">
                                 <span>Full name:</span>
                                 <input
                                     type="text"
-                                    name="sign-up-name"
-                                    id="sign-up-name"
+                                    name="name"
+                                    id="name"
                                     placeholder="Name"
                                     required
                                 >
@@ -98,25 +98,26 @@
                         </div>
 
                         <div class="tl-FormField">
-                            <label for="sign-up-email">
+                            <label for="email">
                                 <span>Email address:</span>
                                 <input
                                     type="email"
-                                    name="sign-up-email"
-                                    id="sign-up-email"
+                                    name="email"
+                                    id="email"
                                     placeholder="Email"
+                                    pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
                                     required
                                 >
                             </label>
                         </div>
 
                         <div class="tl-FormField">
-                            <label for="sign-up-password">
+                            <label for="password">
                                 <span>Password:</span>
                                 <input
                                     type="password"
-                                    name="sign-up-password"
-                                    id="sign-up-password"
+                                    name="password"
+                                    id="password"
                                     placeholder="Password"
                                     required
                                 >
@@ -124,12 +125,12 @@
                         </div>
 
                         <div class="tl-FormField">
-                            <label for="sign-up-repeat-password">
+                            <label for="repeat_password">
                                 <span>Repeat password:</span>
                                 <input
                                     type="password"
-                                    name="sign-up-repeat-password"
-                                    id="sign-up-repeat-password"
+                                    name="repeat_password"
+                                    id="repeat_password"
                                     placeholder="Repeat password"
                                     required
                                 >
@@ -140,23 +141,23 @@
                         <legend>Gender information</legend>
 
                         <div class="tl-FormField">
-                            <label for="sign-up-own-gender-male">Your gender:</label>
-                            <label for="sign-up-own-gender-male">
+                            <label for="own_gender_male">Your gender:</label>
+                            <label for="own_gender_male">
                                 <span>Male</span>
                                 <input
                                     type="radio"
-                                    name="sign-up-own-gender"
-                                    id="sign-up-own-gender-male"
+                                    name="own_gender"
+                                    id="own_gender_male"
                                     value="male"
                                     required
                                 >
                             </label>
-                            <label for="sign-up-own-gender-female">
+                            <label for="own_gender_female">
                                 <span>Female</span>
                                 <input
                                     type="radio"
-                                    name="sign-up-own-gender"
-                                    id="sign-up-own-gender-female"
+                                    name="own_gender"
+                                    id="own_gender_female"
                                     value="female"
                                     required
                                 >
@@ -164,23 +165,23 @@
                         </div>
 
                         <div class="tl-FormField">
-                            <label for="sign-up-looking-for-gender-male">Looking for a:</label>
-                            <label for="sign-up-looking-for-gender-male">
+                            <label for="looking_for_gender_male">Looking for a:</label>
+                            <label for="looking_for_gender_male">
                                 <span>Male</span>
                                 <input
                                     type="radio"
-                                    name="sign-up-looking-for-gender"
-                                    id="sign-up-looking-for-gender-male"
+                                    name="looking_for_gender"
+                                    id="looking_for_gender_male"
                                     value="male"
                                     required
                                 >
                             </label>
-                            <label for="sign-up-looking-for-gender-female">
+                            <label for="looking_for_gender_female">
                                 <span>Female</span>
                                 <input
                                     type="radio"
-                                    name="sign-up-looking-for-gender"
-                                    id="sign-up-looking-for-gender-female"
+                                    name="looking_for_gender"
+                                    id="looking_for_gender_female"
                                     value="female"
                                     required
                                 >
