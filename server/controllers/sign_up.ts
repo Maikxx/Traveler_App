@@ -2,8 +2,8 @@ import handleHTTPError from './handle_error'
 
 function handleSignUp (req: any, res: any) {
     const signUpData = {}
-    // tslint:disable-next-line:ter-max-len
     const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
 
     if (req.body) {
         const {
@@ -18,8 +18,7 @@ function handleSignUp (req: any, res: any) {
         if (
             name.length &&
             (email.length && emailRegex.test(email)) &&
-            password.length &&
-            repeat_password.length &&
+            (password.length && passwordRegex.test(password) && repeat_password === password) &&
             (own_gender === 'male' || own_gender === 'female') &&
             (looking_for_gender === 'male' || looking_for_gender === 'female')
         ) {

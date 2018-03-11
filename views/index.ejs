@@ -25,16 +25,17 @@
         </header>
 
         <nav class="tl-Navigation" id="tl-Navigation">
-            <form action="/sign_in/1" method="POST">
+            <form action="/sign_in/" method="POST">
                 <fieldset>
                     <legend>Sign In</legend>
                     <label>
                         <span>Email</span>
                         <input
                             type="email"
-                            name="sign-in-email"
-                            id="sign-in-email"
+                            name="email"
+                            id="email"
                             placeholder="Email"
+                            pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
                             required
                         >
                     </label>
@@ -42,9 +43,10 @@
                         <span>Password</span>
                         <input
                             type="password"
-                            name="sign-in-password"
-                            id="sign-in-password"
+                            name="password"
+                            id="password"
                             placeholder="Password"
+                            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                             required
                         >
                     </label>
@@ -119,6 +121,7 @@
                                     name="password"
                                     id="password"
                                     placeholder="Password"
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                                     required
                                 >
                             </label>
@@ -132,6 +135,7 @@
                                     name="repeat_password"
                                     id="repeat_password"
                                     placeholder="Repeat password"
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                                     required
                                 >
                             </label>
