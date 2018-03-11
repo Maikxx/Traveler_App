@@ -85,14 +85,14 @@ app.get('/my_profile', myProfileRoute)
 app.get('/questionaire', questionaireRoute)
 
 // Post Endpoints
-app.post('/sign_in', signInController)
-app.post('/sign_up', signUpController)
-app.post('/log_out', logOutController)
-app.post('/send_message', sendMessageController)
-app.post('/edit_profile', profileEditController)
-app.post('/save_edited_profile', saveEditedProfileController)
-app.post('/delete_account', deleteAccountController)
-app.post('/questionaire_save', upload.single('questionaire-profile-image'), questionaireSaveController)
+app.post('/sign_in/:id', signInController)
+app.post('/sign_up/:id', signUpController)
+app.post('/log_out/:id', logOutController)
+app.post('/send_message/:id', sendMessageController)
+app.post('/edit_profile/:id', profileEditController)
+app.post('/save_edited_profile/:id', saveEditedProfileController)
+app.post('/delete_account/:id', deleteAccountController)
+app.post('/questionaire_save/:id', upload.single('questionaire-profile-image'), questionaireSaveController)
 
 // Serving
 app.listen(8000)
