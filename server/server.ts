@@ -10,6 +10,7 @@ import chatsRoute from './routes/chats'
 import matchProfileRoute from './routes/match_profile'
 import matchesOverviewRoute from './routes/matches_overview'
 import myProfileRoute from './routes/my_profile'
+import myProfileEditRoute from './routes/my_profile_edit'
 import questionaireRoute from './routes/questionaire'
 
 import signInController from './controllers/sign_in'
@@ -82,6 +83,7 @@ app.get('/chats', chatsRoute)
 app.get('/match_profile/:id', matchProfileRoute)
 app.get('/matches_overview', matchesOverviewRoute)
 app.get('/my_profile', myProfileRoute)
+app.get('/my_profile/edit', myProfileEditRoute)
 app.get('/questionaire', questionaireRoute)
 
 // Post Endpoints

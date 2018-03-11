@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/style.css">
+        <title>Traveler App - My Profile / Edit</title>
+    </head>
+
+    <body>
+        <header class="tl-PageHeader">
+            <ol>
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <label class="tl-NavigationToggle">
+                        <img src="/img/man-user.svg" alt="menu-toggle">
+                        <input type="checkbox" name="menu-toggle" id="menu-toggle">
+                    </label>
+                </li>
+            </ol>
+        </header>
+
+        <nav class="tl-Navigation" id="tl-Navigation">
+            <ol>
+                <li>
+                    <a href="/matches_overview">Matches overview</a>
+                </li>
+                <li>
+                    <a href="/chats">Chats overview</a>
+                </li>
+                <li>
+                    <a href="#">Log out</a>
+                </li>
+            </ol>
+        </nav>
+
+        <main class="tl-MyProfilePage">
+            <h1>Welcome Henk!</h1>
+            <span>Here you can adjust your profile.</span>
+            <form action="/save_edited_profile/1" method="POST" class="tl-Card tl-Card--MyProfileFormCard" enctype="multipart/form-data">
+                <fieldset class="tl-MyProfilePage__subject">
+                    <legend>Looking for, in a match</legend>
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-match-likes-nature-yes">Is it necessary for your matches to like nature?</label>
+                        <label for="profile-match-likes-nature-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-match-likes-nature"
+                                id="profile-match-likes-nature-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-match-likes-nature-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-match-likes-nature"
+                                id="profile-match-likes-nature-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-most-important-in-relationship">
+                            <span>What do you find the most important in a relationship?</span>
+                            <input
+                                type="text"
+                                name="profile-most-important-in-relationship"
+                                id="profile-most-important-in-relationship"
+                                required
+                                placeholder="Trust"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-max-match-distance">
+                            <span>What is the maximum distance (in km's) your match may be away from you?</span>
+                            <input
+                                type="number"
+                                name="profile-max-match-distance"
+                                id="profile-max-match-distance"
+                                min="0"
+                                required
+                                placeholder="80"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-min-search-age">
+                            <span>What are the minimum and <label for="profile-max-search-age">maximum ages you want to include in your matchresults?</label></span>
+                            <input
+                                type="number"
+                                name="profile-min-search-age"
+                                id="profile-min-search-age"
+                                min="0"
+                                required
+                                placeholder="Minimum search age"
+                            >
+
+                            <input
+                                type="number"
+                                name="profile-max-search-age"
+                                id="profile-max-search-age"
+                                min="0"
+                                required
+                                placeholder="Maximum search age"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-important-match-has-made-trips-yes">Is it important that your match has already made a lot (more than 5) of trips?</label>
+                        <label for="profile-important-match-has-made-trips-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-important-match-has-made-trips"
+                                id="profile-important-match-has-made-trips-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-important-match-has-made-trips-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-important-match-has-made-trips"
+                                id="profile-important-match-has-made-trips-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-wants-to-travel-fast-yes">Do you want to travel as soon as possible with your match?</label>
+                        <label for="profile-wants-to-travel-fast-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-wants-to-travel-fast"
+                                id="profile-wants-to-travel-fast-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-wants-to-travel-fast-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-wants-to-travel-fast"
+                                id="profile-wants-to-travel-fast-no"
+                                required
+                            >
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="tl-MyProfilePage__subject">
+                    <legend>Travel</legend>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-where-have-you-been">
+                            <span>To which destinations have you traveled already?</span>
+                            <small>Please separate with comma's.</small>
+                            <input
+                                type="text"
+                                name="profile-where-have-you-been"
+                                id="profile-where-have-you-been"
+                                required
+                                placeholder="Dubai, Paris, Morocco, etc."
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-favorite-holiday-destination">
+                            <span>What is your favorite holiday destination, you have visited?</span>
+                            <input
+                                type="text"
+                                name="profile-favorite-holiday-destination"
+                                id="profile-favorite-holiday-destination"
+                                required
+                                placeholder="Paris"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-holiday-formats-roundtrip">What is, or are, your favorite holiday format(s)?</label>
+                        <label for="profile-holiday-formats-roundtrip">
+                            <span>Roundtrips</span>
+                            <input
+                                type="checkbox"
+                                name="profile-holiday-formats"
+                                id="profile-holiday-formats-roundtrip"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-holiday-formats-family-travel">
+                            <span>Travelling with family</span>
+                            <input
+                                type="checkbox"
+                                name="profile-holiday-formats"
+                                id="profile-holiday-formats-family-travel"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-holiday-formats-bike-holidays">
+                            <span>Bike holidays</span>
+                            <input
+                                type="checkbox"
+                                name="profile-holiday-formats"
+                                id="profile-holiday-formats-bike-holidays"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-holiday-formats-hike-holidays">
+                            <span>Hike holidays</span>
+                            <input
+                                type="checkbox"
+                                name="profile-holiday-formats"
+                                id="profile-holiday-formats-hike-holidays"
+                                required
+                            >
+                        </label>
+
+
+                        <label for="profile-holiday-formats-backpacking">
+                            <span>Backpacking</span>
+                            <input
+                                type="checkbox"
+                                name="profile-holiday-formats"
+                                id="profile-holiday-formats-backpacking"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-plans-ahead-often">Do you plan your holidays far ahead?</label>
+                        <label for="profile-plans-ahead-often">
+                            <span>Often</span>
+                            <input
+                                type="radio"
+                                name="profile-plans-ahead"
+                                id="profile-plans-ahead-often"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-plans-ahead-sometimes">
+                            <span>Sometimes</span>
+                            <input
+                                type="radio"
+                                name="profile-plans-ahead"
+                                id="profile-plans-ahead-sometimes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-plans-ahead-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-plans-ahead"
+                                id="profile-plans-ahead-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-likes-to-hike-yes">Do you like to hike?</label>
+                        <label for="profile-likes-to-hike-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-to-hike"
+                                id="profile-likes-to-hike-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-likes-to-hike-sometimes">
+                            <span>Sometimes</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-to-hike"
+                                id="profile-likes-to-hike-sometimes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-likes-to-hike-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-to-hike"
+                                id="profile-likes-to-hike-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-likes-trans-atlantic-yes">Do you like to travel trans-atlantic more, than within the continent?</label>
+                        <label for="profile-likes-trans-atlantic-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-trans-atlantic"
+                                id="profile-likes-trans-atlantic-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-likes-trans-atlantic-sometimes">
+                            <span>Sometimes</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-trans-atlantic"
+                                id="profile-likes-trans-atlantic-sometimes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-likes-trans-atlantic-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-trans-atlantic"
+                                id="profile-likes-trans-atlantic-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-where-do-you-want-to-go">
+                            <span>To which destinations do you want to travel to, in the near future?</span>
+                            <small>Please separate with comma's.</small>
+                            <input
+                                type="text"
+                                name="profile-where-do-you-want-to-go"
+                                id="profile-where-do-you-want-to-go"
+                                required
+                                placeholder="New-Zealand, China, etc."
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-amount-of-trips-made">
+                            <span>How much holiday destinations have you visited?</span>
+                            <input
+                                type="number"
+                                name="profile-amount-of-trips-made"
+                                id="profile-amount-of-trips-made"
+                                min="0"
+                                required
+                                placeholder="20"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-favorite-travel-time">
+                            <span>What is your favorite travel time (in weeks)?</span>
+                            <input
+                                type="number"
+                                name="profile-favorite-travel-time"
+                                id="profile-favorite-travel-time"
+                                min="0"
+                                required
+                                placeholder="3"
+                            >
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="tl-MyProfilePage__subject">
+                    <legend>Personal information</legend>
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-wants-to-marry-yes">Do you want to marry, eventually?</label>
+                        <label for="profile-wants-to-marry-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-wants-to-marry"
+                                id="profile-wants-to-marry-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-wants-to-marry-maybe">
+                            <span>Maybe</span>
+                            <input
+                                type="radio"
+                                name="profile-wants-to-marry"
+                                id="profile-wants-to-marry-maybe"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-wants-to-marry-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-wants-to-marry"
+                                id="profile-wants-to-marry-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-relationship-reason">
+                            <span>What is the foremost reason that you want a relationship?</span>
+                            <input
+                                type="text"
+                                name="profile-relationship-reason"
+                                id="profile-relationship-reason"
+                                required
+                                placeholder="Being able to travel the world with that someone"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-children-yes-have-them">Do you want, or already have, children?</label>
+                        <label for="profile-children-yes-have-them">
+                            <span>Yes, I have them</span>
+                            <input
+                                type="radio"
+                                name="profile-children"
+                                id="profile-children-yes-have-them"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-children-yes-want-them">
+                            <span>Yes, I want them</span>
+                            <input
+                                type="radio"
+                                name="profile-children"
+                                id="profile-children-yes-want-them"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-children-maybe">
+                            <span>Maybe</span>
+                            <input
+                                type="radio"
+                                name="profile-children"
+                                id="profile-children-maybe"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-children-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-children"
+                                id="profile-children-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-drinks-alcohol-often">Do you drink alcohol?</label>
+                        <label for="profile-drinks-alcohol-often">
+                            <span>Yes, often</span>
+                            <input
+                                type="radio"
+                                name="profile-drinks-alcohol"
+                                id="profile-drinks-alcohol-often"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-drinks-alcohol-sometimes">
+                            <span>Yes, sometimes</span>
+                            <input
+                                type="radio"
+                                name="profile-drinks-alcohol"
+                                id="profile-drinks-alcohol-sometimes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-drinks-alcohol-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-drinks-alcohol"
+                                id="profile-drinks-alcohol-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-smokes-often">Do you smoke?</label>
+                        <label for="profile-smokes-often">
+                            <span>Yes, often</span>
+                            <input
+                                type="radio"
+                                name="profile-smokes"
+                                id="profile-smokes-often"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-smokes-sometimes">
+                            <span>Yes, sometimes</span>
+                            <input
+                                type="radio"
+                                name="profile-smokes"
+                                id="profile-smokes-sometimes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-smokes-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-smokes"
+                                id="profile-smokes-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-likes-nature-yes">Do you like to be in the nature?</label>
+                        <label for="profile-likes-nature-yes">
+                            <span>Yes</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-nature"
+                                id="profile-likes-nature-yes"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-likes-nature-no">
+                            <span>No</span>
+                            <input
+                                type="radio"
+                                name="profile-likes-nature"
+                                id="profile-likes-nature-no"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-music-genre">
+                            <span>What kind of music genre, do you listen to most often?</span>
+                            <input
+                                type="text"
+                                name="profile-music-genre"
+                                id="profile-music-genre"
+                                required
+                                placeholder="Hardstyle"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-yearly-earns-less-than-25k">How much do you earn, on a yearly basis?</label>
+                        <label for="profile-yearly-earns-less-than-25k">
+                            <span>Less than 25K</span>
+                            <input
+                                type="radio"
+                                name="profile-yearly-earns"
+                                id="profile-yearly-earns-less-than-25k"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-yearly-earns-25k-50k">
+                            <span>25K-50K</span>
+                            <input
+                                type="radio"
+                                name="profile-yearly-earns"
+                                id="profile-yearly-earns-25k-50k"
+                                required
+                            >
+                        </label>
+
+                        <label for="profile-yearly-earns-more-than-50k">
+                            <span>More than 50K</span>
+                            <input
+                                type="radio"
+                                name="profile-yearly-earns"
+                                id="profile-yearly-earns-more-than-50k"
+                                required
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-hometown">
+                            <span>Where do you live?</span>
+                            <input
+                                type="text"
+                                name="profile-hometown"
+                                id="profile-hometown"
+                                required
+                                placeholder="Rotterdam, the Netherlands"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-job-title">
+                            <span>What is your job title?</span>
+                            <input
+                                type="text"
+                                name="profile-job-title"
+                                id="profile-job-title"
+                                required
+                                placeholder="Architect"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-length">
+                            <span>What is your length (in cm's)?</span>
+                            <input
+                                type="number"
+                                name="profile-length"
+                                id="profile-length"
+                                required
+                                placeholder="183"
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-profile-description">
+                            <span>Please write a description, that you want to be shown on your profile, publicly!</span>
+                            <textarea
+                                name="profile-profile-description"
+                                id="profile-profile-description"
+                                required
+                            ></textarea>
+                        </label>
+                    </div>
+
+
+                    <div class="tl-MyProfilePage__question">
+                        <label for="profile-profile-image">
+                            <span>Upload a new profile image of yourself:</span>
+                            <small>This can be either a .png, .jpg or .jpeg file.</small>
+                            <input
+                                type="file"
+                                name="profile-profile-image"
+                                id="profile-profile-image"
+                                accept=".png, .jpg, .jpeg"
+                                required
+                            >
+                        </label>
+                    </div>
+                </fieldset>
+
+                <button
+                    type="button"
+                    class="tl-CTA-Button tl-CTA-Button--text tl-CTA-Button--danger"
+                    id="tl-DeleteProfileButton"
+                >
+                    Delete account
+                </button>
+
+                <footer class="tl-MyProfilePage__form-footer">
+                    <button type="button" class="tl-CTA-Button tl-CTA-Button--light">Cancel</button>
+                    <button type="submit" class="tl-CTA-Button">Save</button>
+                </footer>
+            </form>
+        </main>
+        <script src="/index.js"></script>
+    </body>
+</html>
