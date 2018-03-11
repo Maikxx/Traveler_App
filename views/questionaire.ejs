@@ -18,134 +18,6 @@
             <section>
                 <form action="/questionaire_save/1" class="tl-Questionaire" method="POST" enctype="multipart/form-data">
                     <fieldset class="tl-Questionaire__Subject">
-                        <legend>Looking for, in a match</legend>
-                        <div class="tl-Questionaire-Question">
-                            <label for="match_likes_nature_true">Is it necessary for your matches to like nature?</label>
-                            <label for="match_likes_nature_true">
-                                <span>Yes</span>
-                                <input
-                                    type="radio"
-                                    name="match_likes_nature"
-                                    id="match_likes_nature_true"
-                                    value="true"
-                                    required
-                                >
-                            </label>
-
-                            <label for="match_likes_nature_false">
-                                <span>No</span>
-                                <input
-                                    type="radio"
-                                    name="match_likes_nature"
-                                    id="match_likes_nature_false"
-                                    value="false"
-                                    required
-                                >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label for="most_important_in_relationship">
-                                <span>What do you find the most important in a relationship?</span>
-                                <input
-                                    type="text"
-                                    name="most_important_in_relationship"
-                                    id="most_important_in_relationship"
-                                    required
-                                    placeholder="Trust"
-                                >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label for="max_match_distance">
-                                <span>What is the maximum distance (in km's) your match may be away from you?</span>
-                                <input
-                                    type="number"
-                                    name="max_match_distance"
-                                    id="max_match_distance"
-                                    min="0"
-                                    required
-                                    placeholder="80"
-                                >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label for="min_search_age">
-                                <span>What are the minimum and <label for="max_search_age">maximum ages you want to include in your matchresults?</label></span>
-                                <input
-                                    type="number"
-                                    name="min_search_age"
-                                    id="min_search_age"
-                                    min="0"
-                                    required
-                                    placeholder="Minimum search age"
-                                >
-
-                                <input
-                                    type="number"
-                                    name="max_search_age"
-                                    id="max_search_age"
-                                    min="0"
-                                    required
-                                    placeholder="Maximum search age"
-                                >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label for="important_match_has_made_trips_true">Is it important that your match has already made a lot (more than 5) of trips?</label>
-                            <label for="important_match_has_made_trips_true">
-                                <span>Yes</span>
-                                <input
-                                    type="radio"
-                                    name="important_match_has_made_trips"
-                                    id="important_match_has_made_trips_true"
-                                    value="true"
-                                    required
-                                >
-                            </label>
-
-                            <label for="important_match_has_made_trips_false">
-                                <span>No</span>
-                                <input
-                                    type="radio"
-                                    name="important_match_has_made_trips"
-                                    id="important_match_has_made_trips_false"
-                                    value="false"
-                                    required
-                                >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label for="wants_to_travel_fast_true">Do you want to travel as soon as possible with your match?</label>
-                            <label for="wants_to_travel_fast_true">
-                                <span>Yes</span>
-                                <input
-                                    type="radio"
-                                    name="wants_to_travel_fast"
-                                    id="wants_to_travel_fast_true"
-                                    value="true"
-                                    required
-                                >
-                            </label>
-
-                            <label for="wants_to_travel_fast_false">
-                                <span>No</span>
-                                <input
-                                    type="radio"
-                                    name="wants_to_travel_fast"
-                                    id="wants_to_travel_fast_false"
-                                    value="false"
-                                    required
-                                >
-                            </label>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="tl-Questionaire__Subject">
                         <legend>Travel</legend>
 
                         <div class="tl-Questionaire-Question">
@@ -699,6 +571,134 @@
                                     name="profile_image"
                                     id="profile_image"
                                     accept=".png, .jpg, .jpeg"
+                                    required
+                                >
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="tl-Questionaire__Subject">
+                        <legend>Looking for, in a match</legend>
+                        <div class="tl-Questionaire-Question">
+                            <label for="match_likes_nature_true">Is it necessary for your matches to like nature?</label>
+                            <label for="match_likes_nature_true">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="match_likes_nature"
+                                    id="match_likes_nature_true"
+                                    value="true"
+                                    required
+                                >
+                            </label>
+
+                            <label for="match_likes_nature_false">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="match_likes_nature"
+                                    id="match_likes_nature_false"
+                                    value="false"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="most_important_in_relationship">
+                                <span>What do you find the most important in a relationship?</span>
+                                <input
+                                    type="text"
+                                    name="most_important_in_relationship"
+                                    id="most_important_in_relationship"
+                                    required
+                                    placeholder="Trust"
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="max_match_distance">
+                                <span>What is the maximum distance (in km's) your match may be away from you?</span>
+                                <input
+                                    type="number"
+                                    name="max_match_distance"
+                                    id="max_match_distance"
+                                    min="0"
+                                    required
+                                    placeholder="80"
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="min_search_age">
+                                <span>What are the minimum and <label for="max_search_age">maximum ages you want to include in your matchresults?</label></span>
+                                <input
+                                    type="number"
+                                    name="min_search_age"
+                                    id="min_search_age"
+                                    min="0"
+                                    required
+                                    placeholder="Minimum search age"
+                                >
+
+                                <input
+                                    type="number"
+                                    name="max_search_age"
+                                    id="max_search_age"
+                                    min="0"
+                                    required
+                                    placeholder="Maximum search age"
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="important_match_has_made_trips_true">Is it important that your match has already made a lot (more than 5) of trips?</label>
+                            <label for="important_match_has_made_trips_true">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="important_match_has_made_trips"
+                                    id="important_match_has_made_trips_true"
+                                    value="true"
+                                    required
+                                >
+                            </label>
+
+                            <label for="important_match_has_made_trips_false">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="important_match_has_made_trips"
+                                    id="important_match_has_made_trips_false"
+                                    value="false"
+                                    required
+                                >
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label for="wants_to_travel_fast_true">Do you want to travel as soon as possible with your match?</label>
+                            <label for="wants_to_travel_fast_true">
+                                <span>Yes</span>
+                                <input
+                                    type="radio"
+                                    name="wants_to_travel_fast"
+                                    id="wants_to_travel_fast_true"
+                                    value="true"
+                                    required
+                                >
+                            </label>
+
+                            <label for="wants_to_travel_fast_false">
+                                <span>No</span>
+                                <input
+                                    type="radio"
+                                    name="wants_to_travel_fast"
+                                    id="wants_to_travel_fast_false"
+                                    value="false"
                                     required
                                 >
                             </label>

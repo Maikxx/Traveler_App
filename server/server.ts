@@ -11,6 +11,7 @@ import matchProfileRoute from './routes/match_profile'
 import matchesOverviewRoute from './routes/matches_overview'
 import myProfileRoute from './routes/my_profile'
 import myProfileEditRoute from './routes/my_profile_edit'
+import notFoundRoute from './routes/not_found'
 import questionaireRoute from './routes/questionaire'
 
 import signInController from './controllers/sign_in'
@@ -94,7 +95,9 @@ app.post('/send_message/:id', sendMessageController)
 app.post('/edit_profile/:id', profileEditController)
 app.post('/save_edited_profile/:id', saveEditedProfileController)
 app.post('/delete_account/:id', deleteAccountController)
-app.post('/questionaire_save/:id', upload.single('questionaire-profile-image'), questionaireSaveController)
+app.post('/questionaire_save/:id', upload.single('profile_image'), questionaireSaveController)
+
+app.use(notFoundRoute)
 
 // Serving
 app.listen(8000)

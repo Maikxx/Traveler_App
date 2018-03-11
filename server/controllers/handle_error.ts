@@ -3,7 +3,9 @@ function handleHttpError (res, code, title) {
         id: code,
         title: title,
     }
-    res.render('error.ejs', Object.assign({}, error))
+    res.render('error.ejs', {
+        error: error,
+    })
 }
 
 export default handleHttpError
