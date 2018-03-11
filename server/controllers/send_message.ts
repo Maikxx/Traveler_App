@@ -1,5 +1,6 @@
 function handleSendMessage (req: any, res: any) {
-    const message = req.body['tl-chat-input']
+    const { message } = req.body
+
     console.log(message)
 
     res.redirect('/chat/1')
