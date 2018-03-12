@@ -21,6 +21,7 @@ import sendMessageController from './controllers/send_message'
 import profileEditController from './controllers/profile_edit'
 import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteAccountController from './controllers/delete_account'
+import deleteChatController from './controllers/delete_chat'
 import questionaireSaveController from './controllers/questionaire_save'
 
 import { FileType } from 'server/types/fileType'
@@ -95,6 +96,7 @@ app.post('/send_message/:id', sendMessageController)
 app.post('/edit_profile/:id', profileEditController)
 app.post('/save_edited_profile/:id', saveEditedProfileController)
 app.post('/delete_account/:id', deleteAccountController)
+app.post('/delete_chat/:id', deleteChatController)
 app.post('/questionaire_save/:id', upload.single('profile_image'), questionaireSaveController)
 
 app.use(notFoundRoute)

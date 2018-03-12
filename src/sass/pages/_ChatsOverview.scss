@@ -20,6 +20,8 @@
         width: 100%;
         background-color: #fff;
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding: getSpacing(0.5) getSpacing(1);
+        display: flex;
 
         + .tl-ChatsOverviewPage__chat {
             margin-top: getSpacing(1);
@@ -32,7 +34,6 @@
         align-items: center;
         flex-wrap: wrap;
         text-decoration: none;
-        padding: getSpacing(0.5) getSpacing(1);
         color: #000;
     }
 
@@ -70,12 +71,16 @@
         }
     }
 
+    form {
+        margin-top: getSpacing(1);
+        display: inline-block;
+    }
+
     &__delete-chat {
         padding: getSpacing(1.5);
         cursor: pointer;
         background: url('localhost:8000/img/rubbish-bin.svg') no-repeat center;
         background-size: cover;
-        align-self: flex-end;
         border: 0;
     }
 }
