@@ -55,18 +55,33 @@
         width: 90%;
         line-height: 1.5;
 
-        &--by-me {
+        &--by-me,
+        &--by-other {
             padding-left: 16px;
+
             &::before {
                 display: inline-block;
                 content: '';
                 height: 12px;
                 width: 12px;
-                background: url('localhost:8000/img/back-arrow.svg') no-repeat center;
-                background-size: cover;
                 position: absolute;
                 left: 0;
                 top: 6px;
+            }
+        }
+
+        &--by-me {
+            &::before {
+                background: url('localhost:8000/img/back-arrow.svg') no-repeat center;
+                background-size: cover;
+            }
+        }
+
+        &--by-other {
+            &::before {
+                background: url('localhost:8000/img/back-arrow.svg') no-repeat center;
+                background-size: cover;
+                transform: rotateY(180deg);
             }
         }
     }
