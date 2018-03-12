@@ -52,7 +52,7 @@
     &__last-message {
         position: relative;
         margin-top: getSpacing(1);
-        width: 90%;
+        width: 100%;
         line-height: 1.5;
 
         &--by-me,
@@ -89,6 +89,7 @@
     form {
         margin-top: getSpacing(1);
         display: inline-block;
+        margin-left: auto;
     }
 
     &__delete-chat {
