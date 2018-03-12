@@ -89,9 +89,9 @@ app.get('/my_profile/edit', myProfileEditRoute)
 app.get('/questionaire', questionaireRoute)
 
 // Post Endpoints
-app.post('/sign_in/', signInController)
-app.post('/sign_up/', signUpController)
-app.post('/log_out/:id', logOutController)
+app.post('/sign_in', signInController)
+app.post('/sign_up', signUpController)
+app.post('/log_out', logOutController)
 app.post('/send_message/:id', sendMessageController)
 app.post('/edit_profile/:id', profileEditController)
 app.post('/save_edited_profile/:id', saveEditedProfileController)

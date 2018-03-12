@@ -1,5 +1,7 @@
 function handleLogOut (req: any, res: any) {
-    // Todo
+    console.log(req)
+
+    res.redirect('/')
 }
 
 export default handleLogOut
