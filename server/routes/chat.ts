@@ -37,7 +37,7 @@ function renderChat (req: any, res: any) {
     }
 
     res.render('chat.ejs', {
-        chatData: chatData,
+        chatData,
     })
 }
 
