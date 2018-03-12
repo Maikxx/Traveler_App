@@ -5,20 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="/style.css">
-        <title>Traveler App - Chat with <%= chat.chatWithName %></title>
+        <title>Traveler App - Chat with <%= chatData.chatWithName %></title>
     </head>
 
     <body>
         <main class="tl-Chat">
             <header class="tl-Chat__header">
-                <a href="/match_profile/<%= chat.chatWithId %>">
-                    Back to <%= chat.chatWithName %>
+                <a href="/match_profile/<%= chatData.chatWithId %>">
+                    Back to <%= chatData.chatWithName %>
                 </a>
             </header>
 
             <section class="tl-Chat__content-wrapper">
                 <div class="tl-Chat__content">
-                    <% chat.messages.forEach(function (message) { %>
+                    <% chatData.messages.forEach(function (message) { %>
                         <div class="tl-Chat__message-wrapper tl-Chat__message-<%= message.sentByWho %>">
                             <img src="<%= message.profileImageUrl %>" class="tl-Chat__circle-wrapper" alt="Profile Image <%= message.sentBy %>">
                             <div class="tl-Chat__text-wrapper">
@@ -30,7 +30,7 @@
             </section>
 
             <section class="tl-Chat__footer">
-                <form action="/send_message/<%= chat.messages.nextMessageId %>" class="tl-Chat__chat-form" method="POST">
+                <form action="/send_message/<%= chatData.messages.nextMessageId %>" class="tl-Chat__chat-form" method="POST">
                     <textarea
                         name="message"
                         id="message"

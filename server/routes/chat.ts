@@ -1,5 +1,5 @@
 function renderChat (req: any, res: any) {
-    const chat = {
+    const chatData = {
         chatId: '1',
         chatWithName: 'Henk',
         chatWithId: '1',
@@ -37,7 +37,7 @@ function renderChat (req: any, res: any) {
     }
 
     res.render('chat.ejs', {
-        chat: chat,
+        chatData: chatData,
     })
 }
 
