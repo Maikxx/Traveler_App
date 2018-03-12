@@ -33,7 +33,6 @@
                         <input
                             type="email"
                             name="email"
-                            id="email"
                             placeholder="Email"
                             pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
                             required
@@ -44,7 +43,6 @@
                         <input
                             type="password"
                             name="password"
-                            id="password"
                             placeholder="Password"
                             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                             required
@@ -64,20 +62,15 @@
 
                 <section class="tl-BriefTravelerDisplays">
                     <h2>Available Travelers</h2>
-                    <section class="tl-BriefTravelerDisplay">
-                        <header>
-                            <h3>Henk Smits</h3>
-                            <img src="/img/available-traveler.jpg" alt="Available traveler">
-                        </header>
-                        <p>Henk loves to travel, just like you, otherwise you wouldn't be here, right?</p>
-                    </section>
-                    <section class="tl-BriefTravelerDisplay">
-                        <header>
-                            <h3>Frank Fransen</h3>
-                            <img src="/img/available-traveler.jpg" alt="Available traveler">
-                        </header>
-                        <p>Frank loves to travel, just like you, otherwise you wouldn't be here, right?</p>
-                    </section>
+                    <% availableTravelersData.forEach(function (availableTraveler) { %>
+                        <section class="tl-BriefTravelerDisplay">
+                            <header>
+                                <h3><%= availableTraveler.name %></h3>
+                                <img src="<%= availableTraveler.imageUrl %>" alt="Available traveler">
+                            </header>
+                            <p><%= availableTraveler.profileDescription %></p>
+                        </section>
+                    <% }) %>
                 </section>
             </article>
             <form action="/sign_up" class="tl-SignUpForm" method="POST">
@@ -92,7 +85,6 @@
                                 <input
                                     type="text"
                                     name="name"
-                                    id="name"
                                     placeholder="Name"
                                     required
                                 >
@@ -105,7 +97,6 @@
                                 <input
                                     type="email"
                                     name="email"
-                                    id="email"
                                     placeholder="Email"
                                     pattern="^\w+@\w+\..{2,3}(.{2,3})?$"
                                     required
@@ -119,7 +110,6 @@
                                 <input
                                     type="password"
                                     name="password"
-                                    id="password"
                                     placeholder="Password"
                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                                     required
@@ -133,7 +123,6 @@
                                 <input
                                     type="password"
                                     name="repeat_password"
-                                    id="repeat_password"
                                     placeholder="Repeat password"
                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                                     required
