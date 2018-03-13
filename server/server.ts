@@ -97,7 +97,7 @@ app.post('/edit_profile/:id', profileEditController)
 app.post('/save_edited_profile/:id', saveEditedProfileController)
 app.post('/delete_account/:id', deleteAccountController)
 app.post('/delete_chat/:id', deleteChatController)
-app.post('/questionaire_save/:id', upload.single('profile_image'), questionaireSaveController)
+app.post('/questionaire_save/:id', upload.single('profileImage'), questionaireSaveController)
 
 app.use(notFoundRoute)
 

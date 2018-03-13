@@ -47,7 +47,7 @@
                     <h1><%= profileData.fullName %> (<%= profileData.age %>)</h1>
                 </header>
 
-                <img src="/img/available-traveler.jpg" alt="Matched traveler user">
+                <img src="<%= profileData.profileImage %>" alt="Matched traveler user">
                 <p class="tl-ProfileDescription"><%= profileData.description %></p>
 
                 <ol class="tl-FullProfileInformation">
@@ -82,7 +82,7 @@
                     </li>
                     <li class="tl-Field">
                         <h2 class="tl-Field__title">Likes to travel trans-atlantic more, than within the continent</h2>
-                        <span class="tl-Field__value"><%= profileData.prefersTransAtlantic %></span>
+                        <span class="tl-Field__value"><%= profileData.prefersInterContinental %></span>
                     </li>
                     <li class="tl-Field">
                         <h2 class="tl-Field__title">Destinations Henk wants to travel to in the near future</h2>
