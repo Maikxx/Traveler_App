@@ -16,7 +16,7 @@ function renderMatchProfile (req: any, res: any) {
         wantsToVisitSoon: [ 'Dubai', 'Paris' ],
         hasVisitedThisMuchDestinations: 20,
         favouriteOverallTravelTime: 3,
-        wantsToTravelAsSoonAsPossible: 'Yes',
+        wantsToTravelQuickly: 'Yes',
         // matchHasToLikeToBeInNature: 'Yes',
         mostImportantInRelationShip: 'Trust',
         // maxMatchDistance: '80',
