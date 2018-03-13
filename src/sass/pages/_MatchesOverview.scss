@@ -6,10 +6,8 @@
 
     .tl-TitleSection {
         color: black;
-        background-color: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
         padding: getSpacing(0.5);
-        margin-bottom: getSpacing(2);
+        margin-bottom: getSpacing(1.5);
 
         h1 {
             width: 100%;
@@ -73,6 +71,7 @@
 
                     .tl-FieldTitle {
                         font-weight: bold;
+                        font-size: 100%;
                         color: $form-text-color;
                     }
                 }
@@ -83,6 +82,10 @@
             position: absolute;
             right: 0;
             bottom: 0;
+        }
+
+        + .tl-Card--BriefTravelerInformation {
+            margin-top: getSpacing(1);
         }
     }
 }

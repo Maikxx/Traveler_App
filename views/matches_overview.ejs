@@ -46,33 +46,35 @@
                 <p>Here you can view people who you have been matched with, based on your profile.</p>
             </header>
 
-            <section class="tl-Card tl-Card--BriefTravelerInformation">
-                <header>
-                    <h2>Henk Smits</h2>
-                    <img src="/img/available-traveler.jpg" alt="Matched traveler user">
-                </header>
-                <p>Henk loves to travel, just like you, otherwise you wouldn't be here, right?</p>
-                <section class="tl-MainTravelInformation">
-                    <h3>Most important travel information about Henk</h3>
-                    <ol>
-                        <li>
-                            <span class="tl-FieldTitle">favourite destination:</span>
-                            <span class="tl-FieldValue">Paris</span>
-                        </li>
-                        <li>
-                            <span class="tl-FieldTitle">Likes to hike:</span>
-                            <span class="tl-FieldValue">Yes</span>
-                        </li>
-                        <li>
-                            <span class="tl-FieldTitle">favourite overall travel time (in weeks):</span>
-                            <span class="tl-FieldValue">3</span>
-                        </li>
-                    </ol>
+            <% overviewData.forEach(function (profile) { %>
+                <section class="tl-Card tl-Card--BriefTravelerInformation">
+                    <header>
+                        <h2><%= profile.fullName %> (<%= profile.age %>)</h2>
+                        <img src="<%= profile.profileImage %>" alt="Matched traveler user: <%= profile.fullName %>">
+                    </header>
+                    <p><%= profile.description %></p>
+                    <section class="tl-MainTravelInformation">
+                        <h3>Most important travel information about <%= profile.firstName %></h3>
+                        <ol>
+                            <li>
+                                <h4 class="tl-FieldTitle">Favourite destination:</h4>
+                                <span class="tl-FieldValue"><%= profile.favouriteHolidayDestination %></span>
+                            </li>
+                            <li>
+                                <h4 class="tl-FieldTitle">Likes to hike:</h4>
+                                <span class="tl-FieldValue"><%= profile.likesToHike %></span>
+                            </li>
+                            <li>
+                                <h4 class="tl-FieldTitle">Favourite overall travel time (in weeks):</h4>
+                                <span class="tl-FieldValue"><%= profile.favouriteOverallTravelTime %></span>
+                            </li>
+                        </ol>
+                    </section>
+                    <footer>
+                        <a class="tl-CTA-Button" href="/match_profile/<%= profile.profileId %>">Show more about <%= profile.firstName %></a>
+                    </footer>
                 </section>
-                <footer>
-                    <a class="tl-CTA-Button" href="/match_profile/1">Show more</a>
-                </footer>
-            </section>
+            <% }) %>
         </main>
         <script src="/index.js"></script>
     </body>
