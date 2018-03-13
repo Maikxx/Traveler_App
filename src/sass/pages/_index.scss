@@ -123,4 +123,16 @@
     .tl-CTA-Button {
         margin-top: getSpacing(1);
     }
+
+    small {
+        display: inline-block;
+        margin-top: getSpacing(1);
+
+        > button {
+            font-size: inherit;
+            font-family: 'Open Sans', sans-serif;
+            border: 0;
+            background: none;
+        }
+    }
 }
