@@ -125,12 +125,17 @@ input:not([type = radio]):not([type = checkbox]) {
             }
 
             input {
-                flex: 5;
+                flex: 4;
             }
 
             & + label {
                 margin-top: getSpacing(1);
             }
+        }
+
+        .tl-CTA-Button#sign-in-button {
+            margin-top: 0;
+            transition: margin-top 300ms ease-in-out;
         }
     }
 
@@ -159,6 +164,9 @@ input:not([type = radio]):not([type = checkbox]) {
         margin-top: 0;
         cursor: initial;
 
+        .tl-CTA-Button#sign-in-button {
+            margin-top: getSpacing(1);
+        }
 
         + .tl-ChatsOverviewPage,
         + .tl-MatchProfilePage,
