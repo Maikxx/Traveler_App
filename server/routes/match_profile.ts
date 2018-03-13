@@ -27,7 +27,7 @@ function renderMatchProfile (req: any, res: any) {
         smokes: 'No',
         likesToBeInNature: 'Yes',
         favouriteMusicGenre: 'Hardstyle',
-        yearlyEarns: '50K+',
+        yearlyEarns: 'More than 50K',
         livesIn: 'Rotterdam, the Netherlands',
         jobTitle: 'Architect',
         lengthInCm: 183,
