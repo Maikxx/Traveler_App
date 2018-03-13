@@ -21,13 +21,12 @@
                         <legend>Travel</legend>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="where_have_you_been">
+                            <label>
                                 <span>To which destinations have you traveled already?</span>
                                 <small>Please separate with comma's.</small>
                                 <input
                                     type="text"
-                                    name="where_have_you_been"
-                                    id="where_have_you_been"
+                                    name="hasTraveledTo"
                                     required
                                     placeholder="Dubai, Paris, Morocco, etc."
                                 >
@@ -35,12 +34,11 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="favorite_holiday_destination">
-                                <span>What is your favorite holiday destination, you have visited?</span>
+                            <label>
+                                <span>What is your favourite holiday destination, you have visited?</span>
                                 <input
                                     type="text"
-                                    name="favorite_holiday_destination"
-                                    id="favorite_holiday_destination"
+                                    name="favouriteHolidayDestination"
                                     required
                                     placeholder="Paris"
                                 >
@@ -48,57 +46,59 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="holiday_formats_roundtrip">What is, or are, your favorite holiday format?</label>
-                            <label for="holiday_formats_roundtrip">
+                            <label for="favouriteHolidayTypesRoundtrip">What is, or are, your favourite holiday type?</label>
+                            <label for="favouriteHolidayTypesRoundtrip">
                                 <span>Roundtrips</span>
                                 <input
                                     type="radio"
-                                    name="holiday_formats"
-                                    id="holiday_formats_roundtrip"
-                                    value="roundtrip"
+                                    name="favouriteHolidayTypes"
+                                    id="favouriteHolidayTypesRoundtrip"
+                                    value="Roundtrip"
                                 >
                             </label>
 
-                            <label for="holiday_formats_family_travel">
+                            <label for="favouriteHolidayTypesFamily">
                                 <span>Travelling with family</span>
                                 <input
                                     type="radio"
-                                    name="holiday_formats"
-                                    id="holiday_formats_family_travel"
-                                    value="family"
+                                    name="favouriteHolidayTypes"
+                                    id="favouriteHolidayTypesFamily"
+                                    value="Family"
                                 >
                             </label>
 
-                            <label for="holiday_formats_bike_holidays">
+                            <label for="favouriteHolidayTypesBike">
                                 <span>Bike holidays</span>
                                 <input
                                     type="radio"
-                                    name="holiday_formats"
-                                    id="holiday_formats_bike_holidays"
-                                    value="bike"
+                                    name="favouriteHolidayTypes"
+                                    id="favouriteHolidayTypesBike"
+                                    value="Bike"
                                 >
                             </label>
 
-                            <label for="holiday_formats_hike_holidays">
+                            <label for="favouriteHolidayTypes_hike_holidays">
                                 <span>Hike holidays</span>
                                 <input
                                     type="radio"
-                                    name="holiday_formats"
-                                    id="holiday_formats_hike_holidays"
-                                    value="hike"
+                                    name="favouriteHolidayTypes"
+                                    id="favouriteHolidayTypes_hike_holidays"
+                                    value="Hike"
                                 >
                             </label>
 
 
-                            <label for="holiday_formats_backpacking">
+                            <label for="favouriteHolidayTypes_backpacking">
                                 <span>Backpacking</span>
                                 <input
                                     type="radio"
-                                    name="holiday_formats"
-                                    id="holiday_formats_backpacking"
-                                    value="backpacking"
+                                    name="favouriteHolidayTypes"
+                                    id="favouriteHolidayTypes_backpacking"
+                                    value="Backpacking"
                                 >
                             </label>
+
+
                         </div>
 
                         <div class="tl-Questionaire-Question">
@@ -109,7 +109,7 @@
                                     type="radio"
                                     name="plans_ahead"
                                     id="plans_ahead_often"
-                                    value="often"
+                                    value="Often"
                                     required
                                 >
                             </label>
@@ -120,32 +120,32 @@
                                     type="radio"
                                     name="plans_ahead"
                                     id="plans_ahead_sometimes"
-                                    value="sometimes"
+                                    value="Sometimes"
                                     required
                                 >
                             </label>
 
-                            <label for="plans_ahead_false">
+                            <label for="plans_ahead_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="plans_ahead"
-                                    id="plans_ahead_false"
-                                    value="false"
+                                    id="plans_ahead_no"
+                                    value="No"
                                     required
                                 >
                             </label>
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="likes_to_hike_true">Do you like to hike?</label>
-                            <label for="likes_to_hike_true">
+                            <label for="likes_to_hike_yes">Do you like to hike?</label>
+                            <label for="likes_to_hike_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="likes_to_hike"
-                                    id="likes_to_hike_true"
-                                    value="true"
+                                    id="likes_to_hike_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
@@ -156,32 +156,32 @@
                                     type="radio"
                                     name="likes_to_hike"
                                     id="likes_to_hike_sometimes"
-                                    value="sometimes"
+                                    value="Sometimes"
                                     required
                                 >
                             </label>
 
-                            <label for="likes_to_hike_false">
+                            <label for="likes_to_hike_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="likes_to_hike"
-                                    id="likes_to_hike_false"
-                                    value="false"
+                                    id="likes_to_hike_no"
+                                    value="No"
                                     required
                                 >
                             </label>
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="likes_trans_atlantic_true">Do you like to travel trans_atlantic more, than within the continent?</label>
-                            <label for="likes_trans_atlantic_true">
+                            <label for="likes_trans_atlantic_yes">Do you like to travel trans_atlantic more, than within the continent?</label>
+                            <label for="likes_trans_atlantic_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="likes_trans_atlantic"
-                                    id="likes_trans_atlantic_true"
-                                    value="true"
+                                    id="likes_trans_atlantic_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
@@ -192,18 +192,18 @@
                                     type="radio"
                                     name="likes_trans_atlantic"
                                     id="likes_trans_atlantic_sometimes"
-                                    value="sometimes"
+                                    value="Sometimes"
                                     required
                                 >
                             </label>
 
-                            <label for="likes_trans_atlantic_false">
+                            <label for="likes_trans_atlantic_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="likes_trans_atlantic"
-                                    id="likes_trans_atlantic_false"
-                                    value="false"
+                                    id="likes_trans_atlantic_no"
+                                    value="No"
                                     required
                                 >
                             </label>
@@ -238,12 +238,12 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="favorite_travel_time">
-                                <span>What is your favorite travel time (in weeks)?</span>
+                            <label for="favourite_travel_time">
+                                <span>What is your favourite overall travel time (in weeks)?</span>
                                 <input
                                     type="number"
-                                    name="favorite_travel_time"
-                                    id="favorite_travel_time"
+                                    name="favourite_travel_time"
+                                    id="favourite_travel_time"
                                     min="0"
                                     required
                                     placeholder="3"
@@ -255,14 +255,14 @@
                     <fieldset class="tl-Questionaire__Subject">
                         <legend>Personal information</legend>
                         <div class="tl-Questionaire-Question">
-                            <label for="wants_to_marry_true">Do you want to marry, eventually?</label>
-                            <label for="wants_to_marry_true">
+                            <label for="wants_to_marry_yes">Do you want to marry, eventually?</label>
+                            <label for="wants_to_marry_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="wants_to_marry"
-                                    id="wants_to_marry_true"
-                                    value="true"
+                                    id="wants_to_marry_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
@@ -273,18 +273,18 @@
                                     type="radio"
                                     name="wants_to_marry"
                                     id="wants_to_marry_maybe"
-                                    value="maybe"
+                                    value="Maybe"
                                     required
                                 >
                             </label>
 
-                            <label for="wants_to_marry_false">
+                            <label for="wants_to_marry_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="wants_to_marry"
-                                    id="wants_to_marry_false"
-                                    value="false"
+                                    id="wants_to_marry_no"
+                                    value="No"
                                     required
                                 >
                             </label>
@@ -304,25 +304,25 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="children_true_have_them">Do you want, or already have, children?</label>
-                            <label for="children_true_have_them">
+                            <label for="children_yes_have_them">Do you want, or already have, children?</label>
+                            <label for="children_yes_have_them">
                                 <span>Yes, I have them</span>
                                 <input
                                     type="radio"
                                     name="children"
-                                    id="children_true_have_them"
-                                    value="have them"
+                                    id="children_yes_have_them"
+                                    value="Have them"
                                     required
                                 >
                             </label>
 
-                            <label for="children_true_want_them">
+                            <label for="children_yes_want_them">
                                 <span>Yes, I want them</span>
                                 <input
                                     type="radio"
                                     name="children"
-                                    id="children_true_want_them"
-                                    value="want them"
+                                    id="children_yes_want_them"
+                                    value="Want them"
                                     required
                                 >
                             </label>
@@ -333,18 +333,18 @@
                                     type="radio"
                                     name="children"
                                     id="children_maybe"
-                                    value="maybe"
+                                    value="Maybe"
                                     required
                                 >
                             </label>
 
-                            <label for="children_false">
+                            <label for="children_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="children"
-                                    id="children_false"
-                                    value="false"
+                                    id="children_no"
+                                    value="No"
                                     required
                                 >
                             </label>
@@ -358,7 +358,7 @@
                                     type="radio"
                                     name="drinks_alcohol"
                                     id="drinks_alcohol_often"
-                                    value="often"
+                                    value="Often"
                                     required
                                 >
                             </label>
@@ -369,18 +369,18 @@
                                     type="radio"
                                     name="drinks_alcohol"
                                     id="drinks_alcohol_sometimes"
-                                    value="sometimes"
+                                    value="Sometimes"
                                     required
                                 >
                             </label>
 
-                            <label for="drinks_alcohol_false">
+                            <label for="drinks_alcohol_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="drinks_alcohol"
-                                    id="drinks_alcohol_false"
-                                    value="false"
+                                    id="drinks_alcohol_no"
+                                    value="No"
                                     required
                                 >
                             </label>
@@ -394,7 +394,7 @@
                                     type="radio"
                                     name="smokes"
                                     id="smokes_often"
-                                    value="often"
+                                    value="Often"
                                     required
                                 >
                             </label>
@@ -405,43 +405,43 @@
                                     type="radio"
                                     name="smokes"
                                     id="smokes_sometimes"
-                                    value="sometimes"
+                                    value="Sometimes"
                                     required
                                 >
                             </label>
 
-                            <label for="smokes_false">
+                            <label for="smokes_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="smokes"
-                                    id="smokes_false"
-                                    value="false"
+                                    id="smokes_no"
+                                    value="No"
                                     required
                                 >
                             </label>
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="likes_nature_true">Do you like to be in the nature?</label>
-                            <label for="likes_nature_true">
+                            <label for="likes_nature_yes">Do you like to be in the nature?</label>
+                            <label for="likes_nature_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="likes_nature"
-                                    id="likes_nature_true"
-                                    value="true"
+                                    id="likes_nature_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
 
-                            <label for="likes_nature_false">
+                            <label for="likes_nature_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="likes_nature"
-                                    id="likes_nature_false"
-                                    value="false"
+                                    id="likes_nature_no"
+                                    value="No"
                                     required
                                 >
                             </label>
@@ -468,7 +468,7 @@
                                     type="radio"
                                     name="yearly_earns"
                                     id="yearly_earns_less_than_25k"
-                                    value="less than 25k"
+                                    value="Less than 25k"
                                     required
                                 >
                             </label>
@@ -490,7 +490,7 @@
                                     type="radio"
                                     name="yearly_earns"
                                     id="yearly_earns_more_than_50k"
-                                    value="more than 50k"
+                                    value="More than 50k"
                                     required
                                 >
                             </label>
@@ -580,25 +580,25 @@
                     <fieldset class="tl-Questionaire__Subject">
                         <legend>Looking for, in a match</legend>
                         <div class="tl-Questionaire-Question">
-                            <label for="match_likes_nature_true">Is it necessary for your matches to like nature?</label>
-                            <label for="match_likes_nature_true">
+                            <label for="match_likes_nature_yes">Is it necessary for your matches to like nature?</label>
+                            <label for="match_likes_nature_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="match_likes_nature"
-                                    id="match_likes_nature_true"
-                                    value="true"
+                                    id="match_likes_nature_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
 
-                            <label for="match_likes_nature_false">
+                            <label for="match_likes_nature_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="match_likes_nature"
-                                    id="match_likes_nature_false"
-                                    value="false"
+                                    id="match_likes_nature_no"
+                                    value="No"
                                     required
                                 >
                             </label>
@@ -655,50 +655,50 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="important_match_has_made_trips_true">Is it important that your match has already made a lot (more than 5) of trips?</label>
-                            <label for="important_match_has_made_trips_true">
+                            <label for="important_match_has_made_trips_yes">Is it important that your match has already made a lot (more than 5) of trips?</label>
+                            <label for="important_match_has_made_trips_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="important_match_has_made_trips"
-                                    id="important_match_has_made_trips_true"
-                                    value="true"
+                                    id="important_match_has_made_trips_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
 
-                            <label for="important_match_has_made_trips_false">
+                            <label for="important_match_has_made_trips_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="important_match_has_made_trips"
-                                    id="important_match_has_made_trips_false"
-                                    value="false"
+                                    id="important_match_has_made_trips_no"
+                                    value="No"
                                     required
                                 >
                             </label>
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <label for="wants_to_travel_fast_true">Do you want to travel as soon as possible with your match?</label>
-                            <label for="wants_to_travel_fast_true">
+                            <label for="wants_to_travel_fast_yes">Do you want to travel as soon as possible with your match?</label>
+                            <label for="wants_to_travel_fast_yes">
                                 <span>Yes</span>
                                 <input
                                     type="radio"
                                     name="wants_to_travel_fast"
-                                    id="wants_to_travel_fast_true"
-                                    value="true"
+                                    id="wants_to_travel_fast_yes"
+                                    value="yes"
                                     required
                                 >
                             </label>
 
-                            <label for="wants_to_travel_fast_false">
+                            <label for="wants_to_travel_fast_no">
                                 <span>No</span>
                                 <input
                                     type="radio"
                                     name="wants_to_travel_fast"
-                                    id="wants_to_travel_fast_false"
-                                    value="false"
+                                    id="wants_to_travel_fast_no"
+                                    value="No"
                                     required
                                 >
                             </label>

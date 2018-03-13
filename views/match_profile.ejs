@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="/style.css">
-        <title>Traveler App - Henk Smits</title>
+        <title>Traveler App - <%= profileData.fullName %></title>
     </head>
     <body>
         <header class="tl-PageHeader">
@@ -44,106 +44,123 @@
         <main class="tl-MatchProfilePage">
             <section class="tl-Card tl-Card--MatchProfileCard">
                 <header>
-                    <h1>Henk Smits (31)</h1>
+                    <h1><%= profileData.fullName %> (<%= profileData.age %>)</h1>
                 </header>
 
                 <img src="/img/available-traveler.jpg" alt="Matched traveler user">
-                <p class="tl-ProfileDescription">Henk loves to travel, just like you, otherwise you wouldn't be here, right?</p>
+                <p class="tl-ProfileDescription"><%= profileData.description %></p>
 
                 <ol class="tl-FullProfileInformation">
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Finds this most important in a relation</span>
-                        <span class="tl-Field__value">Trust</span>
+                        <h2 class="tl-Field__title">Has traveled to</h2>
+                        <span class="tl-Field__value">
+                            <% profileData.hasTraveledTo.forEach(function (destination, i) { %>
+                                <% if (i !== (profileData.hasTraveledTo.length - 1)) { %>
+                                    <%= destination %>,
+                                <% } else { %>
+                                    <%= destination %>
+                                <% } %>
+                            <% }) %>
+                        </span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Favourite holiday destination visisted</h2>
+                        <span class="tl-Field__value"><%= profileData.favouriteHolidayDestination %></span>
+                    </li>
+                    <!-- This needs to be a select box, which can be multiple -->
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Favourite holiday type</h2>
+                        <span class="tl-Field__value"><%= profileData.favouriteHolidayDestination %></span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Plans holidays ahead</h2>
+                        <span class="tl-Field__value"><%= profileData.plansHolidaysAhead %></span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Likes to hike</h2>
+                        <span class="tl-Field__value"><%= profileData.likesToHike %></span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Likes to travel trans-atlantic more, than within the continent</h2>
+                        <span class="tl-Field__value"><%= profileData.prefersTransAtlantic %></span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Destinations Henk wants to travel to in the near future</h2>
+                        <span class="tl-Field__value">
+                            <% profileData.wantsToVisitSoon.forEach(function (destination, i) { %>
+                                <% if (i !== (profileData.wantsToVisitSoon.length - 1)) { %>
+                                    <%= destination %>,
+                                <% } else { %>
+                                    <%= destination %>
+                                <% } %>
+                            <% }) %>
+                        </span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Has visited this much holiday destinations</h2>
+                        <span class="tl-Field__value"><%= profileData.hasVisitedThisMuchDestinations %></span>
                     </li>
                     <li class="tl-Field divider-bottom">
-                        <span class="tl-Field__title">Wants to travel with you as soon as possible</span>
-                        <span class="tl-Field__value">Yes</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Has traveled to</span>
-                        <span class="tl-Field__value">Dubai, Paris, Morocco, France</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Favorite holiday destination visisted</span>
-                        <span class="tl-Field__value">Paris</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Favorite holiday format</span>
-                        <span class="tl-Field__value">Roundtrips</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Plans holidays ahead</span>
-                        <span class="tl-Field__value">Sometimes</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Likes to hike</span>
-                        <span class="tl-Field__value">Yes</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Likes to travel trans-atlantic more, than within the continent</span>
-                        <span class="tl-Field__value">Yes</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Destinations Henk wants to travel to in the near future</span>
-                        <span class="tl-Field__value">New-Zealand, China</span>
-                    </li>
-                    <li class="tl-Field">
-                        <span class="tl-Field__title">Has visited this much holiday destinations</span>
-                        <span class="tl-Field__value">20</span>
+                        <h2 class="tl-Field__title">Favourite overall travel time (in weeks)</h2>
+                        <span class="tl-Field__value"><%= profileData.favouriteOverallTravelTime %></span>
                     </li>
                     <li class="tl-Field divider-bottom">
-                        <span class="tl-Field__title">Favorite travel time (in weeks)</span>
-                        <span class="tl-Field__value">3</span>
+                        <h2 class="tl-Field__title">Wants to travel with you as soon as possible</h2>
+                        <span class="tl-Field__value"><%= profileData.wantsToTravelAsSoonAsPossible %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Wants to marry</span>
-                        <span class="tl-Field__value">Yes</span>
+                        <h2 class="tl-Field__title">Wants to marry</h2>
+                        <span class="tl-Field__value"><%= profileData.wantsToMarry %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Foremost relationship motivation</span>
-                        <span class="tl-Field__value">Being able to travel the world with that someone</span>
+                        <h2 class="tl-Field__title">Foremost relationship motivation</h2>
+                        <span class="tl-Field__value"><%= profileData.foremostRelationshipMotivation %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Wants to, or does already, have children</span>
-                        <span class="tl-Field__value">Yes, I have them</span>
+                        <h2 class="tl-Field__title">Wants to, or does already, have children</h2>
+                        <span class="tl-Field__value"><%= profileData.wantsToOrAlreadyHasChildren %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Drinks alcohol</span>
-                        <span class="tl-Field__value">Yes, often</span>
+                        <h2 class="tl-Field__title">Drinks alcohol</h2>
+                        <span class="tl-Field__value"><%= profileData.drinksAlcohol %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Smokes</span>
-                        <span class="tl-Field__value">No</span>
+                        <h2 class="tl-Field__title">Smokes</h2>
+                        <span class="tl-Field__value"><%= profileData.smokes %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Likes to be in nature</span>
-                        <span class="tl-Field__value">Yes</span>
+                        <h2 class="tl-Field__title">Likes to be in nature</h2>
+                        <span class="tl-Field__value"><%= profileData.likesToBeInNature %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Favorite music genre</span>
-                        <span class="tl-Field__value">Hardstyle</span>
+                        <h2 class="tl-Field__title">Finds this most important in a relation</h2>
+                        <span class="tl-Field__value"><%= profileData.mostImportantInRelationShip %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Yearly earns</span>
-                        <span class="tl-Field__value">50K+</span>
+                        <h2 class="tl-Field__title">Favourite music genre</h2>
+                        <span class="tl-Field__value"><%= profileData.favouriteMusicGenre %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Lives in</span>
-                        <span class="tl-Field__value">Rotterdam, the Netherlands</span>
+                        <h2 class="tl-Field__title">Yearly earns</h2>
+                        <span class="tl-Field__value"><%= profileData.yearlyEarns %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Job title</span>
-                        <span class="tl-Field__value">Architect</span>
+                        <h2 class="tl-Field__title">Lives in</h2>
+                        <span class="tl-Field__value"><%= profileData.livesIn %></span>
                     </li>
                     <li class="tl-Field">
-                        <span class="tl-Field__title">Length (in cm's)</span>
-                        <span class="tl-Field__value">183</span>
+                        <h2 class="tl-Field__title">Job title</h2>
+                        <span class="tl-Field__value"><%= profileData.jobTitle %></span>
+                    </li>
+                    <li class="tl-Field">
+                        <h2 class="tl-Field__title">Length (in cm's)</h2>
+                        <span class="tl-Field__value"><%= profileData.lengthInCm %></span>
                     </li>
                 </ol>
 
                 <footer>
                     <a href="/chat/1" class="tl-CTA-Button">
-                        Chat with Henk
+                        Chat with <%= profileData.firstName %>
                     </a>
                 </footer>
             </section>

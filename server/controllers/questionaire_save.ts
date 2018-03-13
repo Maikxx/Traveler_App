@@ -3,15 +3,15 @@ import handleHTTPError from './handle_error'
 function handleQuestionaireSave (req: any, res: any) {
     const questionaireData = {}
     const {
-        where_have_you_been,
-        favorite_holiday_destination,
-        holiday_formats,
+        hasTraveledTo,
+        favouriteHolidayDestination,
+        favouriteHolidayTypes,
         plans_ahead,
         likes_to_hike,
         likes_trans_atlantic,
         where_do_you_want_to_go,
         amount_of_trips_made,
-        favorite_travel_time,
+        favourite_travel_time,
         wants_to_marry,
         relationship_reason,
         children,
@@ -35,15 +35,15 @@ function handleQuestionaireSave (req: any, res: any) {
     } = req.body
 
     if (
-        !where_have_you_been.length ||
-        !favorite_holiday_destination.length ||
-        !holiday_formats.length ||
+        !hasTraveledTo.length ||
+        !favouriteHolidayDestination.length ||
+        !favouriteHolidayTypes.length ||
         !plans_ahead.length ||
         !likes_to_hike.length ||
         !likes_trans_atlantic.length ||
         !where_do_you_want_to_go.length ||
         !amount_of_trips_made.length ||
-        !favorite_travel_time.length ||
+        !favourite_travel_time.length ||
         !wants_to_marry.length ||
         !relationship_reason.length ||
         !children.length ||
