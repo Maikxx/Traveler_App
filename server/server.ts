@@ -18,7 +18,6 @@ import signInController from './controllers/sign_in'
 import signUpController from './controllers/sign_up'
 import logOutController from './controllers/log_out'
 import sendMessageController from './controllers/send_message'
-import profileEditController from './controllers/profile_edit'
 import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteAccountController from './controllers/delete_account'
 import deleteChatController from './controllers/delete_chat'
@@ -93,8 +92,7 @@ app.post('/sign_in', signInController)
 app.post('/sign_up', signUpController)
 app.post('/log_out', logOutController)
 app.post('/send_message/:id', sendMessageController)
-app.post('/edit_profile/:id', profileEditController)
-app.post('/save_edited_profile/:id', saveEditedProfileController)
+app.post('/save_edited_profile/', saveEditedProfileController)
 app.post('/delete_account/:id', deleteAccountController)
 app.post('/delete_chat/:id', deleteChatController)
 app.post('/questionaire_save/:id', upload.single('profileImage'), questionaireSaveController)
