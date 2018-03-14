@@ -47,11 +47,12 @@
                     <h1><%= profileData.fullName %> (<%= profileData.age %>)</h1>
                 </header>
 
-                <img src="<%= profileData.profileImage %>" alt="Matched traveler user">
+                <img src="<%= profileData.profileImage %>" alt="Matched traveler user: <%= profileData.firstName %>">
                 <p class="tl-ProfileDescription"><%= profileData.description %></p>
 
                 <ol class="tl-FullProfileInformation">
                     <li class="tl-Field">
+                        <!-- This may change in a map -->
                         <h2 class="tl-Field__title">Has traveled to</h2>
                         <span class="tl-Field__value">
                             <% profileData.hasTraveledTo.forEach(function (destination, i) { %>
@@ -67,10 +68,17 @@
                         <h2 class="tl-Field__title">Favourite holiday destination visisted</h2>
                         <span class="tl-Field__value"><%= profileData.favouriteHolidayDestination %></span>
                     </li>
-                    <!-- This needs to be a select box, which can be multiple -->
                     <li class="tl-Field">
                         <h2 class="tl-Field__title">Favourite holiday type</h2>
-                        <span class="tl-Field__value"><%= profileData.favouriteHolidayDestination %></span>
+                        <span class="tl-Field__value">
+                            <% profileData.favouriteHolidayTypes.forEach(function (type, i) { %>
+                                <% if (i !== (profileData.favouriteHolidayTypes.length - 1)) { %>
+                                    <%= type %>,
+                                <% } else { %>
+                                    <%= type %>
+                                <% } %>
+                            <% }) %>
+                        </span>
                     </li>
                     <li class="tl-Field">
                         <h2 class="tl-Field__title">Plans holidays ahead</h2>
@@ -81,7 +89,7 @@
                         <span class="tl-Field__value"><%= profileData.likesToHike %></span>
                     </li>
                     <li class="tl-Field">
-                        <h2 class="tl-Field__title">Likes to travel trans-atlantic more, than within the continent</h2>
+                        <h2 class="tl-Field__title">Likes to travel inter-continental more, than within the continent</h2>
                         <span class="tl-Field__value"><%= profileData.prefersInterContinental %></span>
                     </li>
                     <li class="tl-Field">
@@ -159,7 +167,7 @@
                 </ol>
 
                 <footer>
-                    <a href="/chat/1" class="tl-CTA-Button">
+                    <a href="/chat/<%= profileData.profileId %>" class="tl-CTA-Button">
                         Chat with <%= profileData.firstName %>
                     </a>
                 </footer>
