@@ -21,7 +21,7 @@ function handleQuestionaireSave (req: any, res: any) {
         favouriteMusicGenre,
         yearlyEarns,
         birthDate,
-        hometown,
+        livesIn,
         jobTitle,
         lengthInCm,
         description,
@@ -52,7 +52,7 @@ function handleQuestionaireSave (req: any, res: any) {
         !favouriteMusicGenre.length ||
         !yearlyEarns.length ||
         !birthDate.length ||
-        !hometown.length ||
+        !livesIn.length ||
         !jobTitle.length ||
         !lengthInCm.length ||
         !description.length ||
@@ -76,9 +76,8 @@ function handleQuestionaireSave (req: any, res: any) {
         }
 
         console.log(questionaireData)
+        res.redirect('/matches_overview')
     }
-
-    res.redirect('/matches_overview')
 }
 
 export default handleQuestionaireSave
