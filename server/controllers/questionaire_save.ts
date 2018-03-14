@@ -43,25 +43,25 @@ function handleQuestionaireSave (req: any, res: any) {
         !wantsToVisitSoon.length ||
         !hasVisitedThisMuchDestinations.length ||
         !favouriteOverallTravelTime.length ||
+        !wantsToTravelQuickly.length ||
+        !description.length ||
         !wantsToMarry.length ||
         !foremostRelationshipMotivation.length ||
         !wantsToOrAlreadyHasChildren.length ||
         !drinksAlcohol.length ||
         !smokes.length ||
         !likesToBeInNature.length ||
+        !mostImportantInRelationShip.length ||
         !favouriteMusicGenre.length ||
         !yearlyEarns.length ||
         !birthDate.length ||
         !livesIn.length ||
         !jobTitle.length ||
         !lengthInCm.length ||
-        !description.length ||
         !matchHasToLikeToBeInNature.length ||
-        !mostImportantInRelationShip.length ||
         !maxMatchDistance.length ||
         !minSearchAge.length ||
-        !maxSearchAge.length ||
-        !wantsToTravelQuickly.length
+        !maxSearchAge.length
     ) {
         console.error('Not all fields are filled in')
         handleHTTPError(res, 422, 'Unprocessable Entity')

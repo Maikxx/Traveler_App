@@ -29,6 +29,10 @@ function renderMyProfileEdit (req: any, res: any) {
         livesIn: 'Rotterdam, the Netherlands',
         jobTitle: 'Architect',
         lengthInCm: 183,
+        matchHasToLikeToBeInNature: 'Yes',
+        maxMatchDistance: 80,
+        minSearchAge: 18,
+        maxSearchAge: 23,
     }
 
     res.render('my_profile_edit.ejs', { profileData })
