@@ -449,18 +449,20 @@
                     </div>
                 </fieldset>
 
-                <button
-                    type="button"
-                    class="tl-CTA-Button tl-CTA-Button--text tl-CTA-Button--danger"
-                    id="tl-DeleteProfileButton"
-                >
-                    Delete account
-                </button>
 
                 <footer class="tl-MyProfilePage__form-footer">
                     <a href="/my_profile" class="tl-CTA-Button tl-CTA-Button--light">Cancel</a>
                     <button type="submit" class="tl-CTA-Button">Save</button>
                 </footer>
+            </form>
+
+            <form action="/delete_account" method="POST">
+                <button
+                    type="submit"
+                    class="tl-CTA-Button tl-CTA-Button--text tl-CTA-Button--danger"
+                >
+                    Delete account (WARNING: You cannot undo this)
+                </button>
             </form>
         </main>
         <script src="/index.js"></script>
