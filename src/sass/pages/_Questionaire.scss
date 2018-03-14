@@ -32,7 +32,6 @@
 
     .tl-Questionaire-Question {
         padding: getSpacing(1) 0;
-        border-bottom: 1px solid $form-border-color;
 
         &:first-of-type {
             border-top: 1px solid $form-border-color;
@@ -60,6 +59,10 @@
                 resize: vertical;
                 min-height: getSpacing(3);
             }
+        }
+
+        & + .tl-Questionaire-Question {
+            border-top: 1px solid $form-border-color;
         }
     }
 }
