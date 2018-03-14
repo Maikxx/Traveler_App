@@ -81,6 +81,7 @@
     .tl-Card--MyProfileFormCard {
         margin-top: getSpacing(1);
         background-color: rgba(255, 255, 255, 0.8);
+        position: relative;
 
         legend,
         label,
@@ -112,7 +113,6 @@
 
     &__question {
         padding: getSpacing(1) 0;
-        border-bottom: 1px solid $form-border-color;
 
         &:first-of-type {
             border-top: 1px solid $form-border-color;
@@ -141,13 +141,20 @@
                 min-height: getSpacing(5);
             }
         }
+
+        & + .tl-MyProfilePage__question {
+            border-top: 1px solid $form-border-color;
+        }
     }
 
     &__form-footer {
         display: flex;
         flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
         margin-top: getSpacing(1);
-        width: 100%;
 
         .tl-CTA-Button {
             flex: 1;
