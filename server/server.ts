@@ -92,10 +92,10 @@ app.post('/sign_in', signInController)
 app.post('/sign_up', signUpController)
 app.post('/log_out', logOutController)
 app.post('/send_message/:id', sendMessageController)
-app.post('/save_edited_profile/', saveEditedProfileController)
+app.post('/save_edited_profile', saveEditedProfileController)
 app.post('/delete_account/:id', deleteAccountController)
 app.post('/delete_chat/:id', deleteChatController)
-app.post('/questionaire_save/:id', upload.single('profileImage'), questionaireSaveController)
+app.post('/questionaire_save', upload.single('profileImage'), questionaireSaveController)
 
 app.use(notFoundRoute)
 
