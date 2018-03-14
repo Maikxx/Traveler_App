@@ -104,7 +104,7 @@
                                     type="checkbox"
                                     name="favouriteHolidayTypes"
                                     id="favouriteHolidayTypesBeach"
-                                    value="Backpacking"
+                                    value="Beach"
                                 >
                             </label>
 
@@ -190,6 +190,16 @@
                                 >
                             </label>
                         </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label>
+                                <span>Do you want to travel as soon as possible with your match?</span>
+                                <select name="wantsToTravelQuickly">
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </label>
+                        </div>
                     </fieldset>
 
                     <fieldset class="tl-Questionaire__Subject">
@@ -259,6 +269,18 @@
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </select>
+                            </label>
+                        </div>
+
+                        <div class="tl-Questionaire-Question">
+                            <label>
+                                <span>What do you find the most important in a relationship?</span>
+                                <input
+                                    type="text"
+                                    name="mostImportantInRelationShip"
+                                    required
+                                    placeholder="Trust"
+                                >
                             </label>
                         </div>
 
@@ -366,6 +388,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>Is it necessary for your matches to like nature?</span>
+                                <small>Not shown on your profile</small>
                                 <select name="matchHasToLikeToBeInNature">
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -375,19 +398,8 @@
 
                         <div class="tl-Questionaire-Question">
                             <label>
-                                <span>What do you find the most important in a relationship?</span>
-                                <input
-                                    type="text"
-                                    name="mostImportantInRelationShip"
-                                    required
-                                    placeholder="Trust"
-                                >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label>
                                 <span>What is the maximum distance (in km's) your match may be away from you?</span>
+                                <small>Not shown on your profile</small>
                                 <input
                                     type="number"
                                     name="maxMatchDistance"
@@ -401,6 +413,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>What are the minimum and maximum ages you want to include in your matchresults?</span>
+                                <small>Not shown on your profile</small>
                                 <input
                                     type="number"
                                     name="minSearchAge"
@@ -416,16 +429,6 @@
                                     required
                                     placeholder="Maximum search age"
                                 >
-                            </label>
-                        </div>
-
-                        <div class="tl-Questionaire-Question">
-                            <label>
-                                <span>Do you want to travel as soon as possible with your match?</span>
-                                <select name="wantsToTravelQuickly">
-                                    <option value="Yes">Yes</option>
-                                    <option value="No">No</option>
-                                </select>
                             </label>
                         </div>
                     </fieldset>

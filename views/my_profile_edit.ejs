@@ -42,7 +42,7 @@
         </nav>
 
         <main class="tl-MyProfilePage">
-            <h1>Welcome Henk!</h1>
+            <h1>Hi <%= profileData.firstName %>!</h1>
             <span>Here you can adjust your profile.</span>
             <form action="/save_edited_profile" method="POST" class="tl-Card tl-Card--MyProfileFormCard" enctype="multipart/form-data">
                 <fieldset class="tl-MyProfilePage__subject">
@@ -57,6 +57,9 @@
                                 name="hasTraveledTo"
                                 required
                                 placeholder="Dubai, Paris, Morocco, etc."
+                                <% if (profileData.hasTraveledTo !== undefined && profileData.hasTraveledTo !== '' ) { %>
+                                    value = "<%= profileData.hasTraveledTo %>"
+                                <% } %>
                             >
                         </label>
                     </div>
@@ -69,6 +72,9 @@
                                 name="favouriteHolidayDestination"
                                 required
                                 placeholder="Paris"
+                                <% if (profileData.favouriteHolidayDestination !== undefined && profileData.favouriteHolidayDestination !== '' ) { %>
+                                    value="<%= profileData.favouriteHolidayDestination %>"
+                                <% } %>
                             >
                         </label>
                     </div>
@@ -83,6 +89,13 @@
                                 id="favouriteHolidayTypesRoundtrip"
                                 value="Roundtrip"
                                 required
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Roundtrip") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
 
@@ -94,6 +107,13 @@
                                 id="favouriteHolidayTypesFamily"
                                 value="Family"
                                 required
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Family") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
 
@@ -105,6 +125,13 @@
                                 id="favouriteHolidayTypesBike"
                                 value="Bike"
                                 required
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Bike") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
 
@@ -116,6 +143,13 @@
                                 id="favouriteHolidayTypesHike"
                                 value="Hike"
                                 required
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Hike") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
 
@@ -128,6 +162,13 @@
                                 id="favouriteHolidayTypesBackPacking"
                                 value="Backpacking"
                                 required
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Backpacking") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
 
@@ -137,7 +178,14 @@
                                 type="checkbox"
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesBeach"
-                                value="Backpacking"
+                                value="Beach"
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Beach") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
 
@@ -148,6 +196,13 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesWinter"
                                 value="Winter"
+                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                    <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
+                                        <% if (type === "Winter") { %>
+                                            <%= checked="checked" %>
+                                        <% } %>
+                                    <% }) %>
+                                <% } %>
                             >
                         </label>
                     </div>
@@ -156,9 +211,31 @@
                         <label>
                             <span>Do you plan your holidays far ahead?</span>
                             <select name="plansHolidaysAhead" required>
-                                <option value="Often">Often</option>
-                                <option value="Sometimes">Sometimes</option>
-                                <option value="No">No</option>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Often"
+                                    <% if (profileData.plansHolidaysAhead === "Often") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Often
+                                </option>
+                                <option
+                                    value="Sometimes"
+                                    <% if (profileData.plansHolidaysAhead === "Sometimes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Sometimes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.plansHolidaysAhead === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
                             </select>
                         </label>
                     </div>
@@ -167,9 +244,31 @@
                         <label>
                             <span>Do you like to hike?</span>
                             <select name="likesToHike" required>
-                                <option value="Yes">Yes</option>
-                                <option value="Sometimes">Sometimes</option>
-                                <option value="No">No</option>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes"
+                                    <% if (profileData.likesToHike === "Yes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="Sometimes"
+                                    <% if (profileData.likesToHike === "Sometimes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Sometimes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.likesToHike === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
                             </select>
                         </label>
                     </div>
@@ -178,9 +277,31 @@
                         <label>
                             <span>Do you like to travel inter-continental more, than within the continent?</span>
                             <select name="prefersInterContinental" required>
-                                <option value="Yes">Yes</option>
-                                <option value="Sometimes">Sometimes</option>
-                                <option value="No">No</option>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes"
+                                    <% if (profileData.prefersInterContinental === "Yes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="Sometimes"
+                                    <% if (profileData.prefersInterContinental === "Sometimes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Sometimes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.prefersInterContinental === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
                             </select>
                         </label>
                     </div>
@@ -194,6 +315,9 @@
                                 name="wantsToVisitSoon"
                                 required
                                 placeholder="New-Zealand, China, etc."
+                                <% if (profileData.wantsToVisitSoon !== undefined && profileData.wantsToVisitSoon !== '' ) { %>
+                                    value = "<%= profileData.wantsToVisitSoon %>"
+                                <% } %>
                             >
                         </label>
                     </div>
@@ -207,6 +331,9 @@
                                 min="0"
                                 required
                                 placeholder="20"
+                                <% if (profileData.hasVisitedThisMuchDestinations !== undefined && profileData.hasVisitedThisMuchDestinations !== '' ) { %>
+                                    value = "<%= profileData.hasVisitedThisMuchDestinations %>"
+                                <% } %>
                             >
                         </label>
                     </div>
@@ -220,150 +347,41 @@
                                 min="0"
                                 required
                                 placeholder="3"
+                                <% if (profileData.favouriteOverallTravelTime !== undefined && profileData.favouriteOverallTravelTime !== '' ) { %>
+                                    value = "<%= profileData.favouriteOverallTravelTime %>"
+                                <% } %>
                             >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Do you want to travel as soon as possible with your match?</span>
+                            <select name="wantsToTravelQuickly">
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes"
+                                    <% if (profileData.wantsToTravelQuickly === "Yes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.wantsToTravelQuickly === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
+                            </select>
                         </label>
                     </div>
                 </fieldset>
 
                 <fieldset class="tl-MyProfilePage__subject">
                     <legend>Personal information</legend>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Do you want to marry, eventually?</span>
-                            <select name="wantsToMarry" required>
-                                <option value="Yes">Yes</option>
-                                <option value="Maybe">Maybe</option>
-                                <option value="No">No</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>What is the foremost reason that you want a relationship?</span>
-                            <input
-                                type="text"
-                                name="foremostRelationshipMotivation"
-                                required
-                                placeholder="Being able to travel the world with that someone"
-                            >
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Do you want, or already have, children?</span>
-                            <select name="wantsToOrAlreadyHasChildren" required>
-                                <option value="Yes, I have them">Yes, I have them</option>
-                                <option value="Yes, I want them">Yes, I want them</option>
-                                <option value="Maybe">Maybe</option>
-                                <option value="No">No</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Do you drink alcohol?</span>
-                            <select name="drinksAlcohol" required>
-                                <option value="Yes, often">Yes, often</option>
-                                <option value="Yes, sometimes">Yes, sometimes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Do you smoke?</span>
-                            <select name="smokes" required>
-                                <option value="Yes, often">Yes, often</option>
-                                <option value="Yes, sometimes">Yes, sometimes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Do you like to be in nature?</span>
-                            <select name="likesToBeInNature" required>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>What kind of music genre, do you listen to most often?</span>
-                            <input
-                                type="text"
-                                name="favouriteMusicGenre"
-                                required
-                                placeholder="Hardstyle"
-                            >
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>How much do you earn, on a yearly basis?</span>
-                            <select name="yearlyEarns">
-                                <option value="Less than 25K">Less than 25K</option>
-                                <option value="25k-50k">25k-50k</option>
-                                <option value="More than 50k">More than 50k</option>
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Where do you live?</span>
-                            <input
-                                type="text"
-                                name="livesIn"
-                                required
-                                placeholder="Rotterdam, the Netherlands"
-                            >
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>What is your job title?</span>
-                            <input
-                                type="text"
-                                name="jobTitle"
-                                required
-                                placeholder="Architect"
-                            >
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>What is your length (in cm's)?</span>
-                            <input
-                                type="number"
-                                name="lengthInCm"
-                                required
-                                placeholder="183"
-                            >
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Please write a description, that you want to be shown on your profile!</span>
-                            <textarea
-                                name="description"
-                                required
-                            ></textarea>
-                        </label>
-                    </div>
-
 
                     <div class="tl-MyProfilePage__question">
                         <label>
@@ -377,17 +395,193 @@
                             >
                         </label>
                     </div>
-                </fieldset>
-
-                <fieldset class="tl-MyProfilePage__subject">
-                    <legend>Looking for, in a match</legend>
 
                     <div class="tl-MyProfilePage__question">
                         <label>
-                            <span>Is it necessary for your matches to like nature?</span>
-                            <select name="yearlyEarns">
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
+                            <span>Please write a description, that you want to be shown on your profile!</span>
+                            <textarea
+                                name="description"
+                                required
+                            ><% if (profileData.description !== undefined && profileData.description !== '' ) { %><%= profileData.description %><% } %></textarea>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Do you want to marry, eventually?</span>
+                            <select name="wantsToMarry" required>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes"
+                                    <% if (profileData.wantsToMarry === "Yes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="Maybe"
+                                    <% if (profileData.wantsToMarry === "Maybe") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Maybe
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.wantsToMarry === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>What is the foremost reason that you want a relationship?</span>
+                            <input
+                                type="text"
+                                name="foremostRelationshipMotivation"
+                                required
+                                placeholder="Being able to travel the world with that someone"
+                                <% if (profileData.foremostRelationshipMotivation !== undefined && profileData.foremostRelationshipMotivation !== '' ) { %>
+                                    value = "<%= profileData.foremostRelationshipMotivation %>"
+                                <% } %>
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Do you want, or already have, children?</span>
+                            <select name="wantsToOrAlreadyHasChildren" required>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes, I have them"
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Yes, I have them") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes, I have them
+                                </option>
+                                <option
+                                    value="Yes, I want them"
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Yes, I want them") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes, I want them
+                                </option>
+                                <option
+                                    value="Maybe"
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Maybe") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Maybe
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Do you drink alcohol?</span>
+                            <select name="drinksAlcohol" required>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes, often"
+                                    <% if (profileData.drinksAlcohol === "Yes, often") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes, often
+                                </option>
+                                <option
+                                    value="Yes, sometimes"
+                                    <% if (profileData.drinksAlcohol === "Yes, sometimes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes, sometimes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.drinksAlcohol === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Do you smoke?</span>
+                            <select name="smokes" required>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes, often"
+                                    <% if (profileData.smokes === "Yes, often") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes, often
+                                </option>
+                                <option
+                                    value="Yes, sometimes"
+                                    <% if (profileData.smokes === "Yes, sometimes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes, sometimes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.smokes === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Do you like to be in nature?</span>
+                            <select name="likesToBeInNature" required>
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes"
+                                    <% if (profileData.likesToBeInNature === "Yes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.likesToBeInNature === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
                             </select>
                         </label>
                     </div>
@@ -400,19 +594,149 @@
                                 name="mostImportantInRelationShip"
                                 required
                                 placeholder="Trust"
+                                <% if (profileData.mostImportantInRelationShip !== undefined && profileData.mostImportantInRelationShip !== '' ) { %>
+                                    value = "<%= profileData.mostImportantInRelationShip %>"
+                                <% } %>
                             >
                         </label>
                     </div>
 
                     <div class="tl-MyProfilePage__question">
                         <label>
+                            <span>What kind of music genre, do you listen to most often?</span>
+                            <input
+                                type="text"
+                                name="favouriteMusicGenre"
+                                required
+                                placeholder="Hardstyle"
+                                <% if (profileData.favouriteMusicGenre !== undefined && profileData.favouriteMusicGenre !== '' ) { %>
+                                    value = "<%= profileData.favouriteMusicGenre %>"
+                                <% } %>
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>How much do you earn, on a yearly basis?</span>
+                            <select name="yearlyEarns">
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Less than 25K"
+                                    <% if (profileData.yearlyEarns === "Less than 25K") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Less than 25K
+                                </option>
+                                <option
+                                    value="25k-50k"
+                                    <% if (profileData.yearlyEarns === "25k-50k") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    25k-50k
+                                </option>
+                                <option
+                                    value="More than 50k"
+                                    <% if (profileData.yearlyEarns === "More than 50k") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    More than 50k
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Where do you live?</span>
+                            <input
+                                type="text"
+                                name="livesIn"
+                                required
+                                placeholder="Rotterdam, the Netherlands"
+                                <% if (profileData.livesIn !== undefined && profileData.livesIn !== '' ) { %>
+                                    value = "<%= profileData.livesIn %>"
+                                <% } %>
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>What is your job title?</span>
+                            <input
+                                type="text"
+                                name="jobTitle"
+                                required
+                                placeholder="Architect"
+                                <% if (profileData.jobTitle !== undefined && profileData.jobTitle !== '' ) { %>
+                                    value = "<%= profileData.jobTitle %>"
+                                <% } %>
+                            >
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>What is your length (in cm's)?</span>
+                            <input
+                                type="number"
+                                name="lengthInCm"
+                                required
+                                placeholder="183"
+                                <% if (profileData.lengthInCm !== undefined && profileData.lengthInCm !== '' ) { %>
+                                    value = "<%= profileData.lengthInCm %>"
+                                <% } %>
+                            >
+                        </label>
+                    </div>
+                </fieldset>
+
+                <fieldset class="tl-MyProfilePage__subject">
+                    <legend>Looking for, in a match</legend>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
+                            <span>Is it necessary for your matches to like nature?</span>
+                            <small>Not shown on your profile</small>
+                            <select name="matchHasToLikeToBeInNature">
+                                <option value="" selected="selected" disabled hidden>Select a value</option>
+                                <option
+                                    value="Yes"
+                                    <% if (profileData.matchHasToLikeToBeInNature === "Yes") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    Yes
+                                </option>
+                                <option
+                                    value="No"
+                                    <% if (profileData.matchHasToLikeToBeInNature === "No") { %>
+                                        <%= selected="selected" %>
+                                    <% } %>
+                                >
+                                    No
+                                </option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="tl-MyProfilePage__question">
+                        <label>
                             <span>What is the maximum distance (in km's) your match may be away from you?</span>
+                            <small>Not shown on your profile</small>
                             <input
                                 type="number"
                                 name="maxMatchDistance"
                                 min="0"
                                 required
                                 placeholder="80"
+                                <% if (profileData.maxMatchDistance !== undefined && profileData.maxMatchDistance !== '' ) { %>
+                                    value = "<%= profileData.maxMatchDistance %>"
+                                <% } %>
                             >
                         </label>
                     </div>
@@ -420,12 +744,16 @@
                     <div class="tl-MyProfilePage__question">
                         <label>
                             <span>What are the minimum and maximum ages you want to include in your matchresults?</span>
+                            <small>Not shown on your profile</small>
                             <input
                                 type="number"
                                 name="minSearchAge"
                                 min="0"
                                 required
                                 placeholder="Minimum search age"
+                                <% if (profileData.minSearchAge !== undefined && profileData.minSearchAge !== '' ) { %>
+                                    value = "<%= profileData.minSearchAge %>"
+                                <% } %>
                             >
 
                             <input
@@ -434,17 +762,10 @@
                                 min="0"
                                 required
                                 placeholder="Maximum search age"
+                                <% if (profileData.maxSearchAge !== undefined && profileData.maxSearchAge !== '' ) { %>
+                                    value = "<%= profileData.maxSearchAge %>"
+                                <% } %>
                             >
-                        </label>
-                    </div>
-
-                    <div class="tl-MyProfilePage__question">
-                        <label>
-                            <span>Do you want to travel as soon as possible with your match?</span>
-                            <select name="wantsToTravelQuickly">
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </select>
                         </label>
                     </div>
                 </fieldset>
