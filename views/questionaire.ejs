@@ -197,7 +197,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>Do you want to travel as soon as possible with your match?</span>
-                                <select name="wantsToTravelQuickly">
+                                <select name="wantsToTravelQuickly" required>
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -212,7 +212,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>Do you want to marry, eventually?</span>
-                                <select name="wantsToMarry" required>
+                                <select name="wantsToMarry">
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes">Yes</option>
                                     <option value="Maybe">Maybe</option>
@@ -227,7 +227,6 @@
                                 <input
                                     type="text"
                                     name="foremostRelationshipMotivation"
-                                    required
                                     placeholder="Being able to travel the world with that someone"
                                 >
                             </label>
@@ -236,7 +235,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>Do you want, or already have, children?</span>
-                                <select name="wantsToOrAlreadyHasChildren" required>
+                                <select name="wantsToOrAlreadyHasChildren">
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes, I have them">Yes, I have them</option>
                                     <option value="Yes, I want them">Yes, I want them</option>
@@ -249,7 +248,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>Do you drink alcohol?</span>
-                                <select name="drinksAlcohol" required>
+                                <select name="drinksAlcohol">
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes, often">Yes, often</option>
                                     <option value="Yes, sometimes">Yes, sometimes</option>
@@ -261,7 +260,7 @@
                         <div class="tl-Questionaire-Question">
                             <label>
                                 <span>Do you smoke?</span>
-                                <select name="smokes" required>
+                                <select name="smokes">
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes, often">Yes, often</option>
                                     <option value="Yes, sometimes">Yes, sometimes</option>
@@ -271,7 +270,6 @@
                         </div>
 
                         <div class="tl-Questionaire-Question">
-                            <option value="" hidden disabled selected="selected">Select a value</option>
                             <label>
                                 <span>Do you like to be in nature?</span>
                                 <select name="likesToBeInNature" required>
@@ -288,7 +286,6 @@
                                 <input
                                     type="text"
                                     name="mostImportantInRelationShip"
-                                    required
                                     placeholder="Trust"
                                 >
                             </label>
@@ -300,7 +297,6 @@
                                 <input
                                     type="text"
                                     name="favouriteMusicGenre"
-                                    required
                                     placeholder="Hardstyle"
                                 >
                             </label>
@@ -338,7 +334,6 @@
                                 <input
                                     type="text"
                                     name="livesIn"
-                                    required
                                     placeholder="Rotterdam, the Netherlands"
                                 >
                             </label>
@@ -350,7 +345,6 @@
                                 <input
                                     type="text"
                                     name="jobTitle"
-                                    required
                                     placeholder="Architect"
                                 >
                             </label>
@@ -362,7 +356,6 @@
                                 <input
                                     type="number"
                                     name="lengthInCm"
-                                    required
                                     placeholder="183"
                                 >
                             </label>
@@ -400,7 +393,7 @@
                             <label>
                                 <span>Is it necessary for your matches to like nature?</span>
                                 <small>Not shown on your profile</small>
-                                <select name="matchHasToLikeToBeInNature">
+                                <select name="matchHasToLikeToBeInNature" required>
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>

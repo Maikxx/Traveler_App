@@ -409,7 +409,7 @@
                     <div class="tl-MyProfilePage__question">
                         <label>
                             <span>Do you want to marry, eventually?</span>
-                            <select name="wantsToMarry" required>
+                            <select name="wantsToMarry">
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
@@ -445,7 +445,6 @@
                             <input
                                 type="text"
                                 name="foremostRelationshipMotivation"
-                                required
                                 placeholder="Being able to travel the world with that someone"
                                 <% if (profileData.foremostRelationshipMotivation !== undefined && profileData.foremostRelationshipMotivation !== '' ) { %>
                                     value = "<%= profileData.foremostRelationshipMotivation %>"
@@ -457,7 +456,7 @@
                     <div class="tl-MyProfilePage__question">
                         <label>
                             <span>Do you want, or already have, children?</span>
-                            <select name="wantsToOrAlreadyHasChildren" required>
+                            <select name="wantsToOrAlreadyHasChildren">
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes, I have them"
@@ -498,7 +497,7 @@
                     <div class="tl-MyProfilePage__question">
                         <label>
                             <span>Do you drink alcohol?</span>
-                            <select name="drinksAlcohol" required>
+                            <select name="drinksAlcohol">
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes, often"
@@ -531,7 +530,7 @@
                     <div class="tl-MyProfilePage__question">
                         <label>
                             <span>Do you smoke?</span>
-                            <select name="smokes" required>
+                            <select name="smokes">
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes, often"
@@ -592,7 +591,6 @@
                             <input
                                 type="text"
                                 name="mostImportantInRelationShip"
-                                required
                                 placeholder="Trust"
                                 <% if (profileData.mostImportantInRelationShip !== undefined && profileData.mostImportantInRelationShip !== '' ) { %>
                                     value = "<%= profileData.mostImportantInRelationShip %>"
@@ -607,7 +605,6 @@
                             <input
                                 type="text"
                                 name="favouriteMusicGenre"
-                                required
                                 placeholder="Hardstyle"
                                 <% if (profileData.favouriteMusicGenre !== undefined && profileData.favouriteMusicGenre !== '' ) { %>
                                     value = "<%= profileData.favouriteMusicGenre %>"
@@ -655,7 +652,6 @@
                             <input
                                 type="text"
                                 name="livesIn"
-                                required
                                 placeholder="Rotterdam, the Netherlands"
                                 <% if (profileData.livesIn !== undefined && profileData.livesIn !== '' ) { %>
                                     value = "<%= profileData.livesIn %>"
@@ -670,7 +666,6 @@
                             <input
                                 type="text"
                                 name="jobTitle"
-                                required
                                 placeholder="Architect"
                                 <% if (profileData.jobTitle !== undefined && profileData.jobTitle !== '' ) { %>
                                     value = "<%= profileData.jobTitle %>"
@@ -685,7 +680,6 @@
                             <input
                                 type="number"
                                 name="lengthInCm"
-                                required
                                 placeholder="183"
                                 <% if (profileData.lengthInCm !== undefined && profileData.lengthInCm !== '' ) { %>
                                     value = "<%= profileData.lengthInCm %>"
