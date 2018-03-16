@@ -58,6 +58,15 @@ select {
     }
 }
 
+.tl-RequiredFieldTitle {
+    &::after {
+        content: "*";
+        color: $input-required-color;
+        display: inline-block;
+        padding-left: getSpacing(0.5);
+    }
+}
+
 .tl-PageHeader {
     width: 100%;
     position: relative;
