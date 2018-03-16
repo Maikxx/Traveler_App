@@ -96,6 +96,18 @@
         }
     }
 
+    small {
+        display: inline-block;
+        margin-top: getSpacing(1);
+
+        > button {
+            font-size: inherit;
+            font-family: 'Open Sans', sans-serif;
+            border: 0;
+            background: none;
+        }
+    }
+
     .tl-FormField {
         padding: getSpacing(1) 0;
         border-bottom: 1px solid $form-border-color;
@@ -116,23 +128,16 @@
                     margin-bottom: getSpacing(0.5);
                     font-size: inherit;
                 }
+
+                span + small {
+                    margin-top: 0;
+                    margin-bottom: getSpacing(0.5);
+                }
             }
         }
     }
 
     .tl-CTA-Button {
         margin-top: getSpacing(1);
-    }
-
-    small {
-        display: inline-block;
-        margin-top: getSpacing(1);
-
-        > button {
-            font-size: inherit;
-            font-family: 'Open Sans', sans-serif;
-            border: 0;
-            background: none;
-        }
     }
 }
