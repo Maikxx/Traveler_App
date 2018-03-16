@@ -64,11 +64,11 @@
                     <h2>Available Travelers</h2>
                     <% availableTravelersData.forEach(function (availableTraveler) { %>
                         <section class="tl-BriefTravelerDisplay">
-                            <header>
-                                <h3><%= availableTraveler.name %></h3>
+                            <h3><%= availableTraveler.name %></h3>
+                            <div>
                                 <img src="<%= availableTraveler.imageUrl %>" alt="Available traveler">
-                            </header>
-                            <p><%= availableTraveler.profileDescription %></p>
+                                <p><%= availableTraveler.profileDescription %></p>
+                            </div>
                         </section>
                     <% }) %>
                 </section>

@@ -49,23 +49,25 @@
                 background-color: rgba(255, 255, 255, 0.8);
                 width: 100%;
 
-                header {
-                    width: 30%;
+                h3 {
+                    margin-bottom: getSpacing(1);
+                    width: 100%;
+                }
 
-                    h3 {
-                        margin-bottom: getSpacing(1);
-                    }
+                div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
 
                     img {
                         max-width: getSpacing(5);
                         border-radius: 50%;
                         min-height: getSpacing(5);
                     }
-                }
 
-                p {
-                    margin-top: getSpacing(3);
-                    width: 70%;
+                    p {
+                        max-width: 70%;
+                    }
                 }
 
 
