@@ -93,7 +93,7 @@ app.get('/match_profile/:_id', matchProfileRoute)
 app.get('/matches_overview', matchesOverviewRoute)
 app.get('/my_profile', myProfileRoute)
 app.get('/my_profile/edit', myProfileEditRoute)
-app.get('/questionaire', questionaireRoute)
+app.get('/questionaire/:_id', questionaireRoute)
 
 // Post Endpoints
 app.post('/sign_in', signInController)
@@ -103,7 +103,7 @@ app.post('/send_message/:_id', sendMessageController)
 app.post('/save_edited_profile', saveEditedProfileController)
 app.post('/delete_account', deleteAccountController)
 app.post('/delete_chat/:_id', deleteChatController)
-app.post('/questionaire_save', upload.single('profileImage'), questionaireSaveController)
+app.post('/questionaire_save/:_id', upload.single('profileImage'), questionaireSaveController)
 
 app.use(notFoundRoute)
 

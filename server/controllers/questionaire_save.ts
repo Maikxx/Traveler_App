@@ -1,7 +1,14 @@
+import Profile from '../models/profile'
 import handleHTTPError from './handle_error'
 
 function handleQuestionaireSave (req: any, res: any) {
-    const questionaireData = {}
+    const { _id } = req.params
+
+    const queryData = {
+        matchSettings: {},
+        age: null,
+    }
+
     const {
         hasTraveledTo,
         favouriteHolidayDestination,
@@ -33,51 +40,116 @@ function handleQuestionaireSave (req: any, res: any) {
         wantsToTravelQuickly,
     } = req.body
 
+    function getAge (birthdate: string) {
+        if (birthdate && birthdate.length) {
+            const today = new Date()
+            const birthDate = new Date(birthdate)
+            let age = today.getFullYear() - birthDate.getFullYear()
+            const m = today.getMonth() - birthDate.getMonth()
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--
+            }
+
+            return age
+        }
+    }
+
+    // Required Fields
     if (
-        !hasTraveledTo.length ||
-        !favouriteHolidayDestination.length ||
-        !favouriteHolidayTypes.length ||
-        !plansHolidaysAhead.length ||
-        !likesToHike.length ||
-        !prefersInterContinental.length ||
-        !wantsToVisitSoon.length ||
-        !hasVisitedThisMuchDestinations.length ||
-        !favouriteOverallTravelTime.length ||
-        !wantsToTravelQuickly.length ||
-        !description.length ||
-        !wantsToMarry.length ||
-        !foremostRelationshipMotivation.length ||
-        !wantsToOrAlreadyHasChildren.length ||
-        !drinksAlcohol.length ||
-        !smokes.length ||
-        !likesToBeInNature.length ||
-        !mostImportantInRelationShip.length ||
-        !favouriteMusicGenre.length ||
-        !yearlyEarns.length ||
-        !birthDate.length ||
-        !livesIn.length ||
-        !jobTitle.length ||
-        !lengthInCm.length ||
-        !matchHasToLikeToBeInNature.length ||
-        !maxMatchDistance.length ||
-        !minSearchAge.length ||
-        !maxSearchAge.length
+        (hasTraveledTo && hasTraveledTo.length) &&
+        (favouriteHolidayDestination && favouriteHolidayDestination.length) &&
+        (favouriteHolidayTypes && favouriteHolidayTypes.length) &&
+        (plansHolidaysAhead && plansHolidaysAhead.length) &&
+        (likesToHike && likesToHike.length) &&
+        (prefersInterContinental && prefersInterContinental.length) &&
+        (wantsToVisitSoon && wantsToVisitSoon.length) &&
+        (hasVisitedThisMuchDestinations && hasVisitedThisMuchDestinations.length) &&
+        (favouriteOverallTravelTime && favouriteOverallTravelTime.length) &&
+        (wantsToTravelQuickly && wantsToTravelQuickly.length) &&
+        (likesToBeInNature && likesToBeInNature.length) &&
+        (birthDate && birthDate.length) &&
+        (matchHasToLikeToBeInNature && matchHasToLikeToBeInNature.length) &&
+        (maxMatchDistance && maxMatchDistance.length) &&
+        (minSearchAge && minSearchAge.length) &&
+        (maxSearchAge && maxSearchAge.length)
     ) {
-        console.error('Not all fields are filled in')
+        queryData[hasTraveledTo] = hasTraveledTo.trim().split(/,?\s+/)
+        queryData[favouriteHolidayDestination] = favouriteHolidayDestination
+        queryData[favouriteHolidayTypes] = favouriteHolidayTypes
+        queryData[plansHolidaysAhead] = plansHolidaysAhead
+        queryData[likesToHike] = likesToHike
+        queryData[prefersInterContinental] = prefersInterContinental
+        queryData[wantsToVisitSoon] = wantsToVisitSoon.trim().split(/,?\s+/)
+        queryData[hasVisitedThisMuchDestinations] = hasVisitedThisMuchDestinations
+        queryData[favouriteOverallTravelTime] = favouriteOverallTravelTime
+        queryData[wantsToTravelQuickly] = wantsToTravelQuickly
+        queryData[likesToBeInNature] = likesToBeInNature
+        queryData[birthDate] = birthDate
+        queryData.age = getAge(birthDate)
+        queryData.matchSettings[matchHasToLikeToBeInNature] = matchHasToLikeToBeInNature
+        queryData.matchSettings[maxMatchDistance] = maxMatchDistance
+        queryData.matchSettings[minSearchAge] = minSearchAge
+        queryData.matchSettings[maxSearchAge] = maxSearchAge
+    } else {
+        console.error('Not all required fields of the questionaire are filled in!')
         handleHTTPError(res, 422, 'Unprocessable Entity')
         return
-    } else {
-        req.body = JSON.parse(JSON.stringify(req.body))
-
-        for (const property in req.body) {
-            if (req.body.hasOwnProperty(property)) {
-                questionaireData[property] = req.body[property]
-            }
-        }
-
-        console.log(questionaireData)
-        res.redirect('/matches_overview')
     }
+
+    // Not required fields
+    if (description && description.length) {
+        queryData[description] = description
+    }
+
+    if (wantsToMarry && wantsToMarry.length) {
+        queryData[wantsToMarry] = wantsToMarry
+    }
+
+    if (foremostRelationshipMotivation && foremostRelationshipMotivation.length) {
+        queryData[foremostRelationshipMotivation] = foremostRelationshipMotivation
+    }
+
+    if (wantsToOrAlreadyHasChildren && wantsToOrAlreadyHasChildren.length) {
+        queryData[wantsToOrAlreadyHasChildren] = wantsToOrAlreadyHasChildren
+    }
+
+    if (drinksAlcohol && drinksAlcohol.length) {
+        queryData[drinksAlcohol] = drinksAlcohol
+    }
+
+    if (smokes && smokes.length) {
+        queryData[smokes] = smokes
+    }
+
+    if (mostImportantInRelationShip && mostImportantInRelationShip.length) {
+        queryData[mostImportantInRelationShip] = mostImportantInRelationShip
+    }
+
+    if (favouriteMusicGenre && favouriteMusicGenre.length) {
+        queryData[favouriteMusicGenre] = favouriteMusicGenre
+    }
+
+    if (yearlyEarns && yearlyEarns.length) {
+        queryData[yearlyEarns] = yearlyEarns
+    }
+
+    if (livesIn && livesIn.length) {
+        queryData[livesIn] = livesIn
+    }
+
+    if (jobTitle && jobTitle.length) {
+        queryData[jobTitle] = jobTitle
+    }
+
+    if (lengthInCm && lengthInCm.length) {
+        queryData[lengthInCm] = lengthInCm
+    }
+
+    Profile.update({ _id }, { $set: queryData })
+        .exec()
+        .then(result => console.log(result))
+        .catch(error => console.error(error))
 }
 
 export default handleQuestionaireSave

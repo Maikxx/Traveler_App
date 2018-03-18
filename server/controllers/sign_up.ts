@@ -30,7 +30,7 @@ function handleSignUp (req: any, res: any) {
                             } else {
                                 if (
                                     fullName && fullName.length &&
-                                    (password && password.length && passwordRegex.test(password) && repeatPassword === password) &&
+                                    password && password.length && passwordRegex.test(password) && repeatPassword === password &&
                                     ownGender && ownGender.length &&
                                     lookingForGender && lookingForGender.length
                                 ) {
@@ -48,7 +48,7 @@ function handleSignUp (req: any, res: any) {
 
                                     profile.save()
                                         .then(result => {
-                                            res.status(200).redirect('/questionaire')
+                                            res.status(200).redirect(`/questionaire/${result._id}`)
                                         })
                                         .catch(error => {
                                             console.error(error)
