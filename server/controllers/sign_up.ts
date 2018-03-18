@@ -26,18 +26,18 @@ function handleSignUp (req: any, res: any) {
                     } else {
                         bcrypt.hash(req.body.password, 10, (error: any, hash: string) => {
                             if (error) {
-                                console.error(error)
                                 return handleHTTPError(res, 500, 'Internal Server Error')
                             } else {
                                 if (
-                                    fullName.length &&
-                                    (password.length && passwordRegex.test(password) && repeatPassword === password) &&
-                                    ownGender.length &&
-                                    lookingForGender.length
+                                    fullName && fullName.length &&
+                                    (password && password.length && passwordRegex.test(password) && repeatPassword === password) &&
+                                    ownGender && ownGender.length &&
+                                    lookingForGender && lookingForGender.length
                                 ) {
                                     const profile = new Profile({
                                         _id: new mongoose.Types.ObjectId(),
                                         fullName,
+                                        firstName: fullName && fullName.length && fullName.substr(0, fullName.indexOf(' ')),
                                         email: email.toLowerCase(),
                                         password: hash,
                                         ownGender,
@@ -50,7 +50,10 @@ function handleSignUp (req: any, res: any) {
                                         .then(result => {
                                             res.status(200).redirect('/questionaire')
                                         })
-                                        .catch(error => handleHTTPError(res, 500, error.message))
+                                        .catch(error => {
+                                            console.error(error)
+                                            handleHTTPError(res, 500, 'Internal Server Error')
+                                        })
                                 }
                             }
                         })
