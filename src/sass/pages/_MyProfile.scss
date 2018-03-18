@@ -150,11 +150,12 @@
     &__form-footer {
         display: flex;
         flex-direction: row;
-        position: fixed;
+        position: sticky;
         bottom: 0;
-        left: 0;
-        right: 0;
-        margin-top: getSpacing(1);
+        left: $spacing-base;
+        right: $spacing-base;
+        max-width: calc(#{$spacing-max-width} - #{getSpacing(2)});
+        margin: getSpacing(1) auto 0;
 
         .tl-CTA-Button {
             flex: 1;

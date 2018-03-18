@@ -6,25 +6,25 @@ const profileSchema = new mongoose.Schema({
         type: String,
         unique: true,
         match: /^\w+@\w+\..{2,3}(.{2,3})?$/,
-        // required: true,
+        required: true,
     },
     password: {
         type: String,
         match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/,
-        // required: true,
-    },
-    firstName: {
-        type: String,
-        default: this.fullName.substr(0, this.fullName.indexOf(' ')),
+        required: true,
     },
     fullName: {
         type: String,
-        // required: true,
+        required: true,
+    },
+    firstName: {
+        type: String,
+        default: this.fullName && this.fullName.length && this.fullName.substr(0, this.fullName.indexOf(' ')),
     },
     ownGender: {
         type: String,
         enum: [ 'Male', 'Female' ],
-        // required: true,
+        required: true,
     },
     birthdate: {
         type: Date,
@@ -33,27 +33,27 @@ const profileSchema = new mongoose.Schema({
     age: {
         type: Number,
         default: () => {
-            const today = new Date()
-            const birthDate = new Date(this.birthdate)
-            let age = today.getFullYear() - birthDate.getFullYear()
-            const m = today.getMonth() - birthDate.getMonth()
+            if (this.birthdate && this.birthdate.length) {
+                const today = new Date()
+                const birthDate = new Date(this.birthdate)
+                let age = today.getFullYear() - birthDate.getFullYear()
+                const m = today.getMonth() - birthDate.getMonth()
 
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--
+                }
+
+                return age
             }
-
-            return age
         },
     },
     profileImages: {
         type: [ { url: String } ],
-        default: [],
         // required: true,
     },
     description: String,
     hasTraveledTo: {
         type: Array,
-        default: [],
         // required: true,
     },
     favouriteHolidayDestination: {
@@ -61,8 +61,7 @@ const profileSchema = new mongoose.Schema({
         // required: true,
     },
     favouriteHolidayTypes: {
-        type: Array,
-        default: [],
+        type: [ String ],
         enum: [ 'Roundtrip', 'Family', 'Bike', 'Hike', 'Backpacking', 'Beach', 'Winter' ],
         // required: true,
     },
@@ -83,7 +82,6 @@ const profileSchema = new mongoose.Schema({
     },
     wantsToVisitSoon: {
         type: Array,
-        default: [],
         // required: true,
     },
     hasVisitedThisMuchDestinations: {
@@ -160,7 +158,7 @@ const profileSchema = new mongoose.Schema({
             lookingForGender: {
                 type: String,
                 enum: [ 'Male', 'Female' ],
-                // required: true,
+                required: true,
             },
         },
     },

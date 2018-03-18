@@ -44,13 +44,13 @@
                 <% openChatsData.forEach(function (openChat) { %>
                     <li class="tl-ChatsOverviewPage__chat">
                         <a class="tl-ChatsOverviewPage__link-container" href="/chat/<%= openChat.id %>">
-                            <img src="/img/available-traveler.jpg" alt="<%= openChat.fullName %>" class="tl-ChatsOverviewPage__profile-image">
+                            <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsOverviewPage__profile-image">
                             <h2 class="tl-ChatsOverviewPage__profile-name"><%= openChat.fullName %></h2>
                             <p class="tl-ChatsOverviewPage__last-message tl-ChatsOverviewPage__last-message--by-<%= openChat.lastMessage.byWho %>">
                                 <%= openChat.lastMessage.content %>
                             </p>
                         </a>
-                        <form action="/delete_chat/<%= openChat.id %>" method="POST">
+                        <form action="/delete_chat/<%= openChat._id %>" method="POST">
                             <button
                                 type="submit"
                                 class="tl-ChatsOverviewPage__delete-chat"

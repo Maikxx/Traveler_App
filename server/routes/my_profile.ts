@@ -1,6 +1,6 @@
 function renderMyProfile (req: any, res: any) {
     const profileData = {
-        profileId: 1,
+        _id: 1,
         firstName: 'Sandra',
         fullName: 'Sandra de Doorn',
         ownGender: 'Female',

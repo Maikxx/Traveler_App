@@ -1,6 +1,6 @@
 function renderMatchProfile (req: any, res: any) {
     const profileData = {
-        profileId: 1,
+        _id: 1,
         firstName: 'Henk',
         fullName: 'Henk Smits',
         birthDate: '1980/01/01',

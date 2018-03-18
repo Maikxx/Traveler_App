@@ -1,13 +1,15 @@
+import * as mongoose from 'mongoose'
+import * as bcrypt from 'bcrypt'
 import handleHTTPError from './handle_error'
+import Profile from '../models/profile'
 
 function handleSignUp (req: any, res: any) {
-    const signUpData = {}
     const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
 
     if (req.body) {
         const {
-            name,
+            fullName,
             email,
             password,
             repeatPassword,
@@ -15,22 +17,45 @@ function handleSignUp (req: any, res: any) {
             lookingForGender,
         } = req.body
 
-        if (
-            name.length &&
-            (email.length && emailRegex.test(email)) &&
-            (password.length && passwordRegex.test(password) && repeatPassword === password) &&
-            (ownGender === 'Male' || ownGender === 'Female') &&
-            (lookingForGender === 'Male' || lookingForGender === 'Female')
-        ) {
-            req.body = JSON.parse(JSON.stringify(req.body))
+        if (email.length && emailRegex.test(email)) {
+            Profile.find({ email: email.toLowerCase() })
+                .exec()
+                .then((profile: any) => {
+                    if (profile.length) {
+                        handleHTTPError(res, 409, 'Mail already exists')
+                    } else {
+                        bcrypt.hash(req.body.password, 10, (error: any, hash: string) => {
+                            if (error) {
+                                console.error(error)
+                                return handleHTTPError(res, 500, 'Internal Server Error')
+                            } else {
+                                if (
+                                    fullName.length &&
+                                    (password.length && passwordRegex.test(password) && repeatPassword === password) &&
+                                    ownGender.length &&
+                                    lookingForGender.length
+                                ) {
+                                    const profile = new Profile({
+                                        _id: new mongoose.Types.ObjectId(),
+                                        fullName,
+                                        email: email.toLowerCase(),
+                                        password: hash,
+                                        ownGender,
+                                        matchSettings: {
+                                            lookingForGender,
+                                        },
+                                    })
 
-            for (const property in req.body) {
-                if (req.body.hasOwnProperty(property)) {
-                    signUpData[property] = req.body[property]
-                }
-            }
-
-            res.redirect('/questionaire')
+                                    profile.save()
+                                        .then(result => {
+                                            res.status(200).redirect('/questionaire')
+                                        })
+                                        .catch(error => handleHTTPError(res, 500, error.message))
+                                }
+                            }
+                        })
+                    }
+                })
         } else {
             handleHTTPError(res, 422, 'Unprocessable Entity')
         }

@@ -1,7 +1,7 @@
 function renderMatchesOverview (req: any, res: any) {
     const overviewData = [
         {
-            profileId: '1',
+            _id: '1',
             firstName: 'Henk',
             fullName: 'Henk Smits',
             profileImages: [ '/visitorProfileImages/available-traveler.jpg', '/visitorProfileImages/available-traveler.jpg' ],
@@ -13,7 +13,7 @@ function renderMatchesOverview (req: any, res: any) {
             favouriteOverallTravelTime: 3,
         },
         {
-            profileId: '2',
+            _id: '2',
             firstName: 'Henry',
             fullName: 'Henry Smits',
             ownGender: 'Male',

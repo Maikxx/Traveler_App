@@ -1,6 +1,6 @@
 function handleDeleteChat (req: any, res: any) {
-    const { id } = req.params
-    console.log(id)
+    const { _id } = req.params
+    console.log(_id)
 
     res.redirect('/chats')
 }
