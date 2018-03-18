@@ -7,7 +7,7 @@
     .tl-TitleSection {
         color: black;
         padding: getSpacing(0.5);
-        margin-bottom: getSpacing(1.5);
+        margin: 0 0 getSpacing(1.5);
 
         h1 {
             width: 100%;
@@ -54,6 +54,7 @@
 
         .tl-MainTravelInformation {
             margin: getSpacing(1) 0 getSpacing(3);
+            width: 100%;
 
             h3 {
                 font-size: 105%;

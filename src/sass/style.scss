@@ -16,6 +16,11 @@ body {
     background-color: rgba(254, 250, 235, 0.6);
 }
 
+main {
+    max-width: $spacing-max-width;
+    margin: 0 auto;
+}
+
 .tl-Questionaire-Question textarea,
 .tl-MyProfilePage__question textarea,
 input:not([type = radio]):not([type = checkbox]) {
@@ -71,6 +76,7 @@ select {
     width: 100%;
     position: relative;
     z-index: 5;
+    background-color: $page-header-background-color;
 
     ol {
         display: flex;
@@ -79,7 +85,8 @@ select {
         align-items: center;
         list-style: none;
         height: 100%;
-        background-color: $page-header-background-color;
+        max-width: $spacing-max-width;
+        margin: 0 auto;
         padding: 0 getSpacing(1);
 
         li {
@@ -131,6 +138,8 @@ select {
 
     fieldset {
         border: 0;
+        margin: 0 auto;
+        max-width: $spacing-max-width;
 
         legend {
             display: hidden;
@@ -165,6 +174,8 @@ select {
 
     ol {
         list-style: none;
+        margin: 0 auto;
+        max-width: $spacing-max-width;
 
         li {
             a, form > button {
