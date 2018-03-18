@@ -5,7 +5,7 @@ function renderMatchProfile (req: any, res: any) {
         fullName: 'Henk Smits',
         birthDate: '1980/01/01',
         age: 31,
-        profileImage: '/img/available-traveler.jpg',
+        profileImages: [ '/img/visitorProfileImages/1.1.jpg', '/img/visitorProfileImages/1.2.jpg' ],
         description: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
         hasTraveledTo: [ 'Amsterdam', 'Berlin' ],
         favouriteHolidayDestination: 'Dubai',

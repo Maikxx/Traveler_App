@@ -5,7 +5,7 @@ function renderMyProfile (req: any, res: any) {
         fullName: 'Sandra de Doorn',
         birthDate: '1980/01/01',
         age: 29,
-        profileImage: '/img/available-traveler.jpg',
+        profileImages: [ '/img/visitorProfileImages/1.1.jpg', '/img/visitorProfileImages/1.2.jpg' ],
         description: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
         hasTraveledTo: [ 'Amsterdam', 'Berlin' ],
         favouriteHolidayDestination: 'Dubai',
