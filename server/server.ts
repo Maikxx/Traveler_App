@@ -1,8 +1,16 @@
+// Immediately load the dotenv file.
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load()
+}
+
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
+import * as mongoose from 'mongoose'
 
 console.log('Re(starting)')
+
+mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
 
 import indexRoute from './routes/index'
 import chatRoute from './routes/chat'

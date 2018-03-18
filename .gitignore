@@ -3,3 +3,7 @@ dist/
 
 public/visitorProfileImages
 public/style.css
+
+data/
+.env
+nodemon.json
