@@ -3,6 +3,7 @@ function renderMyProfile (req: any, res: any) {
         profileId: 1,
         firstName: 'Sandra',
         fullName: 'Sandra de Doorn',
+        ownGender: 'Female',
         birthDate: '1980/01/01',
         age: 29,
         profileImages: [ '/img/visitorProfileImages/1.1.jpg', '/img/visitorProfileImages/1.2.jpg' ],

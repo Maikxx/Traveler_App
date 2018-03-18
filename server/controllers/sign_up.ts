@@ -10,17 +10,17 @@ function handleSignUp (req: any, res: any) {
             name,
             email,
             password,
-            repeat_password,
-            own_gender,
-            looking_for_gender,
+            repeatPassword,
+            ownGender,
+            lookingForGender,
         } = req.body
 
         if (
             name.length &&
             (email.length && emailRegex.test(email)) &&
-            (password.length && passwordRegex.test(password) && repeat_password === password) &&
-            (own_gender === 'male' || own_gender === 'female') &&
-            (looking_for_gender === 'male' || looking_for_gender === 'female')
+            (password.length && passwordRegex.test(password) && repeatPassword === password) &&
+            (ownGender === 'Male' || ownGender === 'Female') &&
+            (lookingForGender === 'Male' || lookingForGender === 'Female')
         ) {
             req.body = JSON.parse(JSON.stringify(req.body))
 

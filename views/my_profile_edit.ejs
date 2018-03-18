@@ -57,7 +57,7 @@
                                 name="hasTraveledTo"
                                 required
                                 placeholder="Dubai, Paris, Morocco, etc."
-                                <% if (profileData.hasTraveledTo !== undefined && profileData.hasTraveledTo !== '' ) { %>
+                                <% if (profileData.hasTraveledTo && profileData.hasTraveledTo.length) { %>
                                     value = "<%= profileData.hasTraveledTo %>"
                                 <% } %>
                             >
@@ -72,7 +72,7 @@
                                 name="favouriteHolidayDestination"
                                 required
                                 placeholder="Paris"
-                                <% if (profileData.favouriteHolidayDestination !== undefined && profileData.favouriteHolidayDestination !== '' ) { %>
+                                <% if (profileData.favouriteHolidayDestination && profileData.favouriteHolidayDestination.length) { %>
                                     value="<%= profileData.favouriteHolidayDestination %>"
                                 <% } %>
                             >
@@ -88,7 +88,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesRoundtrip"
                                 value="Roundtrip"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Roundtrip") { %>
                                             <%= checked="checked" %>
@@ -105,7 +105,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesFamily"
                                 value="Family"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Family") { %>
                                             <%= checked="checked" %>
@@ -122,7 +122,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesBike"
                                 value="Bike"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Bike") { %>
                                             <%= checked="checked" %>
@@ -139,7 +139,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesHike"
                                 value="Hike"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Hike") { %>
                                             <%= checked="checked" %>
@@ -157,7 +157,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesBackPacking"
                                 value="Backpacking"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Backpacking") { %>
                                             <%= checked="checked" %>
@@ -174,7 +174,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesBeach"
                                 value="Beach"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Beach") { %>
                                             <%= checked="checked" %>
@@ -191,7 +191,7 @@
                                 name="favouriteHolidayTypes"
                                 id="favouriteHolidayTypesWinter"
                                 value="Winter"
-                                <% if (profileData.favouriteHolidayTypes !== undefined && profileData.favouriteHolidayTypes !== []) { %>
+                                <% if (profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.length) { %>
                                     <% profileData.favouriteHolidayTypes.forEach(function (type) { %>
                                         <% if (type === "Winter") { %>
                                             <%= checked="checked" %>
@@ -209,25 +209,19 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Often"
-                                    <% if (profileData.plansHolidaysAhead === "Often") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.plansHolidaysAhead === "Often") { %><%= selected="selected" %><% } %>
                                 >
                                     Often
                                 </option>
                                 <option
                                     value="Sometimes"
-                                    <% if (profileData.plansHolidaysAhead === "Sometimes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.plansHolidaysAhead === "Sometimes") { %><%= selected="selected" %><% } %>
                                 >
                                     Sometimes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.plansHolidaysAhead === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.plansHolidaysAhead === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -242,25 +236,19 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
-                                    <% if (profileData.likesToHike === "Yes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.likesToHike === "Yes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes
                                 </option>
                                 <option
                                     value="Sometimes"
-                                    <% if (profileData.likesToHike === "Sometimes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.likesToHike === "Sometimes") { %><%= selected="selected" %><% } %>
                                 >
                                     Sometimes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.likesToHike === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.likesToHike === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -275,25 +263,19 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
-                                    <% if (profileData.prefersInterContinental === "Yes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.prefersInterContinental === "Yes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes
                                 </option>
                                 <option
                                     value="Sometimes"
-                                    <% if (profileData.prefersInterContinental === "Sometimes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.prefersInterContinental === "Sometimes") { %><%= selected="selected" %><% } %>
                                 >
                                     Sometimes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.prefersInterContinental === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.prefersInterContinental === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -310,7 +292,7 @@
                                 name="wantsToVisitSoon"
                                 required
                                 placeholder="New-Zealand, China, etc."
-                                <% if (profileData.wantsToVisitSoon !== undefined && profileData.wantsToVisitSoon !== '' ) { %>
+                                <% if (profileData.wantsToVisitSoon && profileData.wantsToVisitSoon.length) { %>
                                     value = "<%= profileData.wantsToVisitSoon %>"
                                 <% } %>
                             >
@@ -326,7 +308,7 @@
                                 min="0"
                                 required
                                 placeholder="20"
-                                <% if (profileData.hasVisitedThisMuchDestinations !== undefined && profileData.hasVisitedThisMuchDestinations !== '' ) { %>
+                                <% if (profileData.hasVisitedThisMuchDestinations && profileData.hasVisitedThisMuchDestinations.length) { %>
                                     value = "<%= profileData.hasVisitedThisMuchDestinations %>"
                                 <% } %>
                             >
@@ -342,7 +324,7 @@
                                 min="0"
                                 required
                                 placeholder="3"
-                                <% if (profileData.favouriteOverallTravelTime !== undefined && profileData.favouriteOverallTravelTime !== '' ) { %>
+                                <% if (profileData.favouriteOverallTravelTime && profileData.favouriteOverallTravelTime.length) { %>
                                     value = "<%= profileData.favouriteOverallTravelTime %>"
                                 <% } %>
                             >
@@ -356,17 +338,13 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
-                                    <% if (profileData.wantsToTravelQuickly === "Yes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToTravelQuickly === "Yes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.wantsToTravelQuickly === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToTravelQuickly === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -397,7 +375,7 @@
                             <textarea
                                 name="description"
                                 required
-                            ><% if (profileData.description !== undefined && profileData.description !== '' ) { %><%= profileData.description %><% } %></textarea>
+                            ><% if (profileData.description && profileData.description.length) { %><%= profileData.description %><% } %></textarea>
                         </label>
                     </div>
 
@@ -408,25 +386,19 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
-                                    <% if (profileData.wantsToMarry === "Yes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToMarry === "Yes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes
                                 </option>
                                 <option
                                     value="Maybe"
-                                    <% if (profileData.wantsToMarry === "Maybe") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToMarry === "Maybe") { %><%= selected="selected" %><% } %>
                                 >
                                     Maybe
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.wantsToMarry === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToMarry === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -441,7 +413,7 @@
                                 type="text"
                                 name="foremostRelationshipMotivation"
                                 placeholder="Being able to travel the world with that someone"
-                                <% if (profileData.foremostRelationshipMotivation !== undefined && profileData.foremostRelationshipMotivation !== '' ) { %>
+                                <% if (profileData.foremostRelationshipMotivation && profileData.foremostRelationshipMotivation.length) { %>
                                     value = "<%= profileData.foremostRelationshipMotivation %>"
                                 <% } %>
                             >
@@ -455,33 +427,25 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes, I have them"
-                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Yes, I have them") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Yes, I have them") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes, I have them
                                 </option>
                                 <option
                                     value="Yes, I want them"
-                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Yes, I want them") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Yes, I want them") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes, I want them
                                 </option>
                                 <option
                                     value="Maybe"
-                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Maybe") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "Maybe") { %><%= selected="selected" %><% } %>
                                 >
                                     Maybe
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.wantsToOrAlreadyHasChildren === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.wantsToOrAlreadyHasChildren === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -496,25 +460,19 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes, often"
-                                    <% if (profileData.drinksAlcohol === "Yes, often") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.drinksAlcohol === "Yes, often") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes, often
                                 </option>
                                 <option
                                     value="Yes, sometimes"
-                                    <% if (profileData.drinksAlcohol === "Yes, sometimes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.drinksAlcohol === "Yes, sometimes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes, sometimes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.drinksAlcohol === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.drinksAlcohol === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -529,25 +487,19 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes, often"
-                                    <% if (profileData.smokes === "Yes, often") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.smokes === "Yes, often") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes, often
                                 </option>
                                 <option
                                     value="Yes, sometimes"
-                                    <% if (profileData.smokes === "Yes, sometimes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.smokes === "Yes, sometimes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes, sometimes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.smokes === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.smokes === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -562,17 +514,13 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
-                                    <% if (profileData.likesToBeInNature === "Yes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.likesToBeInNature === "Yes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.likesToBeInNature === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.likesToBeInNature === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -587,7 +535,7 @@
                                 type="text"
                                 name="mostImportantInRelationShip"
                                 placeholder="Trust"
-                                <% if (profileData.mostImportantInRelationShip !== undefined && profileData.mostImportantInRelationShip !== '' ) { %>
+                                <% if (profileData.mostImportantInRelationShip && profileData.mostImportantInRelationShip.length) { %>
                                     value = "<%= profileData.mostImportantInRelationShip %>"
                                 <% } %>
                             >
@@ -601,7 +549,7 @@
                                 type="text"
                                 name="favouriteMusicGenre"
                                 placeholder="Hardstyle"
-                                <% if (profileData.favouriteMusicGenre !== undefined && profileData.favouriteMusicGenre !== '' ) { %>
+                                <% if (profileData.favouriteMusicGenre && profileData.favouriteMusicGenre.length) { %>
                                     value = "<%= profileData.favouriteMusicGenre %>"
                                 <% } %>
                             >
@@ -615,27 +563,21 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Less than 25K"
-                                    <% if (profileData.yearlyEarns === "Less than 25K") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.yearlyEarns === "Less than 25K") { %><%= selected="selected" %><% } %>
                                 >
                                     Less than 25K
                                 </option>
                                 <option
-                                    value="25k-50k"
-                                    <% if (profileData.yearlyEarns === "25k-50k") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    value="25K-50K"
+                                    <% if (profileData.yearlyEarns === "25K-50K") { %><%= selected="selected" %><% } %>
                                 >
-                                    25k-50k
+                                    25K-50K
                                 </option>
                                 <option
                                     value="More than 50k"
-                                    <% if (profileData.yearlyEarns === "More than 50k") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.yearlyEarns === "More than 50k") { %><%= selected="selected" %><% } %>
                                 >
-                                    More than 50k
+                                    More than 50K
                                 </option>
                             </select>
                         </label>
@@ -648,7 +590,7 @@
                                 type="text"
                                 name="livesIn"
                                 placeholder="Rotterdam, the Netherlands"
-                                <% if (profileData.livesIn !== undefined && profileData.livesIn !== '' ) { %>
+                                <% if (profileData.livesIn && profileData.livesIn.length) { %>
                                     value = "<%= profileData.livesIn %>"
                                 <% } %>
                             >
@@ -662,7 +604,7 @@
                                 type="text"
                                 name="jobTitle"
                                 placeholder="Architect"
-                                <% if (profileData.jobTitle !== undefined && profileData.jobTitle !== '' ) { %>
+                                <% if (profileData.jobTitle && profileData.jobTitle.length) { %>
                                     value = "<%= profileData.jobTitle %>"
                                 <% } %>
                             >
@@ -671,12 +613,12 @@
 
                     <div class="tl-MyProfilePage__question">
                         <label>
-                            <span>What is your length (in cm's)?</span>
+                            <span>What is your length(in cm's)?</span>
                             <input
                                 type="number"
                                 name="lengthInCm"
                                 placeholder="183"
-                                <% if (profileData.lengthInCm !== undefined && profileData.lengthInCm !== '' ) { %>
+                                <% if (profileData.lengthInCm && profileData.lengthInCm.length) { %>
                                     value = "<%= profileData.lengthInCm %>"
                                 <% } %>
                             >
@@ -695,17 +637,13 @@
                                 <option value="" selected="selected" disabled hidden>Select a value</option>
                                 <option
                                     value="Yes"
-                                    <% if (profileData.matchHasToLikeToBeInNature === "Yes") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.matchSettings.matchHasToLikeToBeInNature === "Yes") { %><%= selected="selected" %><% } %>
                                 >
                                     Yes
                                 </option>
                                 <option
                                     value="No"
-                                    <% if (profileData.matchHasToLikeToBeInNature === "No") { %>
-                                        <%= selected="selected" %>
-                                    <% } %>
+                                    <% if (profileData.matchSettings.matchHasToLikeToBeInNature === "No") { %><%= selected="selected" %><% } %>
                                 >
                                     No
                                 </option>
@@ -723,8 +661,8 @@
                                 min="0"
                                 required
                                 placeholder="80"
-                                <% if (profileData.maxMatchDistance !== undefined && profileData.maxMatchDistance !== '' ) { %>
-                                    value = "<%= profileData.maxMatchDistance %>"
+                                <% if (profileData.matchSettings.maxMatchDistance && profileData.matchSettings.maxMatchDistance.length) { %>
+                                    value = "<%= profileData.matchSettings.maxMatchDistance %>"
                                 <% } %>
                             >
                         </label>
@@ -740,8 +678,8 @@
                                 min="0"
                                 required
                                 placeholder="Minimum search age"
-                                <% if (profileData.minSearchAge !== undefined && profileData.minSearchAge !== '' ) { %>
-                                    value = "<%= profileData.minSearchAge %>"
+                                <% if (profileData.matchSettings.minSearchAge && profileData.matchSettings.minSearchAge.length) { %>
+                                    value = "<%= profileData.matchSettings.minSearchAge %>"
                                 <% } %>
                             >
 
@@ -751,8 +689,8 @@
                                 min="0"
                                 required
                                 placeholder="Maximum search age"
-                                <% if (profileData.maxSearchAge !== undefined && profileData.maxSearchAge !== '' ) { %>
-                                    value = "<%= profileData.maxSearchAge %>"
+                                <% if (profileData.matchSettings.maxSearchAge && profileData.matchSettings.maxSearchAge.length) { %>
+                                    value = "<%= profileData.matchSettings.maxSearchAge %>"
                                 <% } %>
                             >
                         </label>

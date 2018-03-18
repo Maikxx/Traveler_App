@@ -4,6 +4,7 @@ function renderMatchProfile (req: any, res: any) {
         firstName: 'Henk',
         fullName: 'Henk Smits',
         birthDate: '1980/01/01',
+        ownGender: 'Male',
         age: 31,
         profileImages: [ '/img/visitorProfileImages/1.1.jpg', '/img/visitorProfileImages/1.2.jpg' ],
         description: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
