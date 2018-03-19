@@ -1,4 +1,4 @@
-import handleHTTPError from './handle_error'
+import handleHTTPError from '../utils/handle_error'
 
 function handleSignIn (req: any, res: any) {
     const signInData = {}

@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import Profile from '../models/profile'
-import handleHTTPError from './handle_error'
+import handleHTTPError from '../utils/handle_error'
 import getAge from '../utils/getAge'
 
 function handleQuestionaireSave (req: any, res: any) {
