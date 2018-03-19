@@ -33,7 +33,7 @@
                     <a href="/my_profile">My profile</a>
                 </li>
                 <li>
-                    <form action="/log_out" method="POST"><button type="submit">Log out</button></form>
+                    <a href="/log_out">Log out</a>
                 </li>
             </ol>
         </nav>
@@ -49,7 +49,7 @@
                             <p class="tl-ChatsOverviewPage__last-message tl-ChatsOverviewPage__last-message--by-<%= openChat.lastMessage.byWho %>">
                                 <%= openChat.lastMessage.content %>
                             </p>
-                        </a>
+                        </button>
                         <form action="/delete_chat/<%= openChat._id %>" method="POST">
                             <button
                                 type="submit"

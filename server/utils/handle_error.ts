@@ -1,11 +1,6 @@
-function handleHttpError (res, code, title) {
-    const error = {
-        _id: code,
-        title: title,
-    }
-    res.render('error.ejs', {
-        error: error,
-    })
+function handleHttpError (req, res, code, title, redirectToHere) {
+    req.session.error = { code, title }
+    res.status(code).redirect(redirectToHere)
 }
 
 export default handleHttpError

@@ -178,7 +178,7 @@ select {
         max-width: $spacing-max-width;
 
         li {
-            a, form > button {
+            a, {
                 text-decoration: none;
                 color: #000;
                 padding: getSpacing(0.5);

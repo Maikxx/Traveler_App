@@ -1,4 +1,13 @@
+import Profile from '../models/profile'
+
 function renderMatchesOverview (req: any, res: any) {
+    if (req.session.userId) {
+        Profile.find()
+        .limit(4)
+        .exec()
+        .then()
+        .catch()
+    }
     const overviewData = [
         {
             _id: '1',

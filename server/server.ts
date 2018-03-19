@@ -7,6 +7,7 @@ import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
 import * as mongoose from 'mongoose'
+import * as session from 'express-session'
 
 console.log('Re(starting)')
 
@@ -21,10 +22,10 @@ import myProfileRoute from './routes/my_profile'
 import myProfileEditRoute from './routes/my_profile_edit'
 import notFoundRoute from './routes/not_found'
 import questionaireRoute from './routes/questionaire'
+import logOutRoute from './routes/log_out'
 
 import signInController from './controllers/sign_in'
 import signUpController from './controllers/sign_up'
-import logOutController from './controllers/log_out'
 import sendMessageController from './controllers/send_message'
 import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteAccountController from './controllers/delete_account'
@@ -51,6 +52,11 @@ const upload = multer({
 app.set('view engine', 'ejs')
 app.set('views', 'views')
 app.use(express.static('public'))
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+}))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -62,17 +68,17 @@ app.get('/match_profile/:_id', matchProfileRoute)
 app.get('/matches_overview', matchesOverviewRoute)
 app.get('/my_profile', myProfileRoute)
 app.get('/my_profile/edit', myProfileEditRoute)
-app.get('/questionaire/:_id', questionaireRoute)
+app.get('/questionaire', questionaireRoute)
+app.get('/log_out', logOutRoute)
 
 // Post Endpoints
 app.post('/sign_in', signInController)
 app.post('/sign_up', signUpController)
-app.post('/log_out', logOutController)
 app.post('/send_message/:_id', sendMessageController)
 app.post('/save_edited_profile', saveEditedProfileController)
 app.post('/delete_account', deleteAccountController)
 app.post('/delete_chat/:_id', deleteChatController)
-app.post('/questionaire_save/:_id', upload.array('profileImages', 5), questionaireSaveController)
+app.post('/questionaire_save/', upload.array('profileImages', 5), questionaireSaveController)
 
 app.use(notFoundRoute)
 

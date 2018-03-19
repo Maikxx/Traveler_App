@@ -9,7 +9,7 @@ function handleQuestionaireSave (req: any, res: any) {
     Profile.count({ _id }, (error, count) => {
         if (error) {
             console.error('Something went wrong with getting the id of a Profile!')
-            handleHttpError(res, 500, 'Internal Server Error')
+            handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
         } else if (count > 0) {
             const {
                 hasTraveledTo,
@@ -97,7 +97,7 @@ function handleQuestionaireSave (req: any, res: any) {
                 (!maxSearchAge || !maxSearchAge.length)
             ) {
                 console.error('Not all required fields of the questionaire are filled in!')
-                handleHttpError(res, 422, 'Unprocessable Entity')
+                handleHttpError(req, res, 422, 'Unprocessable Entity', '/questionaire')
                 return
             } else {
                 queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
@@ -170,7 +170,7 @@ function handleQuestionaireSave (req: any, res: any) {
 
             if (req.files && req.files.length > 5) {
                 console.error('Too much images passed!')
-                handleHttpError(res, 422, 'Unprocessable Entity')
+                handleHttpError(req, res, 422, 'Unprocessable Entity', '/questionaire')
             } else if (req.files) {
                 req.files.forEach((file, i) => {
                     try {
@@ -179,12 +179,12 @@ function handleQuestionaireSave (req: any, res: any) {
                     } catch (error) {
                         fs.unlinkSync(file.path)
                         console.error('Images Error!')
-                        handleHttpError(res, 500, 'Internal Server Error')
+                        handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
                     }
                 })
             } else {
                 console.error('No images passed!')
-                handleHttpError(res, 422, 'Unprocessable Entity')
+                handleHttpError(req, res, 422, 'Unprocessable Entity', '/questionaire')
             }
 
             Profile.findOneAndUpdate({ _id }, queryData)
@@ -192,7 +192,7 @@ function handleQuestionaireSave (req: any, res: any) {
                 .then(doc => console.log('Success!'))
                 .catch(error => {
                     console.error(error)
-                    handleHttpError(res, 500, 'Internal Server Error')
+                    handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
                 })
         }
     })

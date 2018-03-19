@@ -19,7 +19,6 @@ const profileSchema = new mongoose.Schema({
     },
     firstName: {
         type: String,
-        required: true,
     },
     ownGender: {
         type: String,

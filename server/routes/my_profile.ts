@@ -105,7 +105,7 @@ function renderMyProfile (req: any, res: any) {
         })
         .catch(error => {
             console.error(error)
-            handleHttpError(res, 500, 'Internal Server Error')
+            handleHttpError(req, res, 500, 'Internal Server Error', '/matches_overview')
         })
 }
 

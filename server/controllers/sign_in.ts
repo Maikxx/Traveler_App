@@ -1,11 +1,12 @@
+import * as bcrypt from 'bcrypt'
+import Profile from '../models/profile'
 import handleHttpError from '../utils/handle_error'
 
 function handleSignIn (req: any, res: any) {
-    const signInData = {}
-    const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
-
     if (req.body) {
+        const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
+
         const {
             email,
             password,
@@ -15,17 +16,28 @@ function handleSignIn (req: any, res: any) {
             (email.length && emailRegex.test(email)) &&
             (password.length && passwordRegex.test(password))
         ) {
-            req.body = JSON.parse(JSON.stringify(req.body))
+            Profile.find({ email })
+                .exec()
+                .then((user: any) => {
+                    if (!user.length) {
+                        handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                    }
 
-            for (const property in req.body) {
-                if (req.body.hasOwnProperty(property)) {
-                    signInData[property] = req.body[property]
-                }
-            }
+                    bcrypt.compare(password, user[0].password, (error, response) => {
+                        if (error) {
+                            handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                        }
 
-            res.redirect('/matches_overview')
+                        if (response) {
+                            req.session.userId = user[0]._id
+                            res.redirect('/matches_overview')
+                        } else {
+                            handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                        }
+                    })
+                })
         } else {
-            handleHttpError(res, 422, 'Unprocessable Entity')
+            handleHttpError(req, res, 400, 'Bad Request', '/')
         }
     }
 }

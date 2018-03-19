@@ -20,13 +20,15 @@ function handleSignUp (req: any, res: any) {
         if (email.length && emailRegex.test(email)) {
             Profile.find({ email: email.toLowerCase() })
                 .exec()
-                .then((profile: any) => {
-                    if (profile.length) {
-                        handleHttpError(res, 409, 'Mail already exists')
+                .then((user: any) => {
+                    if (user.length) {
+                        console.error('Mail already exists!')
+                        handleHttpError(req, res, 409, 'Mail already exists', '/')
                     } else {
                         bcrypt.hash(req.body.password, 10, (error: any, hash: string) => {
                             if (error) {
-                                return handleHttpError(res, 500, 'Internal Server Error')
+                                console.error(error)
+                                handleHttpError(req, res, 400, 'Bad Request', '/')
                             } else {
                                 if (
                                     fullName && fullName.length &&
@@ -34,7 +36,7 @@ function handleSignUp (req: any, res: any) {
                                     ownGender && ownGender.length &&
                                     lookingForGender && lookingForGender.length
                                 ) {
-                                    const profile = new Profile({
+                                    const newUser = new Profile({
                                         _id: new mongoose.Types.ObjectId(),
                                         fullName,
                                         firstName: fullName && fullName.length && fullName.substr(0, fullName.indexOf(' ')),
@@ -46,13 +48,14 @@ function handleSignUp (req: any, res: any) {
                                         },
                                     })
 
-                                    profile.save()
+                                    newUser.save()
                                         .then(result => {
-                                            res.status(200).redirect(`/questionaire/${result._id}`)
+                                            req.session.userId = result._id
+                                            res.status(200).redirect(`/questionaire`)
                                         })
                                         .catch(error => {
                                             console.error(error)
-                                            handleHttpError(res, 500, 'Internal Server Error')
+                                            handleHttpError(req, res, 500, 'Internal Server Error', '/')
                                         })
                                 }
                             }
@@ -60,7 +63,7 @@ function handleSignUp (req: any, res: any) {
                     }
                 })
         } else {
-            handleHttpError(res, 422, 'Unprocessable Entity')
+            handleHttpError(req, res, 422, 'Unprocessable Entity', '/')
         }
     }
 }
