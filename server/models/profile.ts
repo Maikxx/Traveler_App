@@ -48,7 +48,7 @@ const profileSchema = new mongoose.Schema({
         },
     },
     profileImages: {
-        type: [ { url: String } ],
+        type: Array,
         // required: true,
     },
     description: String,

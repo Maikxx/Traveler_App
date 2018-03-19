@@ -16,7 +16,7 @@
             </header>
 
             <section>
-                <form action="/questionaire_save/<%= _id %>" class="tl-Questionaire" method="POST">
+                <form action="/questionaire_save/<%= _id %>" class="tl-Questionaire" method="POST" enctype="multipart/form-data">
                     <fieldset class="tl-Questionaire__Subject">
                         <legend>Travel</legend>
 
@@ -379,6 +379,7 @@
                                     type="file"
                                     name="profileImages"
                                     accept=".png, .jpg, .jpeg"
+                                    required
                                     multiple
                                 >
                             </label>
