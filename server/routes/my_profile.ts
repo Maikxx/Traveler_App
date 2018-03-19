@@ -6,7 +6,7 @@ function renderMyProfile (req: any, res: any) {
         ownGender: 'Female',
         birthDate: '1980/01/01',
         age: 29,
-        profileImages: [ 'visitorProfileImages/available-traveler.jpg', 'visitorProfileImages/available-traveler.jpg' ],
+        profileImages: [ '/visitorProfileImages/available-traveler.jpg', '/visitorProfileImages/available-traveler.jpg' ],
         description: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
         hasTraveledTo: [ 'Amsterdam', 'Berlin' ],
         favouriteHolidayDestination: 'Dubai',

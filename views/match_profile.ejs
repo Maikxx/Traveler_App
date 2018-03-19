@@ -47,7 +47,11 @@
                     <h1><%= profileData.fullName %> (<%= profileData.ownGender %>, <%= profileData.age %>)</h1>
                 </header>
 
-                <img src="<%= profileData.profileImages[0] %>" alt="Matched traveler user: <%= profileData.firstName %>">
+                <div class="tl-ImageSlider">
+                    <% profileData.profileImages.length && profileData.profileImages.forEach(function (image, i) { %>
+                        <img src="<%= profileData.profileImages[i] %>" alt="Matched traveler user: <%= profileData.firstName %>">
+                    <% }) %>
+                </div>
                 <p class="tl-ProfileDescription"><%= profileData.description %></p>
 
                 <ol class="tl-FullProfileInformation">

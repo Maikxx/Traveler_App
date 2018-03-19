@@ -283,6 +283,22 @@ select {
     }
 }
 
+.tl-ImageSlider {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    img {
+        max-width: getSpacing(13);
+        border-radius: 50%;
+        min-height: getSpacing(13);
+        margin-bottom: getSpacing(1);
+    }
+}
+
 @import 'pages/index';
 @import 'pages/Questionaire';
 @import 'pages/MatchesOverview';
