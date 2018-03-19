@@ -16,7 +16,7 @@
             </header>
 
             <section>
-                <form action="/questionaire_save/<%= _id %>" class="tl-Questionaire" method="POST" enctype="multipart/form-data">
+                <form action="/questionaire_save/<%= _id %>" class="tl-Questionaire" method="POST">
                     <fieldset class="tl-Questionaire__Subject">
                         <legend>Travel</legend>
 
@@ -271,7 +271,7 @@
 
                         <div class="tl-Questionaire-Question">
                             <label>
-                                <span>Do you like to be in nature?</span>
+                                <span class="tl-RequiredFieldTitle">Do you like to be in nature?</span>
                                 <select name="likesToBeInNature" required>
                                     <option value="" hidden disabled selected="selected">Select a value</option>
                                     <option value="Yes">Yes</option>
@@ -363,10 +363,9 @@
 
                         <div class="tl-Questionaire-Question">
                             <label>
-                                <span class="tl-RequiredFieldTitle">Please write a description, that you want to be shown on your profile!</span>
+                                <span>Please write a description, that you want to be shown on your profile!</span>
                                 <textarea
                                     name="description"
-                                    required
                                 ></textarea>
                             </label>
                         </div>
@@ -381,7 +380,6 @@
                                     name="profileImages"
                                     accept=".png, .jpg, .jpeg"
                                     multiple
-                                    required
                                 >
                             </label>
                         </div>
