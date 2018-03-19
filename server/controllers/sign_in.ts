@@ -1,4 +1,4 @@
-import handleHTTPError from '../utils/handle_error'
+import handleHttpError from '../utils/handle_error'
 
 function handleSignIn (req: any, res: any) {
     const signInData = {}
@@ -25,7 +25,7 @@ function handleSignIn (req: any, res: any) {
 
             res.redirect('/matches_overview')
         } else {
-            handleHTTPError(res, 422, 'Unprocessable Entity')
+            handleHttpError(res, 422, 'Unprocessable Entity')
         }
     }
 }

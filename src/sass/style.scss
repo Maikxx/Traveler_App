@@ -293,9 +293,9 @@ select {
     justify-content: space-between;
 
     img {
-        max-width: getSpacing(13);
+        width: getSpacing(13);
         border-radius: 50%;
-        min-height: getSpacing(13);
+        height: getSpacing(13);
         margin-bottom: getSpacing(1);
     }
 }

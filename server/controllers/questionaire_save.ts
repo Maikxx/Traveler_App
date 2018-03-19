@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import Profile from '../models/profile'
-import handleHTTPError from '../utils/handle_error'
+import handleHttpError from '../utils/handle_error'
 import getAge from '../utils/getAge'
 
 function handleQuestionaireSave (req: any, res: any) {
@@ -9,7 +9,7 @@ function handleQuestionaireSave (req: any, res: any) {
     Profile.count({ _id }, (error, count) => {
         if (error) {
             console.error('Something went wrong with getting the id of a Profile!')
-            handleHTTPError(res, 500, 'Internal Server Error')
+            handleHttpError(res, 500, 'Internal Server Error')
         } else if (count > 0) {
             const {
                 hasTraveledTo,
@@ -97,7 +97,7 @@ function handleQuestionaireSave (req: any, res: any) {
                 (!maxSearchAge || !maxSearchAge.length)
             ) {
                 console.error('Not all required fields of the questionaire are filled in!')
-                handleHTTPError(res, 422, 'Unprocessable Entity')
+                handleHttpError(res, 422, 'Unprocessable Entity')
                 return
             } else {
                 queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
@@ -170,7 +170,7 @@ function handleQuestionaireSave (req: any, res: any) {
 
             if (req.files && req.files.length > 5) {
                 console.error('Too much images passed!')
-                handleHTTPError(res, 422, 'Unprocessable Entity')
+                handleHttpError(res, 422, 'Unprocessable Entity')
             } else if (req.files) {
                 req.files.forEach((file, i) => {
                     try {
@@ -179,12 +179,12 @@ function handleQuestionaireSave (req: any, res: any) {
                     } catch (error) {
                         fs.unlinkSync(file.path)
                         console.error('Images Error!')
-                        handleHTTPError(res, 500, 'Internal Server Error')
+                        handleHttpError(res, 500, 'Internal Server Error')
                     }
                 })
             } else {
                 console.error('No images passed!')
-                handleHTTPError(res, 422, 'Unprocessable Entity')
+                handleHttpError(res, 422, 'Unprocessable Entity')
             }
 
             Profile.findOneAndUpdate({ _id }, queryData)
@@ -192,7 +192,7 @@ function handleQuestionaireSave (req: any, res: any) {
                 .then(doc => console.log('Success!'))
                 .catch(error => {
                     console.error(error)
-                    handleHTTPError(res, 500, 'Internal Server Error')
+                    handleHttpError(res, 500, 'Internal Server Error')
                 })
         }
     })

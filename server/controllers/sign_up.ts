@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as bcrypt from 'bcrypt'
-import handleHTTPError from '../utils/handle_error'
+import handleHttpError from '../utils/handle_error'
 import Profile from '../models/profile'
 
 function handleSignUp (req: any, res: any) {
@@ -22,11 +22,11 @@ function handleSignUp (req: any, res: any) {
                 .exec()
                 .then((profile: any) => {
                     if (profile.length) {
-                        handleHTTPError(res, 409, 'Mail already exists')
+                        handleHttpError(res, 409, 'Mail already exists')
                     } else {
                         bcrypt.hash(req.body.password, 10, (error: any, hash: string) => {
                             if (error) {
-                                return handleHTTPError(res, 500, 'Internal Server Error')
+                                return handleHttpError(res, 500, 'Internal Server Error')
                             } else {
                                 if (
                                     fullName && fullName.length &&
@@ -52,7 +52,7 @@ function handleSignUp (req: any, res: any) {
                                         })
                                         .catch(error => {
                                             console.error(error)
-                                            handleHTTPError(res, 500, 'Internal Server Error')
+                                            handleHttpError(res, 500, 'Internal Server Error')
                                         })
                                 }
                             }
@@ -60,7 +60,7 @@ function handleSignUp (req: any, res: any) {
                     }
                 })
         } else {
-            handleHTTPError(res, 422, 'Unprocessable Entity')
+            handleHttpError(res, 422, 'Unprocessable Entity')
         }
     }
 }
