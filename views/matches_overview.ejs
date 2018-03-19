@@ -47,12 +47,12 @@
             <% overviewData.forEach(function (profile) { %>
                 <section class="tl-Card tl-Card--BriefTravelerInformation">
                     <header>
-                        <h2><%= profile.fullName %> (<%= profile.age %>)</h2>
+                        <h2><%= profile.fullName %> (<%= profile.ownGender %>, <%= profile.age %>)</h2>
                         <img src="<%= profile.profileImages[0] %>" alt="Matched traveler user: <%= profile.fullName %>">
                     </header>
                     <p><%= profile.description %></p>
                     <section class="tl-MainTravelInformation">
-                        <h3>Most important travel information about <%= profile.firstName %> (<%= profile.ownGender %>, <%= profile.age %>)</h3>
+                        <h3>Most important travel information about <%= profile.firstName %> (<%= profile.age %>)</h3>
                         <ol>
                             <li>
                                 <h4 class="tl-FieldTitle">Favourite destination:</h4>

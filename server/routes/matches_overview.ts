@@ -1,41 +1,39 @@
 import Profile from '../models/profile'
+import handleHttpError from '../utils/handle_error'
 
 function renderMatchesOverview (req: any, res: any) {
     if (req.session.userId) {
         Profile.find()
-        .limit(4)
-        .exec()
-        .then()
-        .catch()
-    }
-    const overviewData = [
-        {
-            _id: '1',
-            firstName: 'Henk',
-            fullName: 'Henk Smits',
-            profileImages: [ '/visitorProfileImages/available-traveler.jpg', '/visitorProfileImages/available-traveler.jpg' ],
-            age: 31,
-            ownGender: 'Male',
-            description: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
-            favouriteHolidayDestination: 'Dubai',
-            likesToHike: 'Yes',
-            favouriteOverallTravelTime: 3,
-        },
-        {
-            _id: '2',
-            firstName: 'Henry',
-            fullName: 'Henry Smits',
-            ownGender: 'Male',
-            profileImages: [ '/visitorProfileImages/available-traveler.jpg', '/visitorProfileImages/available-traveler.jpg' ],
-            age: 31,
-            description: 'Henry loves to travel, just like you, otherwise you wouldn\'t be here, right?',
-            favouriteHolidayDestination: 'Dubai',
-            likesToHike: 'No',
-            favouriteOverallTravelTime: 5,
-        },
-    ]
+            .limit(4)
+            .exec()
+            .then(results => {
+                const overviewData = results.map((result: any) => {
+                    const data = {
+                        _id: result._id,
+                        firstName: result.firstName,
+                        fullName: result.fullName,
+                        profileImages: result.profileImages.map(profileImage => profileImage.replace('public', '')),
+                        age: result.age,
+                        ownGender: result.ownGender,
+                        description: result.description,
+                        favouriteHolidayDestination: result.favouriteHolidayDestination,
+                        likesToHike: result.likesToHike,
+                        favouriteOverallTravelTime: result.favouriteOverallTravelTime,
+                    }
 
-    res.render('matches_overview.ejs', { overviewData })
+                    return data
+                })
+
+                res.render('matches_overview.ejs', { overviewData })
+            })
+            .catch(error => {
+                console.error(error)
+                handleHttpError(req, res, 500, 'Internal Server Error', '/matches_overview')
+            })
+    } else {
+        console.log('You are not logged in!')
+        handleHttpError(req, res, 401, 'Credentials Required', '/')
+    }
 }
 
 export default renderMatchesOverview
