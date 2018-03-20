@@ -1,13 +1,16 @@
+import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
+import { sessionType } from '../types/sessionType'
+import { profileType } from '../types/profileType'
 
-function renderMatchProfile (req: any, res: any) {
+function renderMatchProfile (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
         const { _id } = req.params
 
         if (_id) {
             Profile.find({ _id })
-                .then((result: [ any ]) => {
+                .then((result: profileType[]) => {
                     req.session.error = null
 
                     const currentResult = result[0]
@@ -17,7 +20,7 @@ function renderMatchProfile (req: any, res: any) {
                         firstName: currentResult.firstName,
                         fullName: currentResult.fullName,
                         ownGender: currentResult.ownGender,
-                        birthDate: currentResult.birthDate,
+                        birthdate: currentResult.birthdate,
                         age: currentResult.age,
                         profileImages: currentResult.profileImages &&
                             currentResult.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),

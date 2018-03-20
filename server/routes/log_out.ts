@@ -1,6 +1,8 @@
+import * as express from 'express'
 import handleHttpError from '../utils/handleError'
+import { sessionType } from '../types/sessionType'
 
-function handleLogOut (req: any, res: any) {
+function handleLogOut (req: express.Request & {session: sessionType}, res: express.Response) {
     req.session.destroy(error => {
         if (error) {
             console.error(error)

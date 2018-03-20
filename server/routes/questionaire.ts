@@ -1,11 +1,13 @@
+import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
+import { sessionType } from '../types/sessionType'
 
-function renderQuestionaire (req: any, res: any) {
+function renderQuestionaire (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session.userId) {
         const _id = req.session.userId
 
-        Profile.count({ _id }, (error, count) => {
+        Profile.count({ _id }, (error: any, count: number) => {
             if (error) {
                 console.error(error)
                 handleHttpError(req, res, 500, 'Internal Server Error', '/')

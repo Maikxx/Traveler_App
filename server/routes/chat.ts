@@ -1,4 +1,7 @@
-function renderChat (req: any, res: any) {
+import * as express from 'express'
+import { sessionType } from '../types/sessionType'
+
+function renderChat (req: express.Request & {session: sessionType}, res: express.Response) {
     const chatData = {
         chatId: '1',
         chatWithName: 'Henk',

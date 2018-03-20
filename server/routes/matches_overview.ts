@@ -1,7 +1,10 @@
+import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
+import { sessionType } from '../types/sessionType'
+import { profileType } from '../types/profileType'
 
-function renderMatchesOverview (req: any, res: any) {
+function renderMatchesOverview (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session.error) {
         console.log(req.session.error)
     }
@@ -10,7 +13,7 @@ function renderMatchesOverview (req: any, res: any) {
         Profile.find({ '_id': { $ne: req.session.userId } })
             .limit(10)
             .exec()
-            .then(results => {
+            .then((results: profileType[]) => {
                 req.session.error = null
 
                 const overviewData = results.map((result: any) => {

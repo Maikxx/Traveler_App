@@ -32,7 +32,7 @@ import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteChatController from './controllers/delete_chat'
 import questionaireSaveController from './controllers/questionaire_save'
 
-import { FileType } from 'server/types/fileType'
+import { FileType } from './types/fileType'
 
 const app = express()
 

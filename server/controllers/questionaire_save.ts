@@ -1,9 +1,13 @@
+import * as express from 'express'
 import * as fs from 'fs'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
 import getAge from '../utils/getAge'
+import { MulterFile } from '../types/multerFileType'
+import { sessionType } from '../types/sessionType'
+import { profileType } from '../types/profileType'
 
-function handleQuestionaireSave (req: any, res: any) {
+function handleQuestionaireSave (req: express.Request & {session: sessionType} & {files: MulterFile[]}, res: express.Response) {
     const { _id } = req.params
 
     Profile.count({ _id }, (error, count) => {
@@ -191,7 +195,7 @@ function handleQuestionaireSave (req: any, res: any) {
 
             Profile.findOneAndUpdate({ _id }, queryData)
                 .exec()
-                .then(doc => req.session.error = null)
+                .then((result: profileType) => req.session.error = null)
                 .catch(error => {
                     console.error(error)
                     handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')

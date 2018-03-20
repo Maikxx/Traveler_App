@@ -1,4 +1,7 @@
-function handleSendMessage (req: any, res: any) {
+import * as express from 'express'
+import { sessionType } from '../types/sessionType'
+
+function handleSendMessage (req: express.Request & {session: sessionType}, res: express.Response) {
     const { message } = req.body
 
     console.log(message)

@@ -1,4 +1,7 @@
-function renderChats (req: any, res: any) {
+import * as express from 'express'
+import { sessionType } from '../types/sessionType'
+
+function renderChats (req: express.Request & {session: sessionType}, res: express.Response) {
     const openChatsData = [
         {
             _id: '1',

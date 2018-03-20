@@ -1,7 +1,9 @@
+import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
+import { sessionType } from '../types/sessionType'
 
-function handleDeleteAccount (req: any, res: any) {
+function handleDeleteAccount (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
         Profile.find({ _id: req.session.userId })
             .remove(result => console.log(result))

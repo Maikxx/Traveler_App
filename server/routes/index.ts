@@ -1,13 +1,16 @@
+import * as express from 'express'
 import Profile from '../models/profile'
+import { sessionType } from '../types/sessionType'
+import { profileType } from '../types/profileType'
 
-function renderIndex (req: any, res: any) {
+function renderIndex (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session.error) {
         console.error(req.session.error)
     }
 
     Profile.find()
         .limit(4)
-        .then((results: [any]) => {
+        .then((results: profileType[]) => {
             if (results && results.length) {
                 const availableTravelersData = results.map(result => ({
                     _id: result._id,

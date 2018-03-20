@@ -1,9 +1,11 @@
+import * as express from 'express'
 import * as mongoose from 'mongoose'
 import * as bcrypt from 'bcrypt'
 import handleHttpError from '../utils/handleError'
 import Profile from '../models/profile'
+import { sessionType } from '../types/sessionType'
 
-function handleSignUp (req: any, res: any) {
+function handleSignUp (req: express.Request & {session: sessionType}, res: express.Response) {
     const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
 
