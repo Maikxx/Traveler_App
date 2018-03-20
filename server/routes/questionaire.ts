@@ -18,6 +18,9 @@ function renderQuestionaire (req: any, res: any) {
                 }
             }
         })
+    } else {
+        console.error('You are not logged in!')
+        handleHttpError(req, res, 401, 'Creditentials Required', '/')
     }
 }
 

@@ -1,25 +1,26 @@
+import Profile from '../models/profile'
+
 function renderIndex (req: any, res: any) {
     if (req.session.error) {
-        console.log(req.session.error)
+        console.error(req.session.error)
     }
-    const availableTravelersData = [
-        {
-            _id: '1',
-            name: 'Henk Sneevliet',
-            profileImages: [ '/img/available-traveler.jpg' ],
-            profileDescription: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
-        },
-        {
-            _id: '2',
-            name: 'Frank Fransen',
-            profileImages: [ '/img/available-traveler.jpg' ],
-            profileDescription: 'Frank loves to travel, just like you, otherwise you wouldn\'t be here, right?',
-        },
-    ]
 
-    res.render('index.ejs', {
-        availableTravelersData,
-    })
+    Profile.find()
+        .limit(4)
+        .then((results: [any]) => {
+            if (results && results.length) {
+                const availableTravelersData = results.map(result => ({
+                    _id: result._id,
+                    fullName: result.fullName,
+                    profileImages: result.profileImages && result.profileImages[0],
+                    profileDescription: result.description,
+                }))
+
+                res.render('index.ejs', { availableTravelersData })
+            } else {
+                res.status(500).render('index.ejs')
+            }
+        })
 }
 
 export default renderIndex
