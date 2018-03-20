@@ -99,7 +99,7 @@ function handleQuestionaireSave (req: any, res: any) {
                 (!maxSearchAge || !maxSearchAge.length)
             ) {
                 console.error('Not all required fields of the questionaire are filled in!')
-                handleHttpError(req, res, 422, 'Unprocessable Entity', '/questionaire')
+                handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
                 return
             } else {
                 queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
@@ -172,7 +172,7 @@ function handleQuestionaireSave (req: any, res: any) {
 
             if (req.files && req.files.length > 5) {
                 console.error('Too much images passed!')
-                handleHttpError(req, res, 422, 'Unprocessable Entity', '/questionaire')
+                handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
             } else if (req.files) {
                 req.files.forEach((file, i) => {
                     try {
@@ -180,13 +180,13 @@ function handleQuestionaireSave (req: any, res: any) {
                         queryData.profileImages.push(`${file.destination}/${_id}_${i}.jpg`)
                     } catch (error) {
                         fs.unlinkSync(file.path)
-                        console.error('Images Error!')
+                        console.error('Images unlinking error!')
                         handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
                     }
                 })
             } else {
                 console.error('No images passed!')
-                handleHttpError(req, res, 422, 'Unprocessable Entity', '/questionaire')
+                handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
             }
 
             Profile.findOneAndUpdate({ _id }, queryData)
