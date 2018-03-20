@@ -4,7 +4,7 @@ import handleHttpError from '../utils/handleError'
 function handleDeleteAccount (req: any, res: any) {
     if (req.session && req.session.userId) {
         Profile.find({ _id: req.session.userId })
-            .remove(result => console.log(reuslt))
+            .remove(result => console.log(result))
             .catch(error => {
                 console.error(error)
                 console.error('No such user exists!')
