@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose'
 import * as bcrypt from 'bcrypt'
-import handleHttpError from '../utils/handle_error'
+import handleHttpError from '../utils/handleError'
 import Profile from '../models/profile'
 
 function handleSignUp (req: any, res: any) {

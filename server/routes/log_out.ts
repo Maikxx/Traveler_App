@@ -1,4 +1,4 @@
-import handleHttpError from '../utils/handle_error'
+import handleHttpError from '../utils/handleError'
 
 function handleLogOut (req: any, res: any) {
     req.session.destroy(error => {

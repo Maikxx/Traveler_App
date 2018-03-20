@@ -1,5 +1,5 @@
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handle_error'
+import handleHttpError from '../utils/handleError'
 
 function renderMyProfile (req: any, res: any) {
     if (req.session && req.session.userId) {

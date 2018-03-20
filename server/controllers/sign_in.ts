@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt'
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handle_error'
+import handleHttpError from '../utils/handleError'
 
 function handleSignIn (req: any, res: any) {
     if (req.body) {

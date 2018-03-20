@@ -1,4 +1,4 @@
-import handleHttpError from '../utils/handle_error'
+import handleHttpError from '../utils/handleError'
 
 function renderNotFound (error: any, req: any, res: any, next: any) {
     if (error) {
