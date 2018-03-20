@@ -1,4 +1,7 @@
 function renderIndex (req: any, res: any) {
+    if (req.session.error) {
+        console.log(req.session.error)
+    }
     const availableTravelersData = [
         {
             _id: '1',

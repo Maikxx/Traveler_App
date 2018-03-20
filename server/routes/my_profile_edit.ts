@@ -1,43 +1,74 @@
+import Profile from '../models/profile'
+import handleHttpError from '../utils/handle_error'
+
 function renderMyProfileEdit (req: any, res: any) {
-    const profileData = {
-        profileId: 1,
-        firstName: 'Sandra',
-        fullName: 'Sandra de Doorn',
-        birthDate: '1980/01/01',
-        age: 29,
-        profileImages: [ 'visitorProfileImages/available-traveler.jpg', 'visitorProfileImages/available-traveler.jpg' ],
-        description: 'Henk loves to travel, just like you, otherwise you wouldn\'t be here, right?',
-        hasTraveledTo: [ 'Amsterdam', 'Berlin' ].join(', '),
-        favouriteHolidayDestination: 'Dubai',
-        favouriteHolidayTypes: [ 'Backpacking', 'Family' ],
-        plansHolidaysAhead: 'Sometimes',
-        likesToHike: 'Yes',
-        prefersInterContinental: 'Yes',
-        wantsToVisitSoon: [ 'Dubai', 'Paris' ].join(', '),
-        hasVisitedThisMuchDestinations: 20,
-        favouriteOverallTravelTime: 3,
-        wantsToTravelQuickly: 'Yes',
-        mostImportantInRelationShip: 'Trust',
-        wantsToMarry: 'Yes',
-        foremostRelationshipMotivation: 'Being able to travel the world with that someone',
-        wantsToOrAlreadyHasChildren: 'Yes, I have them',
-        drinksAlcohol: 'Yes, often',
-        smokes: 'No',
-        likesToBeInNature: 'Yes',
-        favouriteMusicGenre: 'Hardstyle',
-        yearlyEarns: 'More than 50K',
-        livesIn: 'Rotterdam, the Netherlands',
-        jobTitle: 'Architect',
-        lengthInCm: 183,
-        matchSettings: {
-            matchHasToLikeToBeInNature: 'Yes',
-            maxMatchDistance: 80,
-            minSearchAge: 18,
-            maxSearchAge: 23,
-        },
+    if (req.session.error) {
+        console.log(res.session.error)
     }
 
-    res.render('my_profile_edit.ejs', { profileData })
+    if (req.session && req.session.userId) {
+        Profile.find({ _id: req.session.userId })
+            .then((result: [ any ]) => {
+                if (result && result.length) {
+                    req.session.error = null
+
+                    const currentResult = result[0]
+
+                    const profileData = {
+                        _id: currentResult._id,
+                        firstName: currentResult.firstName,
+                        fullName: currentResult.fullName,
+                        ownGender: currentResult.ownGender,
+                        birthDate: currentResult.birthDate,
+                        age: currentResult.age,
+                        profileImages: currentResult.profileImages &&
+                            currentResult.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
+                        description: currentResult.description,
+                        hasTraveledTo: currentResult.hasTraveledTo,
+                        favouriteHolidayDestination: currentResult.favouriteHolidayDestination,
+                        favouriteHolidayTypes: currentResult.favouriteHolidayTypes,
+                        plansHolidaysAhead: currentResult.plansHolidaysAhead,
+                        likesToHike: currentResult.likesToHike,
+                        prefersInterContinental: currentResult.prefersInterContinental,
+                        wantsToVisitSoon: currentResult.wantsToVisitSoon,
+                        hasVisitedThisMuchDestinations: currentResult.hasVisitedThisMuchDestinations,
+                        favouriteOverallTravelTime: currentResult.favouriteOverallTravelTime,
+                        wantsToTravelQuickly: currentResult.wantsToTravelQuickly,
+                        mostImportantInRelationShip: currentResult.mostImportantInRelationShip,
+                        wantsToMarry: currentResult.wantsToMarry,
+                        foremostRelationshipMotivation: currentResult.foremostRelationshipMotivation,
+                        wantsToOrAlreadyHasChildren: currentResult.wantsToOrAlreadyHasChildren,
+                        drinksAlcohol: currentResult.drinksAlcohol,
+                        smokes: currentResult.smokes,
+                        likesToBeInNature: currentResult.likesToBeInNature,
+                        favouriteMusicGenre: currentResult.favouriteMusicGenre,
+                        yearlyEarns: currentResult.yearlyEarns,
+                        livesIn: currentResult.livesIn,
+                        jobTitle: currentResult.jobTitle,
+                        lengthInCm: currentResult.lengthInCm,
+                        matchSettings: {
+                            matchHasToLikeToBeInNature: currentResult.matchSettings.matchHasToLikeToBeInNature,
+                            maxMatchDistance: currentResult.matchSettings.maxMatchDistance,
+                            minSearchAge: currentResult.matchSettings.minSearchAge,
+                            maxSearchAge: currentResult.matchSettings.maxSearchAge,
+                        },
+                    }
+
+                    res.render('my_profile_edit.ejs', { profileData })
+                } else {
+                    console.error('No result found!')
+                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                }
+            })
+            .catch(error => {
+                console.error('Something went wrong in profile edit')
+                console.error(error)
+                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+            })
+    } else {
+        console.error('You are not logged in!')
+        handleHttpError(req, res, 401, 'Credentials Required', '/')
+    }
 }
 
 export default renderMyProfileEdit
