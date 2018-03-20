@@ -2,6 +2,10 @@ import Profile from '../models/profile'
 import handleHttpError from '../utils/handle_error'
 
 function renderMatchesOverview (req: any, res: any) {
+    if (req.session.error) {
+        console.log(req.session.error)
+    }
+
     if (req.session.userId) {
         Profile.find({ '_id': { $ne: req.session.userId } })
             .limit(10)
