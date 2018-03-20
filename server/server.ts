@@ -56,9 +56,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET,
-    cookie: {
-        expires: false,
-    },
+    maxAge: 3600000,
 }))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

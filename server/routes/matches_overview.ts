@@ -3,8 +3,8 @@ import handleHttpError from '../utils/handle_error'
 
 function renderMatchesOverview (req: any, res: any) {
     if (req.session.userId) {
-        Profile.find()
-            .limit(4)
+        Profile.find({ '_id': { $ne: req.session.userId } })
+            .limit(10)
             .exec()
             .then(results => {
                 const overviewData = results.map((result: any) => {
