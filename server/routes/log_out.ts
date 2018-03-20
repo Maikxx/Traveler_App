@@ -9,8 +9,6 @@ function handleLogOut (req: any, res: any) {
             res.redirect('/')
         }
     })
-
-    res.redirect('/')
 }
 
 export default handleLogOut
