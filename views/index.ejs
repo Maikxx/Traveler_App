@@ -62,7 +62,7 @@
 
                 <section class="tl-BriefTravelerDisplays">
                     <h2>Available Travelers</h2>
-                    <% availableTravelersData.forEach(function (availableTraveler) { %>
+                    <% availableTravelersData && availableTravelersData.forEach(function (availableTraveler) { %>
                         <section class="tl-BriefTravelerDisplay">
                             <h3><%= availableTraveler.name %></h3>
                             <div>
