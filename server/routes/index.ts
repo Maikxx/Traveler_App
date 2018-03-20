@@ -12,7 +12,7 @@ function renderIndex (req: any, res: any) {
                 const availableTravelersData = results.map(result => ({
                     _id: result._id,
                     fullName: result.fullName,
-                    profileImages: result.profileImages && result.profileImages[0],
+                    profileImages: result.profileImages && result.profileImages[0] && result.profileImages[0].replace('public', ''),
                     profileDescription: result.description,
                 }))
 
