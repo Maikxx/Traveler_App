@@ -20,11 +20,13 @@ function handleSignIn (req: any, res: any) {
                 .exec()
                 .then((user: any) => {
                     if (!user.length) {
+                        console.error('Authentication Failed!')
                         handleHttpError(req, res, 401, 'Authentication Failed', '/')
                     }
 
                     bcrypt.compare(password, user[0].password, (error, response) => {
                         if (error) {
+                            console.error('Authentication Failed!')
                             handleHttpError(req, res, 401, 'Authentication Failed', '/')
                         }
 
@@ -33,9 +35,15 @@ function handleSignIn (req: any, res: any) {
                             req.session.error = null
                             res.redirect('/matches_overview')
                         } else {
+                            console.error('Authentication Failed!')
                             handleHttpError(req, res, 401, 'Authentication Failed', '/')
                         }
                     })
+                })
+                .catch(error => {
+                    console.error(error)
+                    console.error('Authentication Failed!')
+                    handleHttpError(req, res, 401, 'Authentication Failed', '/')
                 })
         } else {
             handleHttpError(req, res, 400, 'Bad Request', '/')

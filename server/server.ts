@@ -23,12 +23,12 @@ import myProfileEditRoute from './routes/my_profile_edit'
 import notFoundRoute from './routes/not_found'
 import questionaireRoute from './routes/questionaire'
 import logOutRoute from './routes/log_out'
+import deleteAccountRoute from './routes/delete_account'
 
 import signInController from './controllers/sign_in'
 import signUpController from './controllers/sign_up'
 import sendMessageController from './controllers/send_message'
 import saveEditedProfileController from './controllers/save_edited_profile'
-import deleteAccountController from './controllers/delete_account'
 import deleteChatController from './controllers/delete_chat'
 import questionaireSaveController from './controllers/questionaire_save'
 
@@ -71,13 +71,13 @@ app.get('/my_profile', myProfileRoute)
 app.get('/my_profile/edit', myProfileEditRoute)
 app.get('/questionaire', questionaireRoute)
 app.get('/log_out', logOutRoute)
+app.get('/delete_account', deleteAccountRoute)
 
 // Post Endpoints
 app.post('/sign_in', signInController)
 app.post('/sign_up', signUpController)
 app.post('/send_message/:_id', sendMessageController)
 app.post('/save_edited_profile', saveEditedProfileController)
-app.post('/delete_account', deleteAccountController)
 app.post('/delete_chat/:_id', deleteChatController)
 app.post('/questionaire_save/', upload.array('profileImages', 5), questionaireSaveController)
 
