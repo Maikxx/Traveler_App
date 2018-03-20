@@ -57,10 +57,9 @@
 
                 <ol class="tl-FullProfileInformation">
                     <li class="tl-Field">
-                        <!-- This may change in a map -->
                         <h2 class="tl-Field__title">Has traveled to</h2>
                         <span class="tl-Field__value">
-                            <% profileData.hasTraveledTo.forEach(function (destination, i) { %>
+                            <% profileData.hasTraveledTo && profileData.hasTraveledTo.forEach(function (destination, i) { %>
                                 <% if (i !== (profileData.hasTraveledTo.length - 1)) { %>
                                     <%= destination %>,
                                 <% } else { %>
@@ -76,7 +75,7 @@
                     <li class="tl-Field">
                         <h2 class="tl-Field__title">Favourite holiday type</h2>
                         <span class="tl-Field__value">
-                            <% profileData.favouriteHolidayTypes.forEach(function (type, i) { %>
+                            <% profileData.favouriteHolidayTypes && profileData.favouriteHolidayTypes.forEach(function (type, i) { %>
                                 <% if (i !== (profileData.favouriteHolidayTypes.length - 1)) { %>
                                     <%= type %>,
                                 <% } else { %>
@@ -100,7 +99,7 @@
                     <li class="tl-Field">
                         <h2 class="tl-Field__title">Destinations Henk wants to travel to in the near future</h2>
                         <span class="tl-Field__value">
-                            <% profileData.wantsToVisitSoon.forEach(function (destination, i) { %>
+                            <% profileData.wantsToVisitSoon && profileData.wantsToVisitSoon.forEach(function (destination, i) { %>
                                 <% if (i !== (profileData.wantsToVisitSoon.length - 1)) { %>
                                     <%= destination %>,
                                 <% } else { %>

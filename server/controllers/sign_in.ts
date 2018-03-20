@@ -30,6 +30,7 @@ function handleSignIn (req: any, res: any) {
 
                         if (response) {
                             req.session.userId = user[0]._id
+                            req.session.error = null
                             res.redirect('/matches_overview')
                         } else {
                             handleHttpError(req, res, 401, 'Authentication Failed', '/')

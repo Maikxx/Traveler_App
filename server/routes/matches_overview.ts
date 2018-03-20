@@ -11,6 +11,8 @@ function renderMatchesOverview (req: any, res: any) {
             .limit(10)
             .exec()
             .then(results => {
+                req.session.error = null
+
                 const overviewData = results.map((result: any) => {
                     const data = {
                         _id: result._id,

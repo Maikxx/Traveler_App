@@ -11,6 +11,8 @@ function handleQuestionaireSave (req: any, res: any) {
             console.error('Something went wrong with getting the id of a Profile!')
             handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
         } else if (count > 0) {
+            req.session.error = null
+
             const {
                 hasTraveledTo,
                 favouriteHolidayDestination,
@@ -189,7 +191,7 @@ function handleQuestionaireSave (req: any, res: any) {
 
             Profile.findOneAndUpdate({ _id }, queryData)
                 .exec()
-                .then(doc => console.log('Success!'))
+                .then(doc => req.session.error = null)
                 .catch(error => {
                     console.error(error)
                     handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')

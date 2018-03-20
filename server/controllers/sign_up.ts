@@ -51,6 +51,7 @@ function handleSignUp (req: any, res: any) {
                                     newUser.save()
                                         .then(result => {
                                             req.session.userId = result._id
+                                            req.session.error = null
                                             res.status(200).redirect(`/questionaire`)
                                         })
                                         .catch(error => {
