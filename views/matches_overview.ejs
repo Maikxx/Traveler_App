@@ -46,38 +46,40 @@
 
             <% overviewData.forEach(function (profile) { %>
                 <section class="tl-Card tl-Card--BriefTravelerInformation">
-                    <header>
-                        <h2><%= profile.fullName %> (<%= profile.ownGender %><% if (profile.age) { %>, <%= profile.age %><% }%>)</h2>
-                        <% if (profile.profileImages && profile.profileImages.length) { %>
-                            <img src="<%= profile.profileImages[0] %>" alt="Matched traveler user: <%= profile.fullName %>">
-                        <% } %>
-                    </header>
-                    <p><%= profile.description %></p>
-                    <section class="tl-MainTravelInformation">
-                        <% if (profile.favouriteHolidayDestination || profile.likesToHike || profile.favouriteOverallTravelTime) { %>
-                            <h3>Most important travel information about <%= profile.firstName %> <% if (profile.age) { %>(<%= profile.age %>) <% } %></h3>
-                            <ol>
-                                <% if (profile.favouriteHolidayDestination && profile.favouriteHolidayDestination.length) { %>
-                                    <li>
-                                        <h4 class="tl-FieldTitle">Favourite destination:</h4>
-                                        <span class="tl-FieldValue"><%= profile.favouriteHolidayDestination %></span>
-                                    </li>
-                                <% } %>
-                                <% if (profile.likesToHike && profile.likesToHike.length) { %>
-                                    <li>
-                                        <h4 class="tl-FieldTitle">Likes to hike:</h4>
-                                        <span class="tl-FieldValue"><%= profile.likesToHike %></span>
-                                    </li>
-                                <% } %>
-                                <% if (profile.favouriteOverallTravelTime && profile.favouriteOverallTravelTime.length) { %>
-                                    <li>
-                                        <h4 class="tl-FieldTitle">Favourite overall travel time (in weeks):</h4>
-                                        <span class="tl-FieldValue"><%= profile.favouriteOverallTravelTime %></span>
-                                    </li>
-                                <% } %>
-                            </ol>
-                        <% } %>
-                    </section>
+                    <a href="/match_profile/<%= profile._id %>">
+                        <header>
+                            <h2><%= profile.fullName %> (<%= profile.ownGender %><% if (profile.age) { %>, <%= profile.age %><% }%>)</h2>
+                            <% if (profile.profileImages && profile.profileImages.length) { %>
+                                <img src="<%= profile.profileImages[0] %>" alt="Matched traveler user: <%= profile.fullName %>">
+                            <% } %>
+                        </header>
+                        <p><%= profile.description %></p>
+                        <section class="tl-MainTravelInformation">
+                            <% if (profile.favouriteHolidayDestination || profile.likesToHike || profile.favouriteOverallTravelTime) { %>
+                                <h3>Most important travel information about <%= profile.firstName %> <% if (profile.age) { %>(<%= profile.age %>) <% } %></h3>
+                                <ol>
+                                    <% if (profile.favouriteHolidayDestination && profile.favouriteHolidayDestination.length) { %>
+                                        <li>
+                                            <h4 class="tl-FieldTitle">Favourite destination:</h4>
+                                            <span class="tl-FieldValue"><%= profile.favouriteHolidayDestination %></span>
+                                        </li>
+                                    <% } %>
+                                    <% if (profile.likesToHike && profile.likesToHike.length) { %>
+                                        <li>
+                                            <h4 class="tl-FieldTitle">Likes to hike:</h4>
+                                            <span class="tl-FieldValue"><%= profile.likesToHike %></span>
+                                        </li>
+                                    <% } %>
+                                    <% if (profile.favouriteOverallTravelTime && profile.favouriteOverallTravelTime.length) { %>
+                                        <li>
+                                            <h4 class="tl-FieldTitle">Favourite overall travel time (in weeks):</h4>
+                                            <span class="tl-FieldValue"><%= profile.favouriteOverallTravelTime %></span>
+                                        </li>
+                                    <% } %>
+                                </ol>
+                            <% } %>
+                        </section>
+                    </a>
                     <footer>
                         <a class="tl-CTA-Button" href="/match_profile/<%= profile._id %>">Show more about <%= profile.firstName %></a>
                     </footer>
