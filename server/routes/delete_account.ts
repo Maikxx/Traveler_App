@@ -6,7 +6,7 @@ import { sessionType } from '../types/sessionType'
 function handleDeleteAccount (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
         Profile.find({ _id: req.session.userId })
-            .remove(result => console.log(result))
+            .remove(result => res.status(200).redirect('/'))
             .catch(error => {
                 console.error(error)
                 console.error('No such user exists!')
