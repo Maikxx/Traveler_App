@@ -16,22 +16,18 @@ function renderMatchesOverview (req: express.Request & {session: sessionType}, r
             .then((results: profileType[]) => {
                 req.session.error = null
 
-                const overviewData = results.map((result: any) => {
-                    const data = {
-                        _id: result._id,
-                        firstName: result.firstName,
-                        fullName: result.fullName,
-                        profileImages: result.profileImages.map(profileImage => profileImage.replace('public', '')),
-                        age: result.age,
-                        ownGender: result.ownGender,
-                        description: result.description,
-                        favouriteHolidayDestination: result.favouriteHolidayDestination,
-                        likesToHike: result.likesToHike,
-                        favouriteOverallTravelTime: result.favouriteOverallTravelTime,
-                    }
-
-                    return data
-                })
+                const overviewData = results.map((result: any) => ({
+                    _id: result._id,
+                    firstName: result.firstName,
+                    fullName: result.fullName,
+                    profileImages: result.profileImages.map(profileImage => profileImage.replace('public', '')),
+                    age: result.age,
+                    ownGender: result.ownGender,
+                    description: result.description,
+                    favouriteHolidayDestination: result.favouriteHolidayDestination,
+                    likesToHike: result.likesToHike,
+                    favouriteOverallTravelTime: result.favouriteOverallTravelTime,
+                }))
 
                 res.render('matches_overview.ejs', { overviewData })
             })
