@@ -161,6 +161,7 @@ const profileSchema = new mongoose.Schema({
             },
         },
     },
+    chats: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
 })
 
 export default mongoose.model('Profile', profileSchema)

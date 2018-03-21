@@ -10,28 +10,24 @@ function renderChat (req: express.Request & {session: sessionType}, res: express
             {
                 messageId: '1',
                 sentByWho: 'me',
-                profileImageUrl: '/img/available-traveler.jpg',
                 sentBy: 'Henk',
                 messageText: 'Hello there!',
             },
             {
                 messageId: '2',
                 sentByWho: 'them',
-                profileImageUrl: '/img/available-traveler.jpg',
                 sentBy: 'Me',
                 messageText: 'Hello!',
             },
             {
                 messageId: '3',
                 sentByWho: 'me',
-                profileImageUrl: '/img/available-traveler.jpg',
                 sentBy: 'Henk',
                 messageText: 'Hello thero!',
             },
             {
                 messageId: '4',
                 sentByWho: 'them',
-                profileImageUrl: '/img/available-traveler.jpg',
                 sentBy: 'Me',
                 messageText: 'Hellooo!',
             },

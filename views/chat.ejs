@@ -20,7 +20,6 @@
                 <div class="tl-Chat__content">
                     <% chatData.messages.forEach(function (message) { %>
                         <div class="tl-Chat__message-wrapper tl-Chat__message-<%= message.sentByWho %>">
-                            <img src="<%= message.profileImageUrl %>" class="tl-Chat__circle-wrapper" alt="Profile Image <%= message.sentBy %>">
                             <div class="tl-Chat__text-wrapper">
                                 <p><%= message.messageText %></p>
                             </div>
