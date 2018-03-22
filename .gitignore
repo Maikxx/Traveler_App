@@ -7,4 +7,5 @@ public/style.css
 data/
 .env
 nodemon.json
-MOCK_DATA.json
+mockData/MOCK_DATA_150.json
+mockData/MOCK_DATA_200.json

@@ -1,4 +1,13 @@
-import * as mongoose from 'mongoose'
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').load()
+}
+
+const mongoose = require('mongoose')
+const fs = require('fs')
+const fileName = './MOCK_DATA_150.json'
+const file = require(fileName)
+
+mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
 
 const profileSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
@@ -14,9 +23,9 @@ const profileSchema = new mongoose.Schema({
         required: true,
     },
     // Development only
-    rawPassword: {
-        type: String,
-    },
+    // rawPassword: {
+    //     type: String,
+    // },
     fullName: {
         type: String,
         required: true,
@@ -31,7 +40,6 @@ const profileSchema = new mongoose.Schema({
     },
     birthdate: {
         type: Date,
-        // required: true,
     },
     age: {
         type: Number,
@@ -52,55 +60,44 @@ const profileSchema = new mongoose.Schema({
     },
     profileImages: {
         type: Array,
-        // required: true,
     },
     description: String,
     hasTraveledTo: {
         type: Array,
-        // required: true,
     },
     favouriteHolidayDestination: {
         type: String,
-        // required: true,
     },
     favouriteHolidayTypes: {
         type: [ String ],
         enum: [ 'Roundtrip', 'Family', 'Bike', 'Hike', 'Backpacking', 'Beach', 'Winter' ],
-        // required: true,
     },
     plansHolidaysAhead: {
         type: String,
         enum: [ 'Often', 'Sometimes', 'No' ],
-        // required: true,
     },
     likesToHike: {
         type: String,
         enum: [ 'Yes', 'Sometimes', 'No' ],
-        // required: true,
     },
     prefersInterContinental: {
         type: String,
         enum: [ 'Yes', 'Sometimes', 'No' ],
-        // required: true,
     },
     wantsToVisitSoon: {
         type: Array,
-        // required: true,
     },
     hasVisitedThisMuchDestinations: {
         type: Number,
         min: [ 0, 'You can not have less than 0 visited destinations!' ],
-        // required: true,
     },
     favouriteOverallTravelTime: {
         type: Number,
         min: [ 0, 'You can not have less than 0 weeks of favourite travel time!' ],
-        // required: true,
     },
     wantsToTravelQuickly: {
         type: String,
         enum: [ 'Yes', 'No' ],
-        // required: true,
     },
     wantsToMarry: {
         type: String,
@@ -122,7 +119,6 @@ const profileSchema = new mongoose.Schema({
     likesToBeInNature: {
         type: String,
         enum: [ 'Yes', 'No' ],
-        // required: true,
     },
     mostImportantInRelationShip: String,
     favouriteMusicGenre: String,
@@ -141,22 +137,22 @@ const profileSchema = new mongoose.Schema({
             matchHasToLikeToBeInNature: {
                 type: String,
                 enum: [ 'Yes', 'No' ],
-                // required: true,
+
             },
             maxMatchDistance: {
                 type: Number,
                 min: [ 0, 'You can not have a match that is less than 0km\'s away!' ],
-                // required: true,
+
             },
             minSearchAge: {
                 type: Number,
                 min: [ 0, 'You can not have a match that is less than 0!' ],
-                // required: true,
+
             },
             maxSearchAge: {
                 type: Number,
                 min: [ 0, 'You can not have a match that is less than 0!' ],
-                // required: true,
+
             },
             lookingForGender: {
                 type: String,
@@ -168,4 +164,58 @@ const profileSchema = new mongoose.Schema({
     chats: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
 })
 
-export default mongoose.model('Profile', profileSchema)
+const Profile = mongoose.model('Profile', profileSchema)
+
+file.forEach((profile, i) => {
+    const newUser = new Profile(
+        {
+            _id: new mongoose.Types.ObjectId(),
+            fullName: profile.fullName,
+            firstName: profile.fullName && profile.fullName.length && profile.fullName.substr(0, profile.fullName.indexOf(' ')),
+            email: profile.email.toLowerCase(),
+            password: profile.password,
+            // rawPassword: profile.rawPassword,
+            ownGender: profile.ownGender,
+            profileImages: profile.profileImages,
+            hasTraveledTo: profile.hasTraveledTo,
+            favouriteHolidayDestination: profile.favouriteHolidayDestination,
+            favouriteHolidayTypes: profile.favouriteHolidayTypes,
+            plansHolidaysAhead: profile.plansHolidaysAhead,
+            likesToHike: profile.likesToHike,
+            prefersInterContinental: profile.prefersInterContinental,
+            wantsToVisitSoon: profile.wantsToVisitSoon,
+            hasVisitedThisMuchDestinations: profile.hasVisitedThisMuchDestinations,
+            favouriteOverallTravelTime: profile.favouriteOverallTravelTime,
+            wantsToMarry: profile.wantsToMarry,
+            foremostRelationshipMotivation: profile.foremostRelationshipMotivation,
+            wantsToOrAlreadyHasChildren: profile.wantsToOrAlreadyHasChildren,
+            drinksAlcohol: profile.drinksAlcohol,
+            smokes: profile.smokes,
+            likesToBeInNature: profile.likesToBeInNature,
+            favouriteMusicGenre: profile.favouriteMusicGenre,
+            yearlyEarns: profile.yearlyEarns,
+            birthdate: profile.birthdate,
+            livesIn: profile.livesIn,
+            jobTitle: profile.jobTitle,
+            lengthInCm: profile.lengthInCm,
+            description: profile.description,
+            mostImportantInRelationShip: profile.mostImportantInRelationShip,
+            wantsToTravelQuickly: profile.wantsToTravelQuickly,
+            matchSettings: {
+                lookingForGender: profile.lookingForGender,
+                matchHasToLikeToBeInNature: profile.matchSettings.matchHasToLikeToBeInNature,
+                maxMatchDistance: profile.matchSettings.maxMatchDistance,
+                minSearchAge: profile.matchSettings.minSearchAge,
+                maxSearchAge: profile.matchSettings.maxSearchAge,
+            },
+        }
+    )
+
+    newUser.save()
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+})
