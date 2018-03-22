@@ -1,12 +1,38 @@
+import * as fs from 'fs'
 import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
 import { sessionType } from '../types/sessionType'
+import { profileType } from '../types/profileType'
 
 function handleDeleteAccount (req: express.Request & {session: sessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
-        Profile.find({ _id: req.session.userId })
-            .remove(result => res.status(200).redirect('/'))
+        Profile.findOne({ _id: req.session.userId })
+            .then((result: profileType) => {
+                if (result) {
+                    const { profileImages } = result
+
+                    if (profileImages && profileImages.length) {
+                        profileImages.forEach((image) => {
+                            fs.unlink(image, (error) => {
+                                if (error) {
+                                    console.error(error)
+                                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                }
+                            })
+                        })
+
+                        req.session.destroy(error => {
+                            if (error) {
+                                console.error(error)
+                                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                            } else {
+                                res.status(200).redirect('/')
+                            }
+                        })
+                    }
+                }
+            })
             .catch(error => {
                 console.error(error)
                 console.error('No such user exists!')
