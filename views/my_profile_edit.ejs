@@ -306,7 +306,7 @@
                                 min="0"
                                 required
                                 placeholder="20"
-                                <% if (profileData.hasVisitedThisMuchDestinations && profileData.hasVisitedThisMuchDestinations.length) { %>
+                                <% if (profileData.hasVisitedThisMuchDestinations) { %>
                                     value = "<%= profileData.hasVisitedThisMuchDestinations %>"
                                 <% } %>
                             >
@@ -322,7 +322,7 @@
                                 min="0"
                                 required
                                 placeholder="3"
-                                <% if (profileData.favouriteOverallTravelTime && profileData.favouriteOverallTravelTime.length) { %>
+                                <% if (profileData.favouriteOverallTravelTime) { %>
                                     value = "<%= profileData.favouriteOverallTravelTime %>"
                                 <% } %>
                             >
@@ -621,7 +621,7 @@
                                 type="number"
                                 name="lengthInCm"
                                 placeholder="183"
-                                <% if (profileData.lengthInCm && profileData.lengthInCm.length) { %>
+                                <% if (profileData.lengthInCm) { %>
                                     value = "<%= profileData.lengthInCm %>"
                                 <% } %>
                             >
@@ -664,7 +664,7 @@
                                 min="0"
                                 required
                                 placeholder="80"
-                                <% if (profileData.matchSettings.maxMatchDistance && profileData.matchSettings.maxMatchDistance.length) { %>
+                                <% if (profileData.matchSettings.maxMatchDistance) { %>
                                     value = "<%= profileData.matchSettings.maxMatchDistance %>"
                                 <% } %>
                             >
@@ -681,7 +681,7 @@
                                 min="0"
                                 required
                                 placeholder="Minimum search age"
-                                <% if (profileData.matchSettings.minSearchAge && profileData.matchSettings.minSearchAge.length) { %>
+                                <% if (profileData.matchSettings.minSearchAge) { %>
                                     value = "<%= profileData.matchSettings.minSearchAge %>"
                                 <% } %>
                             >
@@ -692,7 +692,7 @@
                                 min="0"
                                 required
                                 placeholder="Maximum search age"
-                                <% if (profileData.matchSettings.maxSearchAge && profileData.matchSettings.maxSearchAge.length) { %>
+                                <% if (profileData.matchSettings.maxSearchAge) { %>
                                     value = "<%= profileData.matchSettings.maxSearchAge %>"
                                 <% } %>
                             >
