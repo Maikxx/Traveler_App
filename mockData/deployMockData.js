@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const mongoose = require('mongoose')
 const fs = require('fs')
-const fileName = './MOCK_DATA_150.json'
+const fileName = './MOCK_DATA_500.json'
 const file = require(fileName)
 
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
@@ -195,6 +195,7 @@ file.forEach((profile, i) => {
             favouriteMusicGenre: profile.favouriteMusicGenre,
             yearlyEarns: profile.yearlyEarns,
             birthdate: profile.birthdate,
+            age: profile.age,
             livesIn: profile.livesIn,
             jobTitle: profile.jobTitle,
             lengthInCm: profile.lengthInCm,
