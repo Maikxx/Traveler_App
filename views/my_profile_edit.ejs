@@ -355,9 +355,14 @@
                     <legend>Personal information</legend>
 
                     <div class="tl-MyProfilePage__question">
+                        <% profileData.profileImages && profileData.profileImages.length && profileData.profileImages.forEach(function (image, i) { %>
+                            <div class="tl-ImageSlider">
+                                <img src="<%= profileData.profileImages[i] %>" alt="Current profile image <%= i %>">
+                            </div>
+                        <% }) %>
                         <label>
                             <span>Upload a new profile image of yourself:</span>
-                            <small>This can be either a .png, .jpg or .jpeg file.</small>
+                            <small>This can be either a .png, .jpg or .jpeg file. (You can have 4 images maximum!)</small>
                             <input
                                 type="file"
                                 name="profileImages"

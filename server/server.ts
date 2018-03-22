@@ -77,9 +77,9 @@ app.get('/delete_account', deleteAccountRoute)
 app.post('/sign_in', signInController)
 app.post('/sign_up', signUpController)
 app.post('/send_message/:_id', sendMessageController)
-app.post('/save_edited_profile', saveEditedProfileController)
+app.post('/save_edited_profile', upload.array('profileImages', 4), saveEditedProfileController)
 app.post('/delete_chat/:_id', deleteChatController)
-app.post('/questionaire_save/', upload.array('profileImages', 5), questionaireSaveController)
+app.post('/questionaire_save', upload.array('profileImages', 4), questionaireSaveController)
 
 app.use(notFoundRoute)
 
