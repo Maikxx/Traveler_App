@@ -131,7 +131,7 @@ select {
     padding: getSpacing(1);
     background-color: #fff;
     border-top: 1px solid $form-border-color;
-    margin-top: -150px;
+    margin-top: -155px;
     position: relative;
     cursor: none;
     z-index: 0;
@@ -298,6 +298,18 @@ select {
         height: getSpacing(13);
         margin-bottom: getSpacing(1);
     }
+}
+
+.tl-ErrorBanner {
+    max-width: $spacing-max-width;
+    padding: getSpacing(0.5) getSpacing(1);
+    background-color: $error-banner-background-color;
+    margin: 0 auto;
+    border-radius: 0 0 2px 2px;
+    position: relative;
+    z-index: 6;
+    width: 100%;
+    color: #ffffff;
 }
 
 @import 'pages/index';

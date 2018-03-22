@@ -53,6 +53,10 @@
             </form>
         </nav>
 
+        <% if (error) { %>
+            <div class="tl-ErrorBanner"><%= error.title %>!</div>
+        <% } %>
+
         <main class="tl-IndexPage">
             <article class="tl-Card tl-Card--TravelCard">
                 <header class="tl-TitleSection">
