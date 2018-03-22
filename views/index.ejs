@@ -67,10 +67,10 @@
                             <section class="tl-BriefTravelerDisplay">
                                 <h3><%= availableTraveler.fullName %></h3>
                                 <div>
-                                    <% if (availableTraveler.profileImages && availableTraveler.profileImages.length) { %>
-                                        <img src="<%= availableTraveler.profileImages[0] %>" alt="Available traveler">
+                                    <% if (availableTraveler.profileImage && availableTraveler.profileImage.length) { %>
+                                        <img src="<%= availableTraveler.profileImage %>" alt="Available traveler">
                                     <% } %>
-                                    <% if (availableTraveler.profileImages) { %>
+                                    <% if (availableTraveler.profileDescription) { %>
                                         <p><%= availableTraveler.profileDescription %></p>
                                     <% } %>
                                 </div>
