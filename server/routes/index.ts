@@ -19,7 +19,10 @@ function renderIndex (req: express.Request & {session: sessionType}, res: expres
                     profileDescription: result.description,
                 }))
 
-                res.render('index.ejs', { availableTravelersData })
+                res.render('index.ejs', {
+                    availableTravelersData,
+                    error: req.session.error || null,
+                })
             } else {
                 res.status(500).render('index.ejs')
             }
