@@ -17,15 +17,30 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                 Chat.find({ ownUserId: profileResult._id })
                     .then((chatResults: ChatType[]) => {
                         if (chatResults && chatResults.length) {
-                            const openChatsData = chatResults.map((chatResult) => ({
-                                _id: chatResult._id,
-                                fullName: profileResult.fullName,
-                                profileImageUrl: profileResult.profileImages
-                                    && profileResult.profileImages.length
-                                    && profileResult.profileImages[0].replace('public', ''),
+                            Promise.all(chatResults.map((chatResult) => {
+                                return Profile.findOne({ _id: chatResult.chatWithId })
+                                    .then((chatProfileResult: ProfileType) => ({
+                                        _id: chatResult._id,
+                                        fullName: chatProfileResult.fullName,
+                                        profileImageUrl: chatProfileResult.profileImages
+                                            && chatProfileResult.profileImages.length
+                                            && chatProfileResult.profileImages[0].replace('public', ''),
+                                    }))
+                                    .catch(error => {
+                                        console.error(error)
+                                        console.log('Something went wrong with getting the profile of a chat!')
+                                        handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                    })
                             }))
-
-                            res.status(200).render('chats.ejs', { openChatsData })
+                                .then(openChatsData => {
+                                    console.log(openChatsData)
+                                    res.status(200).render('chats.ejs', { openChatsData })
+                                })
+                                .catch(error => {
+                                    console.error(error)
+                                    console.log('Something went wrong inside the Promises to get all the users who you chat with!')
+                                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                })
                         } else {
                             res.render('chats.ejs', { openChatsData: [] })
                         }

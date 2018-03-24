@@ -60,8 +60,6 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
                                 req.session.lastMatchId = profileData._id
                             }
 
-                            console.log(profileData)
-
                             res.render('match_profile.ejs', { profileData })
                         })
                         .catch(error => {
