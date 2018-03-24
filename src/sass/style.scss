@@ -204,7 +204,7 @@ select {
             margin-top: getSpacing(1);
         }
 
-        + .tl-ChatsOverviewPage,
+        + .tl-ChatsPage,
         + .tl-MatchProfilePage,
         + .tl-MatchesOverviewPage,
         + .tl-MyProfilePage {
@@ -213,14 +213,14 @@ select {
     }
 
     &,
-    + .tl-ChatsOverviewPage,
+    + .tl-ChatsPage,
     + .tl-MatchProfilePage,
     + .tl-MatchesOverviewPage,
     + .tl-MyProfilePage {
         transition: 300ms ease-in-out all;
     }
 
-    + .tl-ChatsOverviewPage,
+    + .tl-ChatsPage,
     + .tl-MatchesOverviewPage,
     + .tl-MyProfilePage {
         margin-top: 30px;
@@ -317,5 +317,5 @@ select {
 @import 'pages/MatchesOverview';
 @import 'pages/MatchProfile';
 @import 'pages/Chat';
-@import 'pages/ChatsOverview';
+@import 'pages/Chats';
 @import 'pages/MyProfile';

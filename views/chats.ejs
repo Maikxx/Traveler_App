@@ -38,20 +38,20 @@
             </ol>
         </nav>
 
-        <main class="tl-ChatsOverviewPage">
-            <h1 class="tl-ChatsOverviewPage__page-title">Chats</h1>
-            <ul class="tl-ChatsOverviewPage__chats">
+        <main class="tl-ChatsPage">
+            <h1 class="tl-ChatsPage__page-title">Chats</h1>
+            <ul class="tl-ChatsPage__chats">
                 <% if (openChatsData && openChatsData.length) { %>
                     <% openChatsData.forEach(function (openChat) { %>
-                        <li class="tl-ChatsOverviewPage__chat">
-                            <a class="tl-ChatsOverviewPage__link-container" href="/chat/<%= openChat._id %>">
-                                <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsOverviewPage__profile-image">
-                                <h2 class="tl-ChatsOverviewPage__profile-name"><%= openChat.fullName %></h2>
+                        <li class="tl-ChatsPage__chat">
+                            <a class="tl-ChatsPage__link-container" href="/chat/<%= openChat._id %>">
+                                <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsPage__profile-image">
+                                <h2 class="tl-ChatsPage__profile-name"><%= openChat.fullName %></h2>
                             </button>
                             <form action="/delete_chat/<%= openChat._id %>" method="POST">
                                 <button
                                     type="submit"
-                                    class="tl-ChatsOverviewPage__delete-chat"
+                                    class="tl-ChatsPage__delete-chat"
                                 ></button>
                             </form>
                         </li>

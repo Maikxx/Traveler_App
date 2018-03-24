@@ -1,6 +1,6 @@
 @import '../includes/spacing';
 
-.tl-ChatsOverviewPage {
+.tl-ChatsPage {
     width: 100%;
     height: 100%;
     padding: 0 getSpacing(1);
@@ -23,7 +23,7 @@
         padding: getSpacing(0.5) getSpacing(1);
         display: flex;
 
-        + .tl-ChatsOverviewPage__chat {
+        + .tl-ChatsPage__chat {
             margin-top: getSpacing(1);
         }
     }
