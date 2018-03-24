@@ -16,7 +16,7 @@ body {
     background-color: rgba(254, 250, 235, 0.6);
 }
 
-main {
+main:not(.tl-Chat) {
     max-width: $spacing-max-width;
     margin: 0 auto;
 }
