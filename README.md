@@ -17,7 +17,7 @@ Watch (and build) the css with:
 gulp
 ```
 
-Use the server using:
+Start the server using:
 
 ```shell
 npm start
