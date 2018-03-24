@@ -4,7 +4,7 @@ import Profile from '../models/profile'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from 'server/types/ProfileType'
 import handleHttpError from '../utils/handleError'
-import { ChatType } from 'server/types/chatType'
+import { ChatType, MessageType } from 'server/types/chatType'
 
 function renderChat (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
@@ -19,7 +19,13 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                             chatId,
                             chatWithName: chatWithProfile.firstName,
                             chatWithId: chatWithProfile._id,
-                            messages: chatResult.messages,
+                            messages: chatResult.messages
+                                && chatResult.messages.length
+                                && chatResult.messages.map((message: MessageType) => ({
+                                    messageById: message.messageById,
+                                    messageText: message.messageText,
+                                    sentByWho: req.session.userId === message.messageById ? 'me' : 'them',
+                                })),
                         }
 
                         res.render('chat.ejs', { chatData })

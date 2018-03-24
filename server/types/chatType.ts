@@ -1,6 +1,7 @@
 export interface MessageType {
     messageById: String,
     messageText: String,
+    sentByWho?: 'them' | 'me',
 }
 
 export interface ChatType {

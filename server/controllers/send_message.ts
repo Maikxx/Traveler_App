@@ -1,21 +1,46 @@
 import * as express from 'express'
-// import * as mongoose from 'mongoose'
 import { SessionType } from '../types/SessionType'
 import handleHttpError from '../utils/handleError'
+import Chat from '../models/chat'
+import { ChatType } from 'server/types/chatType'
 
 function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
-        const { message } = req.body
+        const { userId: messageById } = req.session
+        const { message: messageText } = req.body
+        const { _id: chatId } = req.params
 
-        // const newMessage = new Message({
-        //     _id: new mongoose.Types.ObjectId(),
-        //     messageById: req.session.userId,
-        //     messageText: message,
-        // })
+        if (messageText && messageText.length) {
+            const newMessage = {
+                messageById,
+                messageText,
+            }
 
-        console.log(message)
-
-        res.redirect('/chat/1')
+            Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
+                .then((result: ChatType) => {
+                    res.redirect(`/chat/${chatId}`)
+                })
+                .catch(error => {
+                    handleHttpError(
+                        req,
+                        res,
+                        500,
+                        '/chats',
+                        'send_message',
+                        'Something went wrong with getting a chat!',
+                        error
+                    )
+                })
+        } else {
+            handleHttpError(
+                req,
+                res,
+                400,
+                '/chats',
+                'send_message',
+                'You can not have empty messages!'
+            )
+        }
     } else {
         handleHttpError(
             req,

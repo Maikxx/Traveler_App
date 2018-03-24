@@ -39,7 +39,6 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                     })
                             }))
                                 .then(openChatsData => {
-                                    console.log(openChatsData)
                                     res.status(200).render('chats.ejs', { openChatsData })
                                 })
                                 .catch(error => {
