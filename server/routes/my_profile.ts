@@ -1,13 +1,13 @@
 import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
-import { sessionType } from '../types/sessionType'
-import { profileType } from '../types/profileType'
+import { SessionType } from '../types/SessionType'
+import { ProfileType } from '../types/ProfileType'
 
-function renderMyProfile (req: express.Request & {session: sessionType}, res: express.Response) {
+function renderMyProfile (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
         Profile.find({ _id: req.session.userId })
-            .then((result: profileType[]) => {
+            .then((result: ProfileType[]) => {
                 if (result && result.length) {
                     req.session.error = null
 

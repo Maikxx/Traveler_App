@@ -1,7 +1,7 @@
 import * as express from 'express'
-import { sessionType } from '../types/sessionType'
+import { SessionType } from '../types/SessionType'
 
-function handleDeleteChat (req: express.Request & {session: sessionType}, res: express.Response) {
+function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response) {
     const { _id } = req.params
     console.log(_id)
 

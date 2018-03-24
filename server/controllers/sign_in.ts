@@ -2,9 +2,9 @@ import * as express from 'express'
 import * as bcrypt from 'bcrypt'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
-import { sessionType } from '../types/sessionType'
+import { SessionType } from '../types/SessionType'
 
-function handleSignIn (req: express.Request & {session: sessionType}, res: express.Response) {
+function handleSignIn (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.body) {
         const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/

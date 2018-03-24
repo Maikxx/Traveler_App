@@ -1,4 +1,4 @@
-export interface profileType {
+export interface ProfileType {
     _id: string,
     email?: string,
     password?: string,

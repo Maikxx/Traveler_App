@@ -1,12 +1,25 @@
 import * as express from 'express'
-import { sessionType } from '../types/sessionType'
+// import * as mongoose from 'mongoose'
+import { SessionType } from '../types/SessionType'
+import handleHttpError from '../utils/handleError'
 
-function handleSendMessage (req: express.Request & {session: sessionType}, res: express.Response) {
-    const { message } = req.body
+function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response) {
+    if (req.session && req.session.userId) {
+        const { message } = req.body
 
-    console.log(message)
+        // const newMessage = new Message({
+        //     _id: new mongoose.Types.ObjectId(),
+        //     messageById: req.session.userId,
+        //     messageText: message,
+        // })
 
-    res.redirect('/chat/1')
+        console.log(message)
+
+        res.redirect('/chat/1')
+    } else {
+        console.error('You need to be logged in to send a message!')
+        handleHttpError(req, res, 403, 'Forbidden', '/')
+    }
 }
 
 export default handleSendMessage

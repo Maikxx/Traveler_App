@@ -1,9 +1,9 @@
 import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
-import { sessionType } from '../types/sessionType'
+import { SessionType } from '../types/SessionType'
 
-function renderQuestionaire (req: express.Request & {session: sessionType}, res: express.Response) {
+function renderQuestionaire (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session.userId) {
         const _id = req.session.userId
 

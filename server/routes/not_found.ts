@@ -1,10 +1,10 @@
 import * as express from 'express'
 import handleHttpError from '../utils/handleError'
-import { sessionType } from '../types/sessionType'
+import { SessionType } from '../types/SessionType'
 
 function renderNotFound (
         error: express.Errback,
-        req: express.Request & {session: sessionType},
+        req: express.Request & {session: SessionType},
         res: express.Response,
         next: express.NextFunction
 ) {

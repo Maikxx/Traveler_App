@@ -4,10 +4,10 @@ import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
 import getAge from '../utils/getAge'
 import { MulterFile } from '../types/multerFileType'
-import { sessionType } from '../types/sessionType'
-import { profileType } from '../types/profileType'
+import { SessionType } from '../types/SessionType'
+import { ProfileType } from '../types/ProfileType'
 
-function handleQuestionaireSave (req: express.Request & {session: sessionType} & {files: MulterFile[]}, res: express.Response) {
+function handleQuestionaireSave (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
     if (req.session && req.session.userId) {
         const _id = req.session.userId
 
@@ -196,7 +196,7 @@ function handleQuestionaireSave (req: express.Request & {session: sessionType} &
 
                 Profile.findOneAndUpdate({ _id }, queryData)
                     .exec()
-                    .then((result: profileType) => req.session.error = null)
+                    .then((result: ProfileType) => req.session.error = null)
                     .catch(error => {
                         console.error(error)
                         handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')

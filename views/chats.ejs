@@ -41,23 +41,27 @@
         <main class="tl-ChatsOverviewPage">
             <h1 class="tl-ChatsOverviewPage__page-title">Chats</h1>
             <ul class="tl-ChatsOverviewPage__chats">
-                <% openChatsData.forEach(function (openChat) { %>
-                    <li class="tl-ChatsOverviewPage__chat">
-                        <a class="tl-ChatsOverviewPage__link-container" href="/chat/<%= openChat.id %>">
-                            <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsOverviewPage__profile-image">
-                            <h2 class="tl-ChatsOverviewPage__profile-name"><%= openChat.fullName %></h2>
-                            <p class="tl-ChatsOverviewPage__last-message tl-ChatsOverviewPage__last-message--by-<%= openChat.lastMessage.byWho %>">
-                                <%= openChat.lastMessage.content %>
-                            </p>
-                        </button>
-                        <form action="/delete_chat/<%= openChat._id %>" method="POST">
-                            <button
-                                type="submit"
-                                class="tl-ChatsOverviewPage__delete-chat"
-                            ></button>
-                        </form>
-                    </li>
-                <% }) %>
+                <% if (openChatsData && openChatsData.length) { %>
+                    <% openChatsData.forEach(function (openChat) { %>
+                        <li class="tl-ChatsOverviewPage__chat">
+                            <a class="tl-ChatsOverviewPage__link-container" href="/chat/<%= openChat._id %>">
+                                <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsOverviewPage__profile-image">
+                                <h2 class="tl-ChatsOverviewPage__profile-name"><%= openChat.fullName %></h2>
+                                <!-- <p class="tl-ChatsOverviewPage__last-message tl-ChatsOverviewPage__last-message--by-<%= openChat.lastMessage.byWho %>">
+                                    <%= openChat.lastMessage.content %>
+                                </p> -->
+                            </button>
+                            <form action="/delete_chat/<%= openChat._id %>" method="POST">
+                                <button
+                                    type="submit"
+                                    class="tl-ChatsOverviewPage__delete-chat"
+                                ></button>
+                            </form>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <span>No chats found!</span>
+                <% } %>
             </ul>
         </main>
         <script src="/index.js"></script>

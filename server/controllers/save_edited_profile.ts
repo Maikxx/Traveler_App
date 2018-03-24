@@ -3,15 +3,15 @@ import * as fs from 'fs'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
 import { MulterFile } from '../types/multerFileType'
-import { sessionType } from '../types/sessionType'
-import { profileType } from '../types/profileType'
+import { SessionType } from '../types/SessionType'
+import { ProfileType } from '../types/ProfileType'
 
-function handleSaveEditedProfile (req: express.Request & {session: sessionType} & {files: MulterFile[]}, res: express.Response) {
+function handleSaveEditedProfile (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
     const { userId } = req.session
 
     if (userId) {
         Profile.findById(userId)
-            .then((profile: profileType) => {
+            .then((profile: ProfileType) => {
                 if (profile) {
                     req.session.error = null
 
@@ -185,7 +185,7 @@ function handleSaveEditedProfile (req: express.Request & {session: sessionType} 
 
                     Profile.findOneAndUpdate({ _id: userId }, queryData)
                         .exec()
-                        .then((result: profileType) => {
+                        .then((result: ProfileType) => {
                             req.session.error = null
                             res.status(200).redirect('/my_profile')
                         })

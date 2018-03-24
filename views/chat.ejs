@@ -18,18 +18,20 @@
 
             <section class="tl-Chat__content-wrapper">
                 <div class="tl-Chat__content">
-                    <% chatData.messages.forEach(function (message) { %>
-                        <div class="tl-Chat__message-wrapper tl-Chat__message-<%= message.sentByWho %>">
-                            <div class="tl-Chat__text-wrapper">
-                                <p><%= message.messageText %></p>
+                    <% if (chatData.messages && chatData.messages.length) { %>
+                        <% chatData.messages.forEach(function (message) { %>
+                            <div class="tl-Chat__message-wrapper tl-Chat__message-<%= message.sentByWho %>">
+                                <div class="tl-Chat__text-wrapper">
+                                    <p><%= message.messageText %></p>
+                                </div>
                             </div>
-                        </div>
-                    <% }) %>
+                        <% }) %>
+                    <% } %>
                 </div>
             </section>
 
             <section class="tl-Chat__footer">
-                <form action="/send_message/<%= chatData.messages.nextMessageId %>" class="tl-Chat__chat-form" method="POST">
+                <form action="/send_message" class="tl-Chat__chat-form" method="POST">
                     <textarea
                         name="message"
                         id="message"

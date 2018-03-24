@@ -1,16 +1,16 @@
 import * as express from 'express'
 import Profile from '../models/profile'
 import handleHttpError from '../utils/handleError'
-import { sessionType } from '../types/sessionType'
-import { profileType } from '../types/profileType'
+import { SessionType } from '../types/SessionType'
+import { ProfileType } from '../types/ProfileType'
 
-function renderMatchProfile (req: express.Request & {session: sessionType}, res: express.Response) {
+function renderMatchProfile (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
         const { _id } = req.params
 
         if (_id) {
             Profile.find({ _id })
-                .then((result: profileType[]) => {
+                .then((result: ProfileType[]) => {
                     req.session.error = null
 
                     const currentResult = result[0]
@@ -49,6 +49,7 @@ function renderMatchProfile (req: express.Request & {session: sessionType}, res:
                         lengthInCm: currentResult.lengthInCm,
                     }
 
+                    req.session.lastMatchId = profileData._id
                     res.render('match_profile.ejs', { profileData })
                 })
                 .catch(error => {
