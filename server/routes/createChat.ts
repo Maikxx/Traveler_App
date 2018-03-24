@@ -34,7 +34,7 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                 handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
             })
     } else {
-        console.error('You need to be logged in to send a message!')
+        console.error('You need to be logged in to create a chat!')
         handleHttpError(req, res, 403, 'Forbidden', '/')
     }
 
