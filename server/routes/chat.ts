@@ -19,15 +19,10 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                     messages: [],
                 })
 
-                newChat.save(error => {
-                    if (error) {
-                        console.error('Error while saving a new chat')
-                        handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
-                    }
-
-                    Chat.findOne({ _id: newChat._id })
-                        .then((chatResult: ChatType) => {
-                            if (chatResult) {
+                newChat.save()
+                    .then(() => {
+                        Chat.findOne({ _id: newChat._id })
+                            .then((chatResult: ChatType) => {
                                 const chatData = {
                                     chatId: newChat._id,
                                     chatWithName: chatWithProfile.firstName,
@@ -35,16 +30,19 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                                     messages: chatResult.messages,
                                 }
 
-                                console.log(chatData)
                                 res.render('chat.ejs', { chatData })
-                            }
-                        })
-                        .catch(error => {
-                            console.error(error)
-                            console.error('Invalid newChatId')
-                            handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
-                        })
-                })
+                            })
+                            .catch(error => {
+                                console.error(error)
+                                console.error('Invalid newChatId')
+                                handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
+                            })
+                    })
+                    .catch(error => {
+                        console.error(error)
+                        console.error('Error while saving a new chat')
+                        handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
+                    })
             })
             .catch(error => {
                 console.error(error)
