@@ -5,6 +5,7 @@ import Profile from '../models/profile'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from 'server/types/ProfileType'
 import handleHttpError from '../utils/handleError'
+import { ChatType } from 'server/types/chatType'
 
 function createChat (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId && req.session.lastMatchId) {
@@ -20,7 +21,49 @@ function createChat (req: express.Request & {session: SessionType}, res: express
 
                 newChat.save()
                     .then(() => {
-                        res.redirect(`/chat/${newChat._id}`)
+                        Chat.findOne({ _id: newChat._id })
+                            .then((chatResult: ChatType) => {
+                                Profile.update({ _id: chatResult.ownUserId }, { $push: { chats: chatResult._id } })
+                                    .then(() => {
+                                        Profile.update({ _id: chatResult.chatWithId }, { $push: { chats: chatResult._id } })
+                                            .then(() => {
+                                                res.redirect(`/chat/${chatResult._id}`)
+                                            })
+                                            .catch(error => {
+                                                handleHttpError(
+                                                    req,
+                                                    res,
+                                                    500,
+                                                    '/chats',
+                                                    'createChat',
+                                                    'Error while saving profile 2!',
+                                                    error
+                                                )
+                                            })
+                                    })
+                                    .catch(error => {
+                                        handleHttpError(
+                                            req,
+                                            res,
+                                            500,
+                                            '/chats',
+                                            'createChat',
+                                            'Error while saving profile 1!',
+                                            error
+                                        )
+                                    })
+                            })
+                            .catch(error => {
+                                handleHttpError(
+                                    req,
+                                    res,
+                                    500,
+                                    '/chats',
+                                    'createChat',
+                                    'Error while getting back the saved chat!',
+                                    error
+                                )
+                            })
                     })
                     .catch(error => {
                         handleHttpError(

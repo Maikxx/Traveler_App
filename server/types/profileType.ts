@@ -37,5 +37,6 @@ export interface ProfileType {
         minSearchAge?: number,
         maxSearchAge?: number,
         lookingForGender?: 'Male' | 'Female',
-    }
+    },
+    chats?: [ string ],
 }
