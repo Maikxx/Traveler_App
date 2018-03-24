@@ -14,6 +14,7 @@ function createChat (req: express.Request & {session: SessionType}, res: express
             .then((chatWithProfile: ProfileType) => {
                 const newChat = new Chat({
                     _id: new mongoose.Types.ObjectId(),
+                    chatParticipants: [ req.session.userId, chatWithProfile._id ],
                     ownUserId: req.session.userId,
                     chatWithId: chatWithProfile._id,
                     messages: [],
@@ -23,23 +24,22 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                     .then(() => {
                         Chat.findOne({ _id: newChat._id })
                             .then((chatResult: ChatType) => {
-                                Profile.update({ _id: chatResult.ownUserId }, { $push: { chats: chatResult._id } })
+                                Promise.all(chatResult.chatParticipants && chatResult.chatParticipants.map((participantId) => {
+                                    return Profile.update({ _id: participantId }, { $push: { chats: chatResult._id } })
+                                        .catch(error => {
+                                            handleHttpError(
+                                                req,
+                                                res,
+                                                500,
+                                                '/chats',
+                                                'createChat',
+                                                `Error while saving profile ${participantId}!`,
+                                                error
+                                            )
+                                        })
+                                }))
                                     .then(() => {
-                                        Profile.update({ _id: chatResult.chatWithId }, { $push: { chats: chatResult._id } })
-                                            .then(() => {
-                                                res.redirect(`/chat/${chatResult._id}`)
-                                            })
-                                            .catch(error => {
-                                                handleHttpError(
-                                                    req,
-                                                    res,
-                                                    500,
-                                                    '/chats',
-                                                    'createChat',
-                                                    'Error while saving profile 2!',
-                                                    error
-                                                )
-                                            })
+                                        res.redirect(`/chat/${chatResult._id}`)
                                     })
                                     .catch(error => {
                                         handleHttpError(
@@ -48,7 +48,7 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                                             500,
                                             '/chats',
                                             'createChat',
-                                            'Error while saving profile 1!',
+                                            'Error while getting back the saved chat!',
                                             error
                                         )
                                     })

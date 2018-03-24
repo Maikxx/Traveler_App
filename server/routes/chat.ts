@@ -63,38 +63,6 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
             'You need to be logged in to send a message!'
         )
     }
-
-    // const chatData = {
-    //     chatId: '1',
-    //     chatWithName: 'Henk',
-    //     chatWithId: '1',
-    //     messages: [
-    //         {
-    //             messageId: '1',
-    //             sentByWho: 'me',
-    //             sentBy: 'Henk',
-    //             messageText: 'Hello there!',
-    //         },
-    //         {
-    //             messageId: '2',
-    //             sentByWho: 'them',
-    //             sentBy: 'Maikel',
-    //             messageText: 'Hello!',
-    //         },
-    //         {
-    //             messageId: '3',
-    //             sentByWho: 'me',
-    //             sentBy: 'Henk',
-    //             messageText: 'Hello thero!',
-    //         },
-    //         {
-    //             messageId: '4',
-    //             sentByWho: 'them',
-    //             sentBy: 'Maikel',
-    //             messageText: 'Hellooo!',
-    //         },
-    //     ],
-    // }
 }
 
 export default renderChat

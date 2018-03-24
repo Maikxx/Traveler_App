@@ -15,56 +15,31 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
             .then((myProfile: ProfileType) => {
                 if (myProfile.chats && myProfile.chats.length) {
                     Promise.all(myProfile.chats.map((chatId: string, i) => {
-
                         return Chat.findOne({ _id: chatId })
                             .then((chatResult: ChatType) => {
-                                console.log(myProfile._id, chatResult.chatWithId)
-                                console.log(myProfile._id, chatResult.ownUserId)
-
-                                if (myProfile._id !== chatResult.ownUserId) {
-                                    return Profile.findOne({ _id: chatResult.ownUserId })
-                                        .then((chatWithProfile: ProfileType) => {
-                                            return {
+                                for (let i = 0; i < chatResult.chatParticipants.length; i++) {
+                                    // tslint:disable-next-line:triple-equals
+                                    if (chatResult.chatParticipants[i] != req.session.userId) {
+                                        return Profile.findOne({ _id: chatResult.chatParticipants[i] })
+                                            .then((chatWithProfile: ProfileType) => ({
                                                 _id: chatResult._id,
                                                 fullName: chatWithProfile.fullName,
                                                 profileImageUrl: chatWithProfile.profileImages
                                                     && chatWithProfile.profileImages.length
                                                     && chatWithProfile.profileImages[0].replace('public', ''),
-                                            }
-                                        })
-                                        .catch(error => {
-                                            handleHttpError(
-                                                req,
-                                                res,
-                                                500,
-                                                '/',
-                                                'chats',
-                                                'Something went wrong with getting the profile of a chat!',
-                                                error
-                                            )
-                                        })
-                                } else {
-                                    return Profile.findOne({ _id: chatResult.chatWithId })
-                                        .then((chatFromProfile: ProfileType) => {
-                                            return {
-                                                _id: chatResult._id,
-                                                fullName: chatFromProfile.fullName,
-                                                profileImageUrl: chatFromProfile.profileImages
-                                                    && chatFromProfile.profileImages.length
-                                                    && chatFromProfile.profileImages[0].replace('public', ''),
-                                            }
-                                        })
-                                        .catch(error => {
-                                            handleHttpError(
-                                                req,
-                                                res,
-                                                500,
-                                                '/',
-                                                'chats',
-                                                'Something went wrong with getting the profile of a chat!',
-                                                error
-                                            )
-                                        })
+                                            }))
+                                            .catch(error => {
+                                                handleHttpError(
+                                                    req,
+                                                    res,
+                                                    500,
+                                                    '/',
+                                                    'chats',
+                                                    'Something went wrong with getting the profile of a chat!',
+                                                    error
+                                                )
+                                            })
+                                    }
                                 }
                             })
                             .catch(error => {
@@ -79,19 +54,9 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                 )
                             })
                     }))
-                        .then(openChatsData => {
+                        .then(rawData => {
+                            const openChatsData = rawData.filter(data => data !== undefined)
                             res.status(200).render('chats.ejs', { openChatsData })
-                        })
-                        .catch(error => {
-                            handleHttpError(
-                                req,
-                                res,
-                                500,
-                                '/',
-                                'chats',
-                                'Something went wrong inside the Promises to get all the users who you chat with!',
-                                error
-                            )
                         })
                 }
             })
