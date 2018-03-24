@@ -59,18 +59,36 @@ function renderMyProfileEdit (req: express.Request & {session: SessionType}, res
 
                     res.render('my_profile_edit.ejs', { profileData })
                 } else {
-                    console.error('No result found!')
-                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                    handleHttpError(
+                        req,
+                        res,
+                        500,
+                        '/',
+                        'my_profile_edit',
+                        'No result found!'
+                    )
                 }
             })
             .catch(error => {
-                console.error('Something went wrong in profile edit')
-                console.error(error)
-                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/',
+                    'my_profile_edit',
+                    'Something went wrong in profile edit!',
+                    error
+                )
             })
     } else {
-        console.error('You are not logged in!')
-        handleHttpError(req, res, 401, 'Credentials Required', '/')
+        handleHttpError(
+            req,
+            res,
+            401,
+            '/',
+            'my_profile_edit',
+            'You are not logged in!'
+        )
     }
 }
 

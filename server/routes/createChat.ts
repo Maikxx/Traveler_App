@@ -23,19 +23,37 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                         res.redirect(`/chat/${newChat._id}`)
                     })
                     .catch(error => {
-                        console.error(error)
-                        console.error('Error while saving a new chat')
-                        handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
+                        handleHttpError(
+                            req,
+                            res,
+                            500,
+                            '/chats',
+                            'createChat',
+                            'Error while saving a new chat',
+                            error
+                        )
                     })
             })
             .catch(error => {
-                console.error(error)
-                console.error('Invalid lastMatchId')
-                handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/chats',
+                    'createChat',
+                    'Invalid lastMatchId!',
+                    error
+                )
             })
     } else {
-        console.error('You need to be logged in to create a chat!')
-        handleHttpError(req, res, 403, 'Forbidden', '/')
+        handleHttpError(
+            req,
+            res,
+            403,
+            '/',
+            'createChat',
+            'You need to be logged in to create a chat!'
+        )
     }
 
     // const chatData = {

@@ -49,17 +49,36 @@ function renderMyProfile (req: express.Request & {session: SessionType}, res: ex
 
                     res.render('my_profile.ejs', { profileData })
                 } else {
-                    console.error('No result found!')
-                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                    handleHttpError(
+                        req,
+                        res,
+                        500,
+                        '/',
+                        'my_profile',
+                        'No result found!'
+                    )
                 }
             })
             .catch(error => {
-                console.error(error)
-                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/',
+                    'my_profile',
+                    'Error while finding a person!',
+                    error
+                )
             })
     } else {
-        console.error('You are not logged in!')
-        handleHttpError(req, res, 401, 'Credentials Required', '/')
+        handleHttpError(
+            req,
+            res,
+            401,
+            '/',
+            'my_profile',
+            'You are not logged in!'
+        )
     }
 }
 

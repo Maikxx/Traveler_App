@@ -5,8 +5,15 @@ import { SessionType } from '../types/SessionType'
 function handleLogOut (req: express.Request & {session: SessionType}, res: express.Response) {
     req.session.destroy(error => {
         if (error) {
-            console.error(error)
-            handleHttpError(req, res, 500, 'Internal Server Error', '/')
+            handleHttpError(
+                req,
+                res,
+                500,
+                '/',
+                'log_out',
+                'There was an error logging you out!',
+                error
+            )
         } else {
             res.redirect('/')
         }

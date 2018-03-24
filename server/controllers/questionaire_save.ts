@@ -13,8 +13,15 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
 
         Profile.count({ _id }, (error, count) => {
             if (error) {
-                console.error('Something went wrong with getting the id of a Profile!')
-                handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/questionaire',
+                    'questionaire',
+                    'Something went wrong with getting the id of a Profile!',
+                    error
+                )
             } else if (count > 0) {
                 req.session.error = null
 
@@ -103,9 +110,14 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                     (!minSearchAge || !minSearchAge.length) ||
                     (!maxSearchAge || !maxSearchAge.length)
                 ) {
-                    console.error('Not all required fields of the questionaire are filled in!')
-                    handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
-                    return
+                    handleHttpError(
+                        req,
+                        res,
+                        400,
+                        '/questionaire',
+                        'questionaire',
+                        'Not all required fields of the questionaire are filled in!'
+                    )
                 } else {
                     queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
                     queryData.favouriteHolidayDestination = favouriteHolidayDestination
@@ -176,8 +188,14 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                 }
 
                 if (req.files && req.files.length > 4) {
-                    console.error('Too much images passed!')
-                    handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
+                    handleHttpError(
+                        req,
+                        res,
+                        400,
+                        '/questionaire',
+                        'questionaire',
+                        'Too much images passed!'
+                    )
                 } else if (req.files) {
                     req.files.forEach((file, i) => {
                         try {
@@ -185,27 +203,53 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                             queryData.profileImages.push(`${file.destination}/${_id}_${i}.jpg`)
                         } catch (error) {
                             fs.unlinkSync(file.path)
-                            console.error('Images unlinking error!')
-                            handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
+                            handleHttpError(
+                                req,
+                                res,
+                                500,
+                                '/questionaire',
+                                'questionaire',
+                                'Images unlinking error!',
+                                error
+                            )
                         }
                     })
                 } else {
-                    console.error('No images passed!')
-                    handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
+                    handleHttpError(
+                        req,
+                        res,
+                        400,
+                        '/questionaire',
+                        'questionaire',
+                        'No images passed!'
+                    )
                 }
 
                 Profile.findOneAndUpdate({ _id }, queryData)
                     .exec()
                     .then((result: ProfileType) => req.session.error = null)
                     .catch(error => {
-                        console.error(error)
-                        handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
+                        handleHttpError(
+                            req,
+                            res,
+                            500,
+                            '/questionaire',
+                            'questionaire',
+                            'Something went wrong with getting the id of a Profile!',
+                            error
+                        )
                     })
             }
         })
     } else {
-        console.error('You are not signed in!')
-        handleHttpError(req, res, 403, 'Forbidden', '/')
+        handleHttpError(
+            req,
+            res,
+            403,
+            '/questionaire',
+            'questionaire',
+            'You are not signed in!'
+        )
     }
 }
 

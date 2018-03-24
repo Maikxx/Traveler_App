@@ -22,14 +22,27 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                 .exec()
                 .then((user: any) => {
                     if (!user.length) {
-                        console.error('Authentication Failed!')
-                        handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                        handleHttpError(
+                            req,
+                            res,
+                            409,
+                            '/',
+                            'log_in',
+                            'Authentication Failed!'
+                        )
                     }
 
                     bcrypt.compare(password, user[0].password, (error, response) => {
                         if (error) {
-                            console.error('Authentication Failed!')
-                            handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                            handleHttpError(
+                                req,
+                                res,
+                                409,
+                                '/',
+                                'log_in',
+                                'Authentication Failed!',
+                                error
+                            )
                         }
 
                         if (response) {
@@ -37,18 +50,37 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                             req.session.error = null
                             res.redirect('/matches_overview')
                         } else {
-                            console.error('Authentication Failed!')
-                            handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                            handleHttpError(
+                                req,
+                                res,
+                                409,
+                                '/',
+                                'log_in',
+                                'Authentication Failed!'
+                            )
                         }
                     })
                 })
                 .catch(error => {
-                    console.error(error)
-                    console.error('Authentication Failed!')
-                    handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                    handleHttpError(
+                        req,
+                        res,
+                        403,
+                        '/',
+                        'log_in',
+                        'Authentication Failed!',
+                        error
+                    )
                 })
         } else {
-            handleHttpError(req, res, 400, 'Bad Request', '/')
+            handleHttpError(
+                req,
+                res,
+                400,
+                '/',
+                'log_in',
+                'Authentication Failed!'
+            )
         }
     }
 }

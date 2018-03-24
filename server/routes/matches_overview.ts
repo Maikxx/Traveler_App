@@ -32,12 +32,25 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
                 res.render('matches_overview.ejs', { overviewData })
             })
             .catch(error => {
-                console.error(error)
-                handleHttpError(req, res, 500, 'Internal Server Error', '/matches_overview')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/',
+                    'matches_overview',
+                    'Error finding a profile!',
+                    error
+                )
             })
     } else {
-        console.log('You are not logged in!')
-        handleHttpError(req, res, 401, 'Credentials Required', '/')
+        handleHttpError(
+            req,
+            res,
+            401,
+            '/',
+            'matches_overview',
+            'You are not logged in!'
+        )
     }
 }
 

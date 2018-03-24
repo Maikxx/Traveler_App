@@ -29,6 +29,7 @@
     "gulp-cssnano": "^2.1.2",
     "gulp-sass": "^3.1.0",
     "gulp-sourcemaps": "^2.6.4",
+    "http-status": "^1.0.1",
     "nodemon": "^1.17.1",
     "tslint": "^5.9.1",
     "tslint-eslint-rules": "^5.1.0",

@@ -9,9 +9,15 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
     if (req.session && req.session.userId) {
         Chat.remove({ _id: chatId, ownUserId: req.session.userId })
             .catch(error => {
-                console.error(error)
-                console.error('Either the chatId does not exist, or you do not own the chat!')
-                handleHttpError(req, res, 400, 'Bad Request', '/')
+                handleHttpError(
+                    req,
+                    res,
+                    400,
+                    '/',
+                    'delete_chat',
+                    'Either the chatId does not exist, or you do not own the chat!',
+                    error
+                )
             })
     }
 

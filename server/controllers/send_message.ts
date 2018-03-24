@@ -17,8 +17,14 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
 
         res.redirect('/chat/1')
     } else {
-        console.error('You need to be logged in to send a message!')
-        handleHttpError(req, res, 403, 'Forbidden', '/')
+        handleHttpError(
+            req,
+            res,
+            403,
+            '/chats',
+            'send_message',
+            'You need to be logged in to send a message!'
+        )
     }
 }
 

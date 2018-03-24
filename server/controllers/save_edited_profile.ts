@@ -97,8 +97,14 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         !minSearchAge ||
                         !maxSearchAge
                     ) {
-                        console.error('Not all required fields of the questionaire are filled in!')
-                        handleHttpError(req, res, 400, 'Bad Request', '/my_profile/_edit')
+                        handleHttpError(
+                            req,
+                            res,
+                            400,
+                            '/my_profile/edit',
+                            'save_edited_profile',
+                            'Not all required fields of the questionaire are filled in!'
+                        )
                         return
                     } else {
                         queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
@@ -168,8 +174,14 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                     }
 
                     if (req.files && req.files.length > 4) {
-                        console.error('Too much images passed!')
-                        handleHttpError(req, res, 400, 'Bad Request', '/questionaire')
+                        handleHttpError(
+                            req,
+                            res,
+                            400,
+                            '/my_profile/edit',
+                            'save_edited_profile',
+                            'Too much images passed!'
+                        )
                     } else if (req.files) {
                         req.files.forEach((file, i) => {
                             try {
@@ -177,8 +189,14 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                                 queryData.profileImages.push(`${file.destination}/${userId}_${i}.jpg`)
                             } catch (error) {
                                 fs.unlinkSync(file.path)
-                                console.error('Images unlinking error!')
-                                handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
+                                handleHttpError(
+                                    req,
+                                    res,
+                                    500,
+                                    '/my_profile/edit',
+                                    'save_edited_profile',
+                                    'Images unlinking error!'
+                                )
                             }
                         })
                     }
@@ -190,15 +208,30 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                             res.status(200).redirect('/my_profile')
                         })
                         .catch(error => {
-                            console.error(error)
-                            handleHttpError(req, res, 500, 'Internal Server Error', '/questionaire')
+                            handleHttpError(
+                                req,
+                                res,
+                                500,
+                                '/my_profile/edit',
+                                'save_edited_profile',
+                                'Could not find a profile!',
+                                error
+                            )
                         })
                 }
             })
             .catch(error => {
                 console.error(error)
                 console.error('Something went wrong with getting the id of a Profile!')
-                handleHttpError(req, res, 500, 'Internal Server Error', `/profile/${userId}`)
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/my_profile/edit',
+                    'save_edited_profile',
+                    'Something went wrong with getting the id of a Profile!',
+                    error
+                )
             })
     }
 }

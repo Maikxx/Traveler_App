@@ -17,15 +17,30 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
                             fs.unlink(image, (error) => {
                                 if (error) {
                                     console.error(error)
-                                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                    handleHttpError(
+                                        req,
+                                        res,
+                                        500,
+                                        '/',
+                                        'delete_account',
+                                        'There was an error unlinking an image!',
+                                        error
+                                    )
                                 }
                             })
                         })
 
                         req.session.destroy(error => {
                             if (error) {
-                                console.error(error)
-                                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                handleHttpError(
+                                    req,
+                                    res,
+                                    500,
+                                    '/',
+                                    'delete_account',
+                                    'There was an error while destroying a session!',
+                                    error
+                                )
                             } else {
                                 res.status(200).redirect('/')
                             }
@@ -34,13 +49,26 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
                 }
             })
             .catch(error => {
-                console.error(error)
-                console.error('No such user exists!')
-                handleHttpError(req, res, 401, 'Authentication Failed', '/')
+                handleHttpError(
+                    req,
+                    res,
+                    401,
+                    '/',
+                    'delete_account',
+                    'No such user exists!',
+                    error
+                )
             })
     } else {
         console.error('You are not logged in!')
-        handleHttpError(req, res, 401, 'Creditentials Required', '/')
+        handleHttpError(
+            req,
+            res,
+            401,
+            '/',
+            'delete_account',
+            'You are not logged in!'
+        )
     }
 }
 

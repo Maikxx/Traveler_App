@@ -24,13 +24,26 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                 .exec()
                 .then((user: any) => {
                     if (user.length) {
-                        console.error('Mail already exists!')
-                        handleHttpError(req, res, 409, 'Mail already exists', '/')
+                        handleHttpError(
+                            req,
+                            res,
+                            409,
+                            '/',
+                            'sign_up',
+                            'Mail already exists!'
+                        )
                     } else {
                         bcrypt.hash(req.body.password, 10, (error: any, hash: string) => {
                             if (error) {
-                                console.error(error)
-                                handleHttpError(req, res, 400, 'Bad Request', '/')
+                                handleHttpError(
+                                    req,
+                                    res,
+                                    400,
+                                    '/',
+                                    'sign_up',
+                                    'Uncaught error!',
+                                    error
+                                )
                             } else {
                                 if (
                                     fullName && fullName.length &&
@@ -58,7 +71,15 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                         })
                                         .catch(error => {
                                             console.error(error)
-                                            handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                            handleHttpError(
+                                                req,
+                                                res,
+                                                500,
+                                                '/',
+                                                'sign_up',
+                                                'Error while saving a new user!',
+                                                error
+                                            )
                                         })
                                 }
                             }
@@ -66,7 +87,14 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                     }
                 })
         } else {
-            handleHttpError(req, res, 422, 'Unprocessable Entity', '/')
+            handleHttpError(
+                req,
+                res,
+                422,
+                '/',
+                'sign_up',
+                'Mail is not valid!'
+            )
         }
     }
 }

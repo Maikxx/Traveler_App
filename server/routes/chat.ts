@@ -25,19 +25,37 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                         res.render('chat.ejs', { chatData })
                     })
                     .catch(error => {
-                        console.error(error)
-                        console.error('Something went wrong inside of the finding of the person who you chat with!')
-                        handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                        handleHttpError(
+                            req,
+                            res,
+                            500,
+                            '/matches_overview',
+                            'chat',
+                            'Something went wrong inside of the finding of the person who you chat with!',
+                            error
+                        )
                     })
             })
             .catch(error => {
-                console.error(error)
-                console.error('Invalid newChatId')
-                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/matches_overview',
+                    'chat',
+                    'Invalid newChatId',
+                    error
+                )
             })
     } else {
-        console.error('You need to be logged in to send a message!')
-        handleHttpError(req, res, 403, 'Forbidden', '/')
+        handleHttpError(
+            req,
+            res,
+            403,
+            '/matches_overview',
+            'chat',
+            'You need to be logged in to send a message!'
+        )
     }
 
     // const chatData = {

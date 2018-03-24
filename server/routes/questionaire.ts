@@ -4,25 +4,45 @@ import handleHttpError from '../utils/handleError'
 import { SessionType } from '../types/SessionType'
 
 function renderQuestionaire (req: express.Request & {session: SessionType}, res: express.Response) {
-    if (req.session.userId) {
+    if (req.session && req.session.userId) {
         const _id = req.session.userId
 
-        Profile.count({ _id }, (error: any, count: number) => {
-            if (error) {
-                console.error(error)
-                handleHttpError(req, res, 500, 'Internal Server Error', '/')
-            } else {
+        Profile.count({ _id })
+            .then((count: number) => {
                 if (count > 0) {
                     res.render('questionaire.ejs', { _id })
                 } else {
-                    console.error(error)
-                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                    handleHttpError(
+                        req,
+                        res,
+                        500,
+                        '/',
+                        'questionaire',
+                        'There are not more than 0 items found!'
+                    )
                 }
-            }
-        })
+            })
+            .catch(error => {
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/',
+                    'questionaire',
+                    'An error occured counting profiles!',
+                    error
+                )
+            })
+
     } else {
-        console.error('You are not logged in!')
-        handleHttpError(req, res, 401, 'Creditentials Required', '/')
+        handleHttpError(
+            req,
+            res,
+            401,
+            '/',
+            'questionaire',
+            'You are not logged in!'
+        )
     }
 }
 

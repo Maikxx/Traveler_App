@@ -27,9 +27,15 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                             && chatProfileResult.profileImages[0].replace('public', ''),
                                     }))
                                     .catch(error => {
-                                        console.error(error)
-                                        console.log('Something went wrong with getting the profile of a chat!')
-                                        handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                        handleHttpError(
+                                            req,
+                                            res,
+                                            500,
+                                            '/',
+                                            'chats',
+                                            'Something went wrong with getting the profile of a chat!',
+                                            error
+                                        )
                                     })
                             }))
                                 .then(openChatsData => {
@@ -37,30 +43,54 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                     res.status(200).render('chats.ejs', { openChatsData })
                                 })
                                 .catch(error => {
-                                    console.error(error)
-                                    console.log('Something went wrong inside the Promises to get all the users who you chat with!')
-                                    handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                                    handleHttpError(
+                                        req,
+                                        res,
+                                        500,
+                                        '/',
+                                        'chats',
+                                        'Something went wrong inside the Promises to get all the users who you chat with!',
+                                        error
+                                    )
                                 })
                         } else {
                             res.render('chats.ejs', { openChatsData: [] })
                         }
                     })
                     .catch(error => {
-                        console.error(error)
-                        console.error('User ID and ownUserId do not match!')
-                        handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                        handleHttpError(
+                            req,
+                            res,
+                            500,
+                            '/',
+                            'chats',
+                            'User ID and ownUserId do not match!',
+                            error
+                        )
                     })
 
             })
             .catch(error => {
-                console.error(error)
-                console.error('Invalid Own User ID!')
-                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                handleHttpError(
+                    req,
+                    res,
+                    500,
+                    '/',
+                    'chats',
+                    'Invalid Own User ID!',
+                    error
+                )
             })
 
     } else {
-        console.error('You need to be logged in to view your chats!')
-        handleHttpError(req, res, 403, 'Forbidden', '/')
+        handleHttpError(
+            req,
+            res,
+            403,
+            '/',
+            'chats',
+            'You need to be logged in to view your chats!'
+        )
     }
 
     // const openChatsData = [

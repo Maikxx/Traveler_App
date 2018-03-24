@@ -63,23 +63,47 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
                             res.render('match_profile.ejs', { profileData })
                         })
                         .catch(error => {
-                            console.error(error)
-                            console.log('Error in match profile chat query!')
-                            handleHttpError(req, res, 500, 'Internal Server Error', '/matches_overview')
+                            handleHttpError(
+                                req,
+                                res,
+                                500,
+                                '/matches_overview',
+                                'match_profile',
+                                'Error in match profile chat query!',
+                                error
+                            )
                         })
                 })
                 .catch(error => {
-                    console.error(error)
-                    console.error('Invalid id passed in!')
-                    handleHttpError(req, res, 400, 'Bad Request', '/matches_overview')
+                    handleHttpError(
+                        req,
+                        res,
+                        400,
+                        '/matches_overview',
+                        'match_profile',
+                        'Invalid id passed in!',
+                        error
+                    )
                 })
         } else {
-            console.error('No id passed in to the url!')
-            handleHttpError(req, res, 400, 'Bad Request', '/matches_overview')
+            handleHttpError(
+                req,
+                res,
+                400,
+                '/matches_overview',
+                'match_profile',
+                'No id passed in to the url!'
+            )
         }
     } else {
-        console.error('You are not logged in!')
-        handleHttpError(req, res, 401, 'Credentials Required', '/')
+        handleHttpError(
+            req,
+            res,
+            401,
+            '/matches_overview',
+            'match_profile',
+            'You are not logged in!'
+        )
     }
 }
 
