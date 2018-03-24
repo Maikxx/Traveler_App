@@ -47,9 +47,6 @@
                             <a class="tl-ChatsOverviewPage__link-container" href="/chat/<%= openChat._id %>">
                                 <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsOverviewPage__profile-image">
                                 <h2 class="tl-ChatsOverviewPage__profile-name"><%= openChat.fullName %></h2>
-                                <!-- <p class="tl-ChatsOverviewPage__last-message tl-ChatsOverviewPage__last-message--by-<%= openChat.lastMessage.byWho %>">
-                                    <%= openChat.lastMessage.content %>
-                                </p> -->
                             </button>
                             <form action="/delete_chat/<%= openChat._id %>" method="POST">
                                 <button
@@ -61,6 +58,7 @@
                     <% }) %>
                 <% } else { %>
                     <span>No chats found!</span>
+                    <a href="/matches_overview">Click here to search for matches and start chatting!</a>
                 <% } %>
             </ul>
         </main>

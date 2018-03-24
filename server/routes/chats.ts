@@ -7,6 +7,8 @@ import { ProfileType } from 'server/types/profileType'
 import { ChatType } from 'server/types/chatType'
 
 function renderChats (req: express.Request & {session: SessionType}, res: express.Response) {
+    req.session.error = null
+
     if (req.session && req.session.userId) {
 
         Profile.findOne({ _id: req.session.userId })
@@ -23,10 +25,9 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                     && profileResult.profileImages[0].replace('public', ''),
                             }))
 
-                            res.render('chats.ejs', { openChatsData })
+                            res.status(200).render('chats.ejs', { openChatsData })
                         } else {
-                            console.log('No results found!')
-                            res.render('chats.ejs')
+                            res.render('chats.ejs', { openChatsData: [] })
                         }
                     })
                     .catch(error => {

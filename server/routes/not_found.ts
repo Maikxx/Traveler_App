@@ -9,6 +9,7 @@ function renderNotFound (
         next: express.NextFunction
 ) {
     if (error) {
+        console.log(error)
         handleHttpError(req, res, 404, 'Not Found', '/')
     }
 }
