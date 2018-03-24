@@ -49,43 +49,6 @@
         font-size: 110%;
     }
 
-    &__last-message {
-        position: relative;
-        margin-top: getSpacing(1);
-        width: 100%;
-        line-height: 1.5;
-
-        &--by-me,
-        &--by-them {
-            padding-left: 16px;
-
-            &::before {
-                display: inline-block;
-                content: '';
-                height: 12px;
-                width: 12px;
-                position: absolute;
-                left: 0;
-                top: 6px;
-            }
-        }
-
-        &--by-me {
-            &::before {
-                background: url('localhost:8000/img/back-arrow.svg') no-repeat center;
-                background-size: cover;
-            }
-        }
-
-        &--by-them {
-            &::before {
-                background: url('localhost:8000/img/back-arrow.svg') no-repeat center;
-                background-size: cover;
-                transform: rotateY(180deg);
-            }
-        }
-    }
-
     form {
         margin-top: getSpacing(1);
         display: inline-block;

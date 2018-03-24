@@ -47,7 +47,7 @@
                             <a class="tl-ChatsPage__link-container" href="/chat/<%= openChat._id %>">
                                 <img src="<%= openChat.profileImageUrl %>" alt="<%= openChat.fullName %>" class="tl-ChatsPage__profile-image">
                                 <h2 class="tl-ChatsPage__profile-name"><%= openChat.fullName %></h2>
-                            </button>
+                            </a>
                             <form action="/delete_chat/<%= openChat._id %>" method="POST">
                                 <button
                                     type="submit"
