@@ -13,34 +13,39 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
         Chat.findOne({ _id: chatId })
             .then((chatResult: ChatType) => {
 
-                Profile.findOne({ _id: chatResult.chatWithId })
-                    .then((chatWithProfile: ProfileType) => {
-                        const chatData = {
-                            chatId,
-                            chatWithName: chatWithProfile.firstName,
-                            chatWithId: chatWithProfile._id,
-                            messages: chatResult.messages
-                                && chatResult.messages.length
-                                && chatResult.messages.map((message: MessageType) => ({
-                                    messageById: message.messageById,
-                                    messageText: message.messageText,
-                                    sentByWho: req.session.userId === message.messageById ? 'me' : 'them',
-                                })),
-                        }
+                chatResult.chatParticipants.map((participantId) => {
+                    // tslint:disable-next-line:triple-equals
+                    if (participantId != req.session.userId) {
+                        Profile.findOne({ _id: participantId })
+                            .then((chatWithProfile: ProfileType) => {
+                                const chatData = {
+                                    chatId,
+                                    chatWithName: chatWithProfile.firstName,
+                                    chatWithId: chatWithProfile._id,
+                                    messages: chatResult.messages
+                                        && chatResult.messages.length
+                                        && chatResult.messages.map((message: MessageType) => ({
+                                            messageById: message.messageById,
+                                            messageText: message.messageText,
+                                            sentByWho: req.session.userId === message.messageById ? 'me' : 'them',
+                                        })),
+                                }
 
-                        res.render('chat.ejs', { chatData })
-                    })
-                    .catch(error => {
-                        handleHttpError(
-                            req,
-                            res,
-                            500,
-                            '/matches_overview',
-                            'chat',
-                            'Something went wrong inside of the finding of the person who you chat with!',
-                            error
-                        )
-                    })
+                                res.render('chat.ejs', { chatData })
+                            })
+                            .catch(error => {
+                                handleHttpError(
+                                    req,
+                                    res,
+                                    500,
+                                    '/matches_overview',
+                                    'chat',
+                                    'Something went wrong inside of the finding of the person who you chat with!',
+                                    error
+                                )
+                            })
+                    }
+                })
             })
             .catch(error => {
                 handleHttpError(
