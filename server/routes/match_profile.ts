@@ -1,8 +1,10 @@
 import * as express from 'express'
 import Profile from '../models/profile'
+import Chat from '../models/chat'
 import handleHttpError from '../utils/handleError'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
+import { ChatType } from 'server/types/chatType'
 
 function renderMatchProfile (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
@@ -47,10 +49,26 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
                         livesIn: currentResult.livesIn,
                         jobTitle: currentResult.jobTitle,
                         lengthInCm: currentResult.lengthInCm,
+                        chatId: null,
                     }
 
-                    req.session.lastMatchId = profileData._id
-                    res.render('match_profile.ejs', { profileData })
+                    Chat.findOne({ ownUserId: req.session.userId, chatWithId: currentResult._id })
+                        .then((result: ChatType) => {
+                            if (result) {
+                                profileData.chatId = result._id
+                            } else {
+                                req.session.lastMatchId = profileData._id
+                            }
+
+                            console.log(profileData)
+
+                            res.render('match_profile.ejs', { profileData })
+                        })
+                        .catch(error => {
+                            console.error(error)
+                            console.log('Error in match profile chat query!')
+                            handleHttpError(req, res, 500, 'Internal Server Error', '/matches_overview')
+                        })
                 })
                 .catch(error => {
                     console.error(error)

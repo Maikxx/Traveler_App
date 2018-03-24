@@ -14,6 +14,7 @@ console.log('Re(starting)')
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
 
 import indexRoute from './routes/index'
+import createChatRoute from './routes/createChat'
 import chatRoute from './routes/chat'
 import chatsRoute from './routes/chats'
 import matchProfileRoute from './routes/match_profile'
@@ -63,7 +64,8 @@ app.use(bodyParser.json())
 
 // Get Routes
 app.get('/', indexRoute)
-app.get('/chat', chatRoute)
+app.get('/chat', createChatRoute)
+app.get('/chat/:_id', chatRoute)
 app.get('/chats', chatsRoute)
 app.get('/match_profile/:_id', matchProfileRoute)
 app.get('/matches_overview', matchesOverviewRoute)

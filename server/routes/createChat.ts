@@ -1,39 +1,37 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
 import Chat from '../models/chat'
 import Profile from '../models/profile'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from 'server/types/ProfileType'
 import handleHttpError from '../utils/handleError'
-import { ChatType } from 'server/types/chatType'
 
-function renderChat (req: express.Request & {session: SessionType}, res: express.Response) {
-    if (req.session && req.session.userId) {
-        const { _id: chatId } = req.params
+function createChat (req: express.Request & {session: SessionType}, res: express.Response) {
+    if (req.session && req.session.userId && req.session.lastMatchId) {
 
-        Chat.findOne({ _id: chatId })
-            .then((chatResult: ChatType) => {
+        Profile.findOne({ _id: req.session.lastMatchId })
+            .then((chatWithProfile: ProfileType) => {
+                const newChat = new Chat({
+                    _id: new mongoose.Types.ObjectId(),
+                    ownUserId: req.session.userId,
+                    chatWithId: chatWithProfile._id,
+                    messages: [],
+                })
 
-                Profile.findOne({ _id: chatResult.chatWithId })
-                    .then((chatWithProfile: ProfileType) => {
-                        const chatData = {
-                            chatId: chatId,
-                            chatWithName: chatWithProfile.firstName,
-                            chatWithId: chatWithProfile._id,
-                            messages: chatResult.messages,
-                        }
-
-                        res.render('chat.ejs', { chatData })
+                newChat.save()
+                    .then(() => {
+                        res.redirect(`/chat/${newChat._id}`)
                     })
                     .catch(error => {
                         console.error(error)
-                        console.error('Something went wrong inside of the finding of the person who you chat with!')
-                        handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                        console.error('Error while saving a new chat')
+                        handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
                     })
             })
             .catch(error => {
                 console.error(error)
-                console.error('Invalid newChatId')
-                handleHttpError(req, res, 500, 'Internal Server Error', '/')
+                console.error('Invalid lastMatchId')
+                handleHttpError(req, res, 500, 'Internal Server Error', '/chats')
             })
     } else {
         console.error('You need to be logged in to send a message!')
@@ -73,4 +71,4 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
     // }
 }
 
-export default renderChat
+export default createChat

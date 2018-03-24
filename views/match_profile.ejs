@@ -169,7 +169,11 @@
                 </ol>
 
                 <footer>
-                    <a href="/chat" class="tl-CTA-Button">
+                    <% if (profileData.chatId) { %>
+                        <a href="/chat/<%= profileData.chatId %>" class="tl-CTA-Button">
+                    <% } else { %>
+                        <a href="/chat" class="tl-CTA-Button">
+                    <% } %>
                         Chat with <%= profileData.firstName %>
                     </a>
                 </footer>
