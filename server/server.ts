@@ -78,7 +78,7 @@ app.get('/delete_account', deleteAccountRoute)
 // Post Endpoints
 app.post('/sign_in', signInController)
 app.post('/sign_up', signUpController)
-app.post('/send_message', sendMessageController)
+app.post('/send_message/:_id', sendMessageController)
 app.post('/save_edited_profile', upload.array('profileImages', 4), saveEditedProfileController)
 app.post('/delete_chat/:_id', deleteChatController)
 app.post('/questionaire_save', upload.array('profileImages', 4), questionaireSaveController)

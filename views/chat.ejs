@@ -30,8 +30,8 @@
                 </div>
             </section>
 
-            <section class="tl-Chat__footer">
-                <form action="/send_message" class="tl-Chat__chat-form" method="POST">
+            <footer class="tl-Chat__footer">
+                <form action="/send_message/<%= chatData.chatId %>" class="tl-Chat__chat-form" method="POST">
                     <textarea
                         name="message"
                         id="message"
@@ -39,7 +39,7 @@
                     ></textarea>
                     <button type="submit" class="tl-Chat__chat-send-button"></button>
                 </form>
-            </section>
+            </footer>
         </main>
     </body>
 </html>

@@ -16,7 +16,7 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                 Profile.findOne({ _id: chatResult.chatWithId })
                     .then((chatWithProfile: ProfileType) => {
                         const chatData = {
-                            chatId: chatId,
+                            chatId,
                             chatWithName: chatWithProfile.firstName,
                             chatWithId: chatWithProfile._id,
                             messages: chatResult.messages,

@@ -3,6 +3,7 @@ const handleMenuClick = (() => {
     const navigation = document.getElementById('tl-Navigation')
 
     if (menuToggle && navigation) {
+        navigation.classList.add('js-active')
         menuToggle.addEventListener('click', function () {
             navigation.classList.toggle('nav-toggled')
         })

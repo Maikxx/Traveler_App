@@ -131,7 +131,6 @@ select {
     padding: getSpacing(1);
     background-color: #fff;
     border-top: 1px solid $form-border-color;
-    margin-top: -155px;
     position: relative;
     cursor: none;
     z-index: 0;
@@ -196,38 +195,42 @@ select {
         }
     }
 
-    &.nav-toggled {
-        margin-top: 0;
-        cursor: initial;
+    &.js-active {
+        margin-top: -155px;
 
-        .tl-CTA-Button#sign-in-button {
-            margin-top: getSpacing(1);
+        &.nav-toggled {
+            margin-top: 0;
+            cursor: initial;
+
+            .tl-CTA-Button#sign-in-button {
+                margin-top: getSpacing(1);
+            }
+
+            + .tl-ChatsPage,
+            + .tl-MatchProfilePage,
+            + .tl-MatchesOverviewPage,
+            + .tl-MyProfilePage {
+                margin-top: 0;
+            }
         }
 
+        + .tl-ChatsPage,
+        + .tl-MatchesOverviewPage,
+        + .tl-MyProfilePage {
+            margin-top: 30px;
+        }
+
+        + .tl-MatchProfilePage {
+            margin-top: -12px;
+        }
+
+        &,
         + .tl-ChatsPage,
         + .tl-MatchProfilePage,
         + .tl-MatchesOverviewPage,
         + .tl-MyProfilePage {
-            margin-top: 0;
+            transition: 300ms ease-in-out all;
         }
-    }
-
-    &,
-    + .tl-ChatsPage,
-    + .tl-MatchProfilePage,
-    + .tl-MatchesOverviewPage,
-    + .tl-MyProfilePage {
-        transition: 300ms ease-in-out all;
-    }
-
-    + .tl-ChatsPage,
-    + .tl-MatchesOverviewPage,
-    + .tl-MyProfilePage {
-        margin-top: 30px;
-    }
-
-    + .tl-MatchProfilePage {
-        margin-top: -12px;
     }
 }
 
