@@ -11,9 +11,9 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
     if (req.session && req.session.userId) {
         Chat.findOne({ _id: chatId })
             .then((chatResult: ChatType) => {
-                Profile.update({ _id: chatResult.chatWithId }, { $pullAll: { chats: chatId } })
+                Profile.update({ _id: chatResult.chatWithId }, { $pullAll: { chats: [ chatId ] } })
                     .then(() => {
-                        Profile.update({ _id: chatResult.ownUserId }, { $pullAll: { chats: chatId } })
+                        Profile.update({ _id: chatResult.ownUserId }, { $pullAll: { chats: [ chatId ] } })
                             .then(() => {
                                 Chat.remove({ _id: chatId })
                                     .catch(error => {
