@@ -5,27 +5,43 @@ import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
 function renderMatchesOverview (req: express.Request & {session: SessionType}, res: express.Response) {
-    if (req.session.userId) {
-        Profile.find({ '_id': { $ne: req.session.userId } })
-            .limit(10)
-            .exec()
-            .then((results: ProfileType[]) => {
-                req.session.error = null
+    if (req.session && req.session.userId) {
+        Profile.findOne({ _id: req.session.userId })
+            .then((myProfile: ProfileType) => {
+                Profile.find({ _id: { $ne: myProfile._id } })
+                    .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
+                    .limit(10)
+                    .exec()
+                    .then((results: ProfileType[]) => {
+                        req.session.error = null
 
-                const overviewData = results.map((result: any) => ({
-                    _id: result._id,
-                    firstName: result.firstName,
-                    fullName: result.fullName,
-                    profileImages: result.profileImages.map(profileImage => profileImage.replace('public', '')),
-                    age: result.age,
-                    ownGender: result.ownGender,
-                    description: result.description,
-                    favouriteHolidayDestination: result.favouriteHolidayDestination,
-                    likesToHike: result.likesToHike,
-                    favouriteOverallTravelTime: result.favouriteOverallTravelTime,
-                }))
+                        const overviewData = results.map((result: any) => ({
+                            _id: result._id,
+                            firstName: result.firstName,
+                            fullName: result.fullName,
+                            profileImages: result.profileImages.map(profileImage => profileImage.replace('public', '')),
+                            age: result.age,
+                            ownGender: result.ownGender,
+                            description: result.description,
+                            favouriteHolidayDestination: result.favouriteHolidayDestination,
+                            likesToHike: result.likesToHike,
+                            favouriteOverallTravelTime: result.favouriteOverallTravelTime,
+                        }))
 
-                res.render('matches_overview.ejs', { overviewData })
+                        res.render('matches_overview.ejs', { overviewData })
+                    })
+                    .catch(error => {
+                        handleHttpError(
+                            req,
+                            res,
+                            500,
+                            '/',
+                            'matches_overview',
+                            'Error finding a profile!',
+                            true,
+                            error
+                        )
+                    })
             })
             .catch(error => {
                 handleHttpError(
@@ -34,7 +50,7 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
                     500,
                     '/',
                     'matches_overview',
-                    'Error finding a profile!',
+                    'Error finding your profile!',
                     true,
                     error
                 )

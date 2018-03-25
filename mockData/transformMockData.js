@@ -12,6 +12,10 @@ fs.readFile(filePath, (error, data) => {
                 throw new Error(error)
             }
 
+            if (profile.matchSettings.maxSearchAge < profile.matchSettings.minSearchAge) {
+                [profile.matchSettings.minSearchAge, profile.matchSettings.maxSearchAge] = [profile.matchSettings.maxSearchAge, profile.matchSettings.minSearchAge]
+            }
+
             if (profile.wantsToOrAlreadyHasChildren && profile.wantsToOrAlreadyHasChildren === 'Yes I have them') {
                 profile.wantsToOrAlreadyHasChildren = 'Yes, I have them'
             } else if (profile.wantsToOrAlreadyHasChildren && profile.wantsToOrAlreadyHasChildren === 'Yes I want them') {
