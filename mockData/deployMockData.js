@@ -203,7 +203,7 @@ file.forEach((profile, i) => {
             mostImportantInRelationShip: profile.mostImportantInRelationShip,
             wantsToTravelQuickly: profile.wantsToTravelQuickly,
             matchSettings: {
-                lookingForGender: profile.lookingForGender,
+                lookingForGender: profile.matchSettings.lookingForGender,
                 matchHasToLikeToBeInNature: profile.matchSettings.matchHasToLikeToBeInNature,
                 maxMatchDistance: profile.matchSettings.maxMatchDistance,
                 minSearchAge: profile.matchSettings.minSearchAge,

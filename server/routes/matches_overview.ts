@@ -8,7 +8,8 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
     if (req.session && req.session.userId) {
         Profile.findOne({ _id: req.session.userId })
             .then((myProfile: ProfileType) => {
-                Profile.find({ _id: { $ne: myProfile._id } })
+                console.log(myProfile)
+                Profile.find({ _id: { $ne: myProfile._id }, ownGender: myProfile.matchSettings.lookingForGender })
                     .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
                     .limit(10)
                     .exec()
