@@ -25,6 +25,10 @@
 
             p {
                 margin: getSpacing(1) 0;
+
+                &::first-letter {
+                    text-transform: capitalize;
+                }
             }
         }
 

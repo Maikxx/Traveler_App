@@ -26,6 +26,10 @@
 
         p {
             margin-bottom: getSpacing(2);
+
+            &::first-letter {
+                text-transform: capitalize;
+            }
         }
 
         .tl-FullProfileInformation {

@@ -8,11 +8,12 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
     if (req.session && req.session.userId) {
         Profile.findOne({ _id: req.session.userId })
             .then((myProfile: ProfileType) => {
-                console.log(myProfile)
                 Profile.find({ _id: { $ne: myProfile._id } })
                     .where('ownGender', myProfile.matchSettings.lookingForGender)
-                    .where('matchSettings.lookingForGender', myProfile.ownGender)
                     .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
+                    .where('matchSettings.lookingForGender', myProfile.ownGender)
+                    .where('matchSettings.minSearchAge').gte(myProfile.age)
+                    .where('matchSettings.maxSearchAge').lte(myProfile.age)
                     .limit(10)
                     .exec()
                     .then((results: ProfileType[]) => {

@@ -56,6 +56,10 @@
         p {
             margin: getSpacing(3) 0 0;
             width: 70%;
+
+            &::first-letter {
+                text-transform: capitalize;
+            }
         }
 
         .tl-MainTravelInformation {

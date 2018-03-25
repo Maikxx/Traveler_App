@@ -4,7 +4,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const mongoose = require('mongoose')
 const fs = require('fs')
-const fileName = './MOCK_DATA_500.json'
+const fileName = './MOCK_DATA.json'
 const file = require(fileName)
 
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
@@ -166,7 +166,7 @@ const profileSchema = new mongoose.Schema({
 
 const Profile = mongoose.model('Profile', profileSchema)
 
-file.forEach((profile, i) => {
+Promise.all(file.map((profile, i) => {
     const newUser = new Profile(
         {
             _id: new mongoose.Types.ObjectId(),
@@ -212,11 +212,14 @@ file.forEach((profile, i) => {
         }
     )
 
-    newUser.save()
+    return newUser.save()
         .then(result => {
             console.log(result)
         })
         .catch(error => {
             console.error(error)
         })
-})
+}))
+    .then(result => {
+        mongoose.connection.close()
+    })

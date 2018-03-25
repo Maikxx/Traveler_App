@@ -9,6 +9,5 @@ data/
 nodemon.json
 
 mockData/backup.json
-mockData/MOCK_DATA_150.json
-mockData/MOCK_DATA_200.json
-mockData/MOCK_DATA_500.json
+mockData/backup2.json
+mockData/MOCK_DATA.json
