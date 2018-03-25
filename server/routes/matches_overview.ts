@@ -11,6 +11,7 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
                 console.log(myProfile)
                 Profile.find({ _id: { $ne: myProfile._id } })
                     .where('ownGender', myProfile.matchSettings.lookingForGender)
+                    .where('matchSettings.lookingForGender', myProfile.ownGender)
                     .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
                     .limit(10)
                     .exec()
