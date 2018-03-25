@@ -16,9 +16,11 @@ body {
     background-color: rgba(254, 250, 235, 0.6);
 }
 
-main:not(.tl-Chat) {
-    max-width: $spacing-max-width;
-    margin: 0 auto;
+main {
+    &:not(.tl-Chat) {
+        max-width: $spacing-max-width;
+        margin: 0 auto;
+    }
 }
 
 .tl-Questionaire-Question textarea,
@@ -123,6 +125,34 @@ select {
                 left: -9999px;
                 top: -9999px;
             }
+        }
+    }
+
+    &:not(.tl-PageHeader--indexPage) {
+        ol li a {
+            position: relative;
+            padding-left: 22px;
+            white-space: nowrap;
+
+            &::before {
+                content: '';
+                height: 16px;
+                width: 16px;
+                background: url('localhost:8000/img/left-arrow.svg') no-repeat center;
+                background-size: cover;
+                position: absolute;
+                top: 15px;
+                left: 0;
+            }
+        }
+    }
+
+    &--indexPage,
+    &--matchesOverview {
+        height: 46px;
+
+        ol {
+            justify-content: flex-end;
         }
     }
 }
