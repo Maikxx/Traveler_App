@@ -28,6 +28,7 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
                         '/chats',
                         'send_message',
                         'Something went wrong with getting a chat!',
+                        false,
                         error
                     )
                 })
@@ -38,17 +39,19 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
                 400,
                 '/chats',
                 'send_message',
-                'You can not have empty messages!'
+                'You can not have empty messages!',
+                false
             )
         }
     } else {
         handleHttpError(
             req,
             res,
-            403,
-            '/chats',
+            401,
+            '/',
             'send_message',
-            'You need to be logged in to send a message!'
+            'You need to be logged in to send a message!',
+            true
         )
     }
 }

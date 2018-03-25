@@ -24,6 +24,7 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
                                             '/',
                                             'delete_chat',
                                             'Either the chatId does not exist, or you do not own the chat!',
+                                            true,
                                             error
                                         )
                                     })
@@ -38,6 +39,7 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
                                     '/',
                                     'delete_chat',
                                     'Cannot update the second profile!',
+                                    true,
                                     error
                                 )
                             })
@@ -50,6 +52,7 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
                             '/',
                             'delete_chat',
                             'Cannot update first profile!',
+                            true,
                             error
                         )
                     })
@@ -62,6 +65,7 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
                     '/',
                     'delete_chat',
                     'Can not find a chat with the passed id!',
+                    true,
                     error
                 )
             })

@@ -77,6 +77,7 @@ function renderMyProfileEdit (req: express.Request & {session: SessionType}, res
                     '/',
                     'my_profile_edit',
                     'Something went wrong in profile edit!',
+                    true,
                     error
                 )
             })

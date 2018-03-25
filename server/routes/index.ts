@@ -1,5 +1,6 @@
 import * as express from 'express'
 import Profile from '../models/profile'
+import handleHttpError from '../utils/handleError'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
@@ -26,6 +27,18 @@ function renderIndex (req: express.Request & {session: SessionType}, res: expres
             } else {
                 res.status(500).render('index.ejs')
             }
+        })
+        .catch(error => {
+            handleHttpError(
+                req,
+                res,
+                400,
+                '/',
+                'index',
+                'There was an error getting results for you!',
+                false,
+                error
+            )
         })
 }
 

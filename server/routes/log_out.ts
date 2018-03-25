@@ -12,6 +12,7 @@ function handleLogOut (req: express.Request & {session: SessionType}, res: expre
                 '/',
                 'log_out',
                 'There was an error logging you out!',
+                true,
                 error
             )
         } else {

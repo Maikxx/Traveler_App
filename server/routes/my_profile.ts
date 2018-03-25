@@ -67,6 +67,7 @@ function renderMyProfile (req: express.Request & {session: SessionType}, res: ex
                     '/',
                     'my_profile',
                     'Error while finding a person!',
+                    true,
                     error
                 )
             })

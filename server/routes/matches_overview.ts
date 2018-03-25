@@ -5,10 +5,6 @@ import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
 function renderMatchesOverview (req: express.Request & {session: SessionType}, res: express.Response) {
-    if (req.session.error) {
-        console.log(req.session.error)
-    }
-
     if (req.session.userId) {
         Profile.find({ '_id': { $ne: req.session.userId } })
             .limit(10)
@@ -39,6 +35,7 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
                     '/',
                     'matches_overview',
                     'Error finding a profile!',
+                    true,
                     error
                 )
             })

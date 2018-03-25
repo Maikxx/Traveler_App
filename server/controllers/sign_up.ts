@@ -42,6 +42,7 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                     '/',
                                     'sign_up',
                                     'Uncaught error!',
+                                    true,
                                     error
                                 )
                             } else {
@@ -78,6 +79,7 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                                 '/',
                                                 'sign_up',
                                                 'Error while saving a new user!',
+                                                true,
                                                 error
                                             )
                                         })

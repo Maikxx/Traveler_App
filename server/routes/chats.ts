@@ -36,6 +36,7 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                                     '/',
                                                     'chats',
                                                     'Something went wrong with getting the profile of a chat!',
+                                                    true,
                                                     error
                                                 )
                                             })
@@ -50,6 +51,7 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                     '/',
                                     'chats',
                                     'Something went wrong with getting the profile of a chat!',
+                                    true,
                                     error
                                 )
                             })
@@ -66,6 +68,7 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                 '/',
                                 'chats',
                                 'Boiled up error in the Promise.all!',
+                                true,
                                 error
                             )
                         })
@@ -79,6 +82,7 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                     '/',
                     'chats',
                     'Invalid Own User ID!',
+                    true,
                     error
                 )
             })

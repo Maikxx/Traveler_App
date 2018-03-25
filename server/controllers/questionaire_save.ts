@@ -194,7 +194,8 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                         400,
                         '/questionaire',
                         'questionaire',
-                        'Too much images passed!'
+                        'Too much images passed!',
+                        false
                     )
                 } else if (req.files) {
                     req.files.forEach((file, i) => {
@@ -210,6 +211,7 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                                 '/questionaire',
                                 'questionaire',
                                 'Images unlinking error!',
+                                false,
                                 error
                             )
                         }
@@ -221,7 +223,8 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                         400,
                         '/questionaire',
                         'questionaire',
-                        'No images passed!'
+                        'No images passed!',
+                        false
                     )
                 }
 
@@ -236,6 +239,7 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                             '/questionaire',
                             'questionaire',
                             'Something went wrong with getting the id of a Profile!',
+                            false,
                             error
                         )
                     })

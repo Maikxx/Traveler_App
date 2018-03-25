@@ -31,9 +31,10 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                                                 req,
                                                 res,
                                                 500,
-                                                '/chats',
+                                                '/',
                                                 'createChat',
                                                 `Error while saving profile ${participantId}!`,
+                                                true,
                                                 error
                                             )
                                         })
@@ -46,9 +47,10 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                                             req,
                                             res,
                                             500,
-                                            '/chats',
+                                            '/',
                                             'createChat',
                                             'Error while getting back the saved chat!',
+                                            true,
                                             error
                                         )
                                     })
@@ -58,9 +60,10 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                                     req,
                                     res,
                                     500,
-                                    '/chats',
+                                    '/',
                                     'createChat',
                                     'Error while getting back the saved chat!',
+                                    true,
                                     error
                                 )
                             })
@@ -70,9 +73,10 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                             req,
                             res,
                             500,
-                            '/chats',
+                            '/',
                             'createChat',
                             'Error while saving a new chat',
+                            true,
                             error
                         )
                     })
@@ -82,9 +86,10 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                     req,
                     res,
                     500,
-                    '/chats',
+                    '/',
                     'createChat',
                     'Invalid lastMatchId!',
+                    true,
                     error
                 )
             })

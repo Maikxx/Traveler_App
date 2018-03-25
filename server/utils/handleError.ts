@@ -9,14 +9,25 @@ function handleHttpError (
         redirectToHere: string,
         scope: string,
         message: string,
+        logOut: boolean = true,
         error?: any
 ) {
-    req.session.error = {
-        code,
-        title: httpStatus[code],
+    if (logOut) {
+        if (req.session && req.session.userId) {
+            req.session.userId = null
+        }
     }
+
+    if (req.session) {
+        req.session.error = {
+            code,
+            title: message,
+        }
+    }
+
     console.error(error)
-    console.log(`${message} in: ${scope}`)
+    console.log(`${message} in: ${scope}, with code: ${code} and title: ${httpStatus[code]}!`)
+
     res.status(code).redirect(redirectToHere)
 }
 

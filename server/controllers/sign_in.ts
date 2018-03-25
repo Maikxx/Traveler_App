@@ -28,7 +28,8 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                             409,
                             '/',
                             'log_in',
-                            'Authentication Failed!'
+                            'Authentication Failed!',
+                            false
                         )
                     }
 
@@ -41,6 +42,7 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                                 '/',
                                 'log_in',
                                 'Authentication Failed!',
+                                false,
                                 error
                             )
                         }
@@ -56,7 +58,8 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                                 409,
                                 '/',
                                 'log_in',
-                                'Authentication Failed!'
+                                'Authentication Failed!',
+                                false
                             )
                         }
                     })
@@ -69,6 +72,7 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                         '/',
                         'log_in',
                         'Authentication Failed!',
+                        false,
                         error
                     )
                 })
@@ -79,7 +83,8 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                 400,
                 '/',
                 'log_in',
-                'Authentication Failed!'
+                'Authentication Failed!',
+                false
             )
         }
     }

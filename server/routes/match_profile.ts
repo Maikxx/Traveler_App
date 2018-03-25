@@ -67,9 +67,10 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
                                 req,
                                 res,
                                 500,
-                                '/matches_overview',
+                                '/',
                                 'match_profile',
                                 'Error in match profile chat query!',
+                                true,
                                 error
                             )
                         })
@@ -79,9 +80,10 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
                         req,
                         res,
                         400,
-                        '/matches_overview',
+                        '/',
                         'match_profile',
                         'Invalid id passed in!',
+                        true,
                         error
                     )
                 })
@@ -90,7 +92,7 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
                 req,
                 res,
                 400,
-                '/matches_overview',
+                '/',
                 'match_profile',
                 'No id passed in to the url!'
             )
@@ -100,7 +102,7 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
             req,
             res,
             401,
-            '/matches_overview',
+            '/',
             'match_profile',
             'You are not logged in!'
         )

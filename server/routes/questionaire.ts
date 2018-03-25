@@ -30,6 +30,7 @@ function renderQuestionaire (req: express.Request & {session: SessionType}, res:
                     '/',
                     'questionaire',
                     'An error occured counting profiles!',
+                    true,
                     error
                 )
             })

@@ -38,9 +38,10 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                                     req,
                                     res,
                                     500,
-                                    '/matches_overview',
+                                    '/',
                                     'chat',
                                     'Something went wrong inside of the finding of the person who you chat with!',
+                                    true,
                                     error
                                 )
                             })
@@ -52,9 +53,10 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
                     req,
                     res,
                     500,
-                    '/matches_overview',
+                    '/',
                     'chat',
                     'Invalid newChatId',
+                    true,
                     error
                 )
             })
@@ -62,8 +64,8 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
         handleHttpError(
             req,
             res,
-            403,
-            '/matches_overview',
+            401,
+            '/',
             'chat',
             'You need to be logged in to send a message!'
         )

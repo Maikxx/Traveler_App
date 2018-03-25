@@ -16,6 +16,7 @@ function renderNotFound (
             '/',
             'not_found',
             'An error occured in the Not Found route!',
+            false,
             error
         )
     }

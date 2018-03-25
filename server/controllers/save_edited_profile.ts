@@ -193,7 +193,7 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                                     req,
                                     res,
                                     500,
-                                    '/my_profile/edit',
+                                    '/',
                                     'save_edited_profile',
                                     'Images unlinking error!'
                                 )

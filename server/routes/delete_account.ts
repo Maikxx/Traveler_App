@@ -24,6 +24,7 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
                                         '/',
                                         'delete_account',
                                         'There was an error unlinking an image!',
+                                        true,
                                         error
                                     )
                                 }
@@ -39,6 +40,7 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
                                     '/',
                                     'delete_account',
                                     'There was an error while destroying a session!',
+                                    true,
                                     error
                                 )
                             } else {
@@ -56,6 +58,7 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
                     '/',
                     'delete_account',
                     'No such user exists!',
+                    true,
                     error
                 )
             })
