@@ -3,6 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load()
 }
 
+import * as helmet from 'helmet'
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
@@ -52,6 +53,7 @@ const upload = multer({
 // Setup
 app.set('view engine', 'ejs')
 app.set('views', 'views')
+app.use(helmet())
 app.use(express.static('public'))
 app.use(session({
     resave: false,
