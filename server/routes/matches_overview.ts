@@ -13,7 +13,7 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
                     .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
                     .where('matchSettings.lookingForGender', myProfile.ownGender)
                     .where('matchSettings.minSearchAge').gte(myProfile.age)
-                    .where('matchSettings.maxSearchAge').lte(myProfile.age)
+                    // .where('matchSettings.maxSearchAge').lte(myProfile.age)
                     .limit(10)
                     .exec()
                     .then((results: ProfileType[]) => {
