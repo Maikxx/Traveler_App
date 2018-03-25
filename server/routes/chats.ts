@@ -58,6 +58,17 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                             const openChatsData = rawData.filter(data => data !== undefined)
                             res.status(200).render('chats.ejs', { openChatsData })
                         })
+                        .catch(error => {
+                            handleHttpError(
+                                req,
+                                res,
+                                500,
+                                '/',
+                                'chats',
+                                'Boiled up error in the Promise.all!',
+                                error
+                            )
+                        })
                 }
             })
             .catch(error => {
