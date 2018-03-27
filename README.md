@@ -25,6 +25,8 @@ The user can scroll through their matches, looking for people he or she wants to
 
 Users can allways chat, if they have been matched together, so there is no 'like or no-like'-system. This has been specifically designed, so that even people who might look less good, but still have an interest in someone, are not immediately removed from the other persons list.
 
+Users can navigate to a matched person's profile, where they will be able to read everything that that person has filled in in either the questionaire or while editing their profile. There is also a chat button on a match their profile page, which you can use to start (or continue) a chat with this person.
+
 ## Database
 
 Traveler uses a NoSQL database ([MongoDB](https://www.mongodb.com)) to store it's data. The preferance of a NoSQL database over the SQL database is purely out of ease of use and familiarity. For communicating with the database Traveler uses [Mongoose](http://mongoosejs.com).
