@@ -3,9 +3,12 @@ const fs = require('fs')
 const fileName = 'MOCK_DATA.json'
 const filePath = `${__dirname}/${fileName}`
 
+// Read the file.
 fs.readFile(filePath, async (error, data) => {
+    // Parse it to JSON.
     const parsedData = JSON.parse(data)
 
+    // Wait for all promises to resolve, which corresponds to all the users being transformed (passwords are created and the data of the user is transformed).
     const profiles = await Promise.all(parsedData.map((profile, i) => {
         return bcrypt.hash(profile.rawPassword, 10)
             .then(hash => {
@@ -41,8 +44,10 @@ fs.readFile(filePath, async (error, data) => {
             })
     }))
 
+    // Wait for the buffer to resolve, which gets passed a JSON.stringify method, where the items are indented by 4 spaces.
     const buffer = await Buffer.from(JSON.stringify(profiles, null, 4))
 
+    // Write the file to the disk, with the transformed data.
     fs.writeFile(__dirname + '/' + fileName, buffer, (error) => {
         if (error) {
             throw new Error(error)

@@ -1,3 +1,4 @@
+// Load environment variables, if the set environment is not equal to production.
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').load()
 }
@@ -9,6 +10,7 @@ const file = require(fileName)
 
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
 
+// Create a mock SCHEMA.
 const profileSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     email: {
@@ -164,8 +166,10 @@ const profileSchema = new mongoose.Schema({
     chats: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
 })
 
+// Create a mock MODEL.
 const Profile = mongoose.model('Profile', profileSchema)
 
+// Create a new database entry for each user in the MockData.json file.
 Promise.all(file.map((profile, i) => {
     const newUser = new Profile(
         {
@@ -212,6 +216,7 @@ Promise.all(file.map((profile, i) => {
         }
     )
 
+    // Save the newUser to the database.
     return newUser.save()
         .then(result => {
             console.log(result)
@@ -220,6 +225,7 @@ Promise.all(file.map((profile, i) => {
             console.error(error)
         })
 }))
-    .then(result => {
+    .then(() => {
+        // Close the Mongo connection.
         mongoose.connection.close()
     })

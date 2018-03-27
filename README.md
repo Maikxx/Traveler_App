@@ -39,6 +39,11 @@ This transform tool generates correct bcrypted passwords (from passwords which a
 
 If that succeeds, the user also gets some properties fixed, especially some issues with comma's (,), so that the data is correct for Mongoose (and the database).
 
+When done with all the data, this script writes the formatted result to the MOCK_DATA.json file.
+
+After transforming the data there is one more thing to do, which is deploying the mock data to Mongo, which is done with the [deploy tool](https://github.com/Maikxx/traveler-dating-app/blob/master/mockData/deployMockData.js).
+Here the tool creates a mock schema, which resembles the real Mongoose schema, and makes a model out of it. This model is then used to instantiate (i.e. create) a new profile for that current iteration (user) of the MockData.json file. When all users are saved to the database, the connection with Mongo is closed again.
+
 ## Installing
 
 ```bash
