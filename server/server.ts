@@ -12,8 +12,10 @@ import * as session from 'express-session'
 
 console.log('Re(starting)')
 
+// Start a connection to the database with enviroment variables.
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
 
+// Import all the routes.
 import indexRoute from './routes/index'
 import createChatRoute from './routes/createChat'
 import chatRoute from './routes/chat'
@@ -27,6 +29,7 @@ import questionaireRoute from './routes/questionaire'
 import logOutRoute from './routes/log_out'
 import deleteAccountRoute from './routes/delete_account'
 
+// Import the controllers (mainly used for forms).
 import signInController from './controllers/sign_in'
 import signUpController from './controllers/sign_up'
 import sendMessageController from './controllers/send_message'
@@ -34,8 +37,10 @@ import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteChatController from './controllers/delete_chat'
 import questionaireSaveController from './controllers/questionaire_save'
 
+// Import a TS type for files.
 import { FileType } from './types/fileType'
 
+// Start an express app.
 const app = express()
 
 // Upload parameters for uploading files to multer, via FormData.
@@ -85,6 +90,7 @@ app.post('/save_edited_profile', upload.array('profileImages', 4), saveEditedPro
 app.post('/delete_chat/:_id', deleteChatController)
 app.post('/questionaire_save', upload.array('profileImages', 4), questionaireSaveController)
 
+// Route for handling not founds.
 app.use(notFoundRoute)
 
 // Serving
