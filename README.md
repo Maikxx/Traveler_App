@@ -67,7 +67,7 @@ Start the server using:
 npm start
 ```
 
-When those two are running go to [localhost:8000](localhost:8000).
+When those two are running go to `localhost:8000`.
 
 <!-- Add this -->
 <!-- ## Licence -->
