@@ -9,5 +9,4 @@ data/
 nodemon.json
 
 mockData/backup.json
-mockData/backup2.json
 mockData/MOCK_DATA.json
