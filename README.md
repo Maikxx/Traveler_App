@@ -9,12 +9,12 @@ On the [homepage](<localhost:8000>) users can see an overview of available trave
 Users can sign up for their account on the homepage, as well as sign in here, given they already have an account.
 When users sign up, their account is created and partially filled in, with things like their e-mail and name.
 
-When users have succesfully signed up, they are taken to the 'questionaire' page. Here they are asked to fill in their profile (not everything is required, however). They can only *continue using their account* if they finish filling in the required fields.
+When users have succesfully signed up, they are taken to the *questionaire* page. Here they are asked to fill in their profile (not everything is required, however). They can only *continue using their account* if they finish filling in the required fields.
 
 <!-- Build this -->
 If they leave the page and sign in, while not having finished the questionaire correctly, then they will be sent back to the questionaire.
 
-When they finish the questionaire succesfully, they will be taken to their 'matches overview' page, where they can find all the people who they have been matched with, based on the information they provided in the questionaire.
+When they finish the questionaire succesfully, they will be taken to their *matches overview* page, where they can find all the people who they have been matched with, based on the information they provided in the questionaire.
 
 <!-- Take a look at this and generate more users -->
 Users are currently matched, based on (where more criteria might follow):
@@ -26,6 +26,8 @@ The user can scroll through their matches, looking for people he or she wants to
 Users can allways chat, if they have been matched together, so there is no 'like or no-like'-system. This has been specifically designed, so that even people who might look less good, but still have an interest in someone, are not immediately removed from the other persons list.
 
 Users can navigate to a matched person's profile, where they will be able to read everything that that person has filled in in either the questionaire or while editing their profile. There is also a chat button on a match their profile page, which you can use to start (or continue) a chat with this person.
+
+From the matches profile page the user can also navigate to their own profile page, by clicking the icon in the top right corner, to bring down a menu and clicking on my profile* there.
 
 ## Database
 
