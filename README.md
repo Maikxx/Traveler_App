@@ -4,7 +4,7 @@ This application is a basic level dating platform for people who love to travel,
 
 ## Description
 
-On the home page users can see an overview of available travelers, who use the application. This has been done, to get users to sign up and get inspired for filling in their profiles.
+On the [homepage](<localhost:8000>) users can see an overview of available travelers, who use the application. This has been done, to get users to sign up and get inspired for filling in their profiles.
 
 Users can sign up for their account on the homepage, as well as sign in here, given they already have an account.
 When users sign up, their account is created and partially filled in, with things like their e-mail and name.
@@ -67,7 +67,7 @@ Start the server using:
 npm start
 ```
 
-When those two are running go to [localhost:8000](<localhost:8000>).
+When those two are running go to <localhost:8000>.
 
 <!-- Add this -->
 <!-- ## Licence -->
