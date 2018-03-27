@@ -89,7 +89,3 @@ app.use(notFoundRoute)
 
 // Serving
 app.listen(8000)
-
-process.on('unhandledRejection', (rejection: any) => {
-    console.error(rejection)
-})
