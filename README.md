@@ -65,13 +65,13 @@ cd traveler-dating-app
 
 After that you can watch (and build) the css with:
 
-```shell
+```bash
 gulp
 ```
 
 While in another tab having the server running with:
 
-```shell
+```bash
 npm start
 ```
 
