@@ -27,7 +27,7 @@ Users can allways chat, if they have been matched together, so there is no 'like
 
 Users can navigate to a matched person's profile, where they will be able to read everything that that person has filled in in either the questionaire or while editing their profile. There is also a chat button on a match their profile page, which you can use to start (or continue) a chat with this person.
 
-From the matches profile page the user can also navigate to their own profile page, by clicking the icon in the top right corner, to bring down a menu and clicking on my profile* there.
+From the matches profile page the user can also navigate to their own profile page, by clicking the icon in the top right corner, to bring down a menu and clicking on *my profile* there.
 
 ## Database
 
