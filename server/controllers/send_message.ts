@@ -1,13 +1,21 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
 
 import Chat from '../models/chat'
 
 import { SessionType } from '../types/SessionType'
-import { ChatType } from 'server/types/chatType'
+import { ChatType } from '../types/chatType'
 
 import handleHttpError from '../utils/handleError'
 
 function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/chats',
+        scope: 'send_message',
+        message: '',
+        logOut: false,
+    }
+
     if (req.session && req.session.userId) {
         const { userId: messageById } = req.session
         const { message: messageText } = req.body
@@ -21,41 +29,22 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
 
             Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
                 .then((result: ChatType) => {
-                    res.redirect(`/chat/${chatId}`)
+                    res.status(201).redirect(`/chat/${chatId}`)
                 })
-                .catch(error => {
-                    handleHttpError(
-                        req,
-                        res,
-                        500,
-                        '/chats',
-                        'send_message',
-                        'Something went wrong with getting a chat!',
-                        false,
-                        error
-                    )
+                .catch((error: mongoose.Error) => {
+                    cusErr.message = 'Something went wrong with getting a chat!'
+
+                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                 })
         } else {
-            handleHttpError(
-                req,
-                res,
-                400,
-                '/chats',
-                'send_message',
-                'You can not have empty messages!',
-                false
-            )
+            cusErr.message = 'You can not have empty messages!'
+
+            handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
         }
     } else {
-        handleHttpError(
-            req,
-            res,
-            401,
-            '/',
-            'send_message',
-            'You need to be logged in to send a message!',
-            true
-        )
+        cusErr.message = 'You need to be logged in to send a message!'
+
+        handleHttpError(req, res, 401, '/', cusErr.scope, cusErr.message, true)
     }
 }
 

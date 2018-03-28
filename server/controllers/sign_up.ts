@@ -5,8 +5,9 @@ import * as bcrypt from 'bcrypt'
 import Profile from '../models/profile'
 
 import { SessionType } from '../types/SessionType'
-import { ProfileType } from 'server/types/ProfileType'
+import { ProfileType } from '../types/ProfileType'
 
+import validationRegex from '../utils/regex'
 import handleHttpError from '../utils/handleError'
 
 /*
@@ -18,15 +19,12 @@ If everything succeeds the new user will be stored in the database and the user 
 */
 
 function handleSignUp (req: express.Request & {session: SessionType}, res: express.Response) {
-    const customError = {
+    const cusErr = {
         redirectTo: '/',
         scope: 'sign_up',
         message: '',
         logOut: false,
     }
-
-    const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
 
     if (req.body) {
         const {
@@ -39,9 +37,9 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
         } = req.body
 
         if (
-            email && email.length && emailRegex.test(email) &&
+            email && email.length && validationRegex.email.test(email) &&
             fullName && fullName.length &&
-            password && password.length && passwordRegex.test(password) && repeatPassword === password &&
+            password && password.length && validationRegex.password.test(password) && repeatPassword === password &&
             ownGender && ownGender.length &&
             lookingForGender && lookingForGender.length
         ) {
@@ -49,16 +47,16 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                 .exec()
                 .then((user: ProfileType[]) => {
                     if (user && user.length) {
-                        customError.message = 'Mail already exists!'
+                        cusErr.message = 'Mail already exists!'
 
-                        handleHttpError(req, res, 409, customError.redirectTo, customError.scope, customError.message, false)
+                        handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, false)
                     } else {
                         bcrypt.hash(req.body.password, 10, (error: NodeJS.ErrnoException, hash: string) => {
                             if (error) {
-                                customError.message = 'Uncaught error!'
+                                cusErr.message = 'Uncaught error!'
 
-                                handleHttpError(req, res, 400, customError.redirectTo,
-                                    customError.scope, customError.message, customError.logOut, error)
+                                handleHttpError(req, res, 400, cusErr.redirectTo,
+                                    cusErr.scope, cusErr.message, cusErr.logOut, error)
                             } else {
                                 const newUser = new Profile({
                                     _id: new mongoose.Types.ObjectId(),
@@ -78,31 +76,31 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                         req.session.error = null
                                         res.status(200).redirect(`/questionaire`)
                                     })
-                                    .catch((error: mongoose.NativeError) => {
-                                        customError.message = 'Error while saving a new user!'
+                                    .catch((error: mongoose.Error) => {
+                                        cusErr.message = 'Error while saving a new user!'
 
-                                        handleHttpError(req, res, 500, customError.redirectTo,
-                                            customError.scope, customError.message, customError.logOut, error)
+                                        handleHttpError(req, res, 500, cusErr.redirectTo,
+                                            cusErr.scope, cusErr.message, cusErr.logOut, error)
                                     })
                             }
                         })
                     }
                 })
-                .catch((error: mongoose.NativeError) => {
-                    customError.message = 'Something went wrong with getting your mail!'
+                .catch((error: mongoose.Error) => {
+                    cusErr.message = 'Something went wrong with getting your mail!'
 
-                    handleHttpError(req, res, 500, customError.redirectTo,
-                        customError.scope, customError.message, customError.logOut, error)
+                    handleHttpError(req, res, 500, cusErr.redirectTo,
+                        cusErr.scope, cusErr.message, cusErr.logOut, error)
                 })
         } else {
-            customError.message = 'Mail is not valid!'
+            cusErr.message = 'Mail is not valid!'
 
-            handleHttpError(req, res, 422, customError.redirectTo, customError.scope, customError.message, customError.logOut)
+            handleHttpError(req, res, 422, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
         }
     } else {
-        customError.message = 'We did not receive any form data from you! Please try again!'
+        cusErr.message = 'We did not receive any form data from you! Please try again!'
 
-        handleHttpError(req, res, 400, customError.redirectTo, customError.scope, customError.message, customError.logOut)
+        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }
 

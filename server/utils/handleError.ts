@@ -1,6 +1,8 @@
 import * as express from 'express'
-import { SessionType } from '../types/SessionType'
+import * as mongoose from 'mongoose'
 import * as httpStatus from 'http-status'
+
+import { SessionType } from '../types/SessionType'
 
 /*
 Function for catching all types of errors and sending an error back to the view, said to render.
@@ -20,7 +22,7 @@ function handleHttpError (
         scope: string,
         message: string,
         logOut: boolean = true,
-        error?: any
+        error?: mongoose.Error | NodeJS.ErrnoException | express.Errback
 ) {
     if (logOut) {
         if (req.session && req.session.userId) {
@@ -35,7 +37,10 @@ function handleHttpError (
         }
     }
 
-    console.error(error)
+    if (error) {
+        console.error(error)
+    }
+
     console.log(`${message} in: ${scope}, with code: ${code} and title: ${httpStatus[code]}!`)
 
     res.status(code).redirect(redirectToHere)

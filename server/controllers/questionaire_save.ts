@@ -23,6 +23,13 @@ their profile (as created in the Sign Up controller) will be updated with the ne
 */
 
 function handleQuestionaireSave (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/questionaire',
+        scope: 'questionaire_save',
+        message: '',
+        logOut: false,
+    }
+
     if (req.session && req.session.userId) {
         const _id = req.session.userId
 
@@ -116,9 +123,9 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                         (!minSearchAge || !minSearchAge.length) ||
                         (!maxSearchAge || !maxSearchAge.length)
                     ) {
-                        const errorMessage = 'Not all required fields of the questionaire are filled in!'
+                        cusErr.message = 'Not all required fields of the questionaire are filled in!'
 
-                        handleHttpError(req, res, 400, '/questionaire', 'questionaire', errorMessage, false)
+                        handleHttpError(req, res, 400, cusErr.redirectTo, 'questionaire', cusErr.message, cusErr.logOut)
                     } else {
                         queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
                         queryData.favouriteHolidayDestination = favouriteHolidayDestination
@@ -189,9 +196,9 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                     }
 
                     if (req.files && req.files.length > 4) {
-                        const errorMessage = 'Too much images passed!'
+                        cusErr.message = 'Too much images passed!'
 
-                        handleHttpError(req, res, 400, '/questionaire', 'questionaire', errorMessage, false)
+                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                     } else if (req.files) {
                         Promise.all(req.files.map((file: MulterFile, i: number) => {
                             return fs.rename(file.path, `${file.destination}/${_id}_${i}.jpg`, (error: NodeJS.ErrnoException) => {
@@ -200,9 +207,10 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                                 } else {
                                     fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
                                         if (error) {
-                                            const errorMessage = 'Images unlinking error!'
+                                            cusErr.message = 'Images unlinking error!'
 
-                                            handleHttpError(req, res, 500, '/questionaire', 'questionaire', errorMessage, false, error)
+                                            handleHttpError(req, res, 500, cusErr.redirectTo,
+                                                cusErr.scope, cusErr.message, cusErr.logOut, error)
                                         }
                                     })
                                 }
@@ -211,33 +219,34 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                             .then(() => {
                                 Profile.findOneAndUpdate({ _id }, queryData)
                                     .then((result: ProfileType) => req.session.error = null)
-                                    .catch((error: mongoose.NativeError) => {
-                                        const errorMessage = 'Something went wrong with getting the id of a Profile!'
+                                    .catch((error: mongoose.Error) => {
+                                        cusErr.message = 'Something went wrong with getting the id of a Profile!'
 
-                                        handleHttpError(req, res, 500, '/questionaire', 'questionaire', errorMessage, false, error)
+                                        handleHttpError(req, res, 500, cusErr.redirectTo,
+                                            cusErr.scope, cusErr.message, cusErr.logOut, error)
                                     })
                             })
-                            .catch((error: mongoose.NativeError) => {
-                                const errorMessage = 'There went something wrong inside of the server'
+                            .catch((error: mongoose.Error) => {
+                                cusErr.message = 'There went something wrong inside of the server'
 
-                                handleHttpError(req, res, 500, '/', 'questionaire', errorMessage, false, error)
+                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                             })
                     } else {
-                        const errorMessage = 'No images passed!'
+                        cusErr.message = 'No images passed!'
 
-                        handleHttpError(req, res, 400, '/questionaire', 'questionaire', errorMessage, false)
+                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                     }
                 }
             })
-            .catch((error: mongoose.NativeError) => {
-                const errorMessage = 'Something went wrong with getting the id of a Profile!'
+            .catch((error: mongoose.Error) => {
+                cusErr.message = 'Something went wrong with getting the id of a Profile!'
 
-                handleHttpError(req, res, 500, '/questionaire', 'questionaire', errorMessage, false, error)
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     } else {
-        const errorMessage = 'You are not signed in!'
+        cusErr.message = 'You are not signed in!'
 
-        handleHttpError(req, res, 403, '/questionaire', 'questionaire', errorMessage, false)
+        handleHttpError(req, res, 403, '/', cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }
 

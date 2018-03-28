@@ -46,7 +46,7 @@ function renderIndex (req: express.Request & {session: SessionType}, res: expres
                 })
             }
         })
-        .catch((error: mongoose.NativeError) => {
+        .catch((error: mongoose.Error) => {
             const errorMessage = 'There was an error getting results for you!'
 
             handleHttpError(req, res, 400, '/', 'index', errorMessage, false, error)

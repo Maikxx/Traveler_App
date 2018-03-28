@@ -1,13 +1,31 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
 import * as bcrypt from 'bcrypt'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
+
 import { SessionType } from '../types/SessionType'
+import { ProfileType } from '../types/ProfileType'
+
+import validationRegex from '../utils/regex'
+import handleHttpError from '../utils/handleError'
+
+/*
+Controller for handling signing in of users.
+
+The data gets tested, before it is stored in Mongo.
+There are checks to see if a Profile already exists, if the data is valid and if the user filled in everything the right way.
+If everything succeeds the user will be logged in, there will be cookies set and the user will be redirected to the matches overview page.
+*/
 
 function handleSignIn (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.body) {
-        const emailRegex = /^\w+@\w+\..{2,3}(.{2,3})?$/
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/
+        const cusErr = {
+            redirectTo: '/',
+            scope: 'log_in',
+            message: 'Authentication Failed!',
+            logOut: false,
+        }
 
         const {
             email,
@@ -15,36 +33,19 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
         } = req.body
 
         if (
-            (email.length && emailRegex.test(email)) &&
-            (password.length && passwordRegex.test(password))
+            (email && email.length && validationRegex.email.test(email)) &&
+            (password && password.length && validationRegex.password.test(password))
         ) {
             Profile.find({ email })
                 .exec()
-                .then((user: any) => {
-                    if (!user.length) {
-                        handleHttpError(
-                            req,
-                            res,
-                            409,
-                            '/',
-                            'log_in',
-                            'Authentication Failed!',
-                            false
-                        )
+                .then((user: ProfileType[]) => {
+                    if (!user || !user.length) {
+                        handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                     }
 
-                    bcrypt.compare(password, user[0].password, (error, response) => {
+                    bcrypt.compare(password, user[0].password, (error: NodeJS.ErrnoException, response: any) => {
                         if (error) {
-                            handleHttpError(
-                                req,
-                                res,
-                                409,
-                                '/',
-                                'log_in',
-                                'Authentication Failed!',
-                                false,
-                                error
-                            )
+                            handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                         }
 
                         if (response) {
@@ -52,40 +53,15 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                             req.session.error = null
                             res.redirect('/matches_overview')
                         } else {
-                            handleHttpError(
-                                req,
-                                res,
-                                409,
-                                '/',
-                                'log_in',
-                                'Authentication Failed!',
-                                false
-                            )
+                            handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                         }
                     })
                 })
-                .catch(error => {
-                    handleHttpError(
-                        req,
-                        res,
-                        403,
-                        '/',
-                        'log_in',
-                        'Authentication Failed!',
-                        false,
-                        error
-                    )
+                .catch((error: mongoose.Error) => {
+                    handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                 })
         } else {
-            handleHttpError(
-                req,
-                res,
-                400,
-                '/',
-                'log_in',
-                'Authentication Failed!',
-                false
-            )
+            handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
         }
     }
 }
