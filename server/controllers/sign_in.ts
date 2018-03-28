@@ -13,9 +13,10 @@ import handleHttpError from '../utils/handleError'
 /*
 Controller for handling signing in of users.
 
-The data gets tested, before it is stored in Mongo.
-There are checks to see if a Profile already exists, if the data is valid and if the user filled in everything the right way.
-If everything succeeds the user will be logged in, there will be cookies set and the user will be redirected to the matches overview page.
+1. The data gets tested, before it is stored in Mongo.
+2. There are checks to see if a Profile already exists, if the data is valid and if the user filled in everything the right way.
+3. If everything succeeds the user will be logged in,
+there will be cookies set and the user will be redirected to the matches overview page.
 */
 
 function handleSignIn (req: express.Request & {session: SessionType}, res: express.Response) {

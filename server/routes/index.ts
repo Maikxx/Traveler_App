@@ -9,9 +9,9 @@ import { ProfileType } from '../types/ProfileType'
 /*
 Route that handles the index page requests (/)
 
-There will be errors logged from here, if there are any, if the env is development.
-There will be a few users, who are using Traveler, looked up and rendered to the page.
-This route will also be a error container drop like place, where most users (depending if the error said the users log out)
+~. There will be errors logged from here, if there are any, if the env is development.
+~. There will be a few users, who are using Traveler, looked up and rendered to the page.
+~. This route will also be a error container drop like place, where most users (depending if the error said the users log out)
 will be sent if there goes something wrong.
 */
 

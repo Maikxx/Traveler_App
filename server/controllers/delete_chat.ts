@@ -12,10 +12,10 @@ import handleHttpError from '../utils/handleError'
 /*
 Controller which handles deleting chats.
 
-Check if the user has a userId session.
-Find a chat which corresponds with the id given by req.params.
-Update both the profiles, which are linked to this chat, so that they no longer contain this chatId.
-If deleting succeeds, navigate to the chats overview.
+1. Check if the user has a userId session.
+2. Find a chat which corresponds with the id given by req.params.
+3. Update both the profiles, which are linked to this chat, so that they no longer contain this chatId.
+4. If deleting succeeds, navigate to the chats overview.
 */
 
 function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response) {

@@ -13,9 +13,9 @@ import handleHttpError from '../utils/handleError'
 /*
 Controller that handles signing new users up.
 
-The data gets tested, before it is stored in Mongo.
-There are checks to see if a Profile already exists, if the data is valid and if the user filled in everything the right way.
-If everything succeeds the new user will be stored in the database and the user will be redirected to the questionaire page.
+1. The data gets tested, before it is stored in Mongo.
+2. There are checks to see if a Profile already exists, if the data is valid and if the user filled in everything the right way.
+3. If everything succeeds the new user will be stored in the database and the user will be redirected to the questionaire page.
 */
 
 function handleSignUp (req: express.Request & {session: SessionType}, res: express.Response) {

@@ -14,11 +14,12 @@ import handleHttpError from '../utils/handleError'
 /*
 Controller which handles saving of the questionaire page.
 
-Check if the user has a userId session.
-Then check if the Profile is really existing, based on this users id.
-Then there is a lot of form validation.
-The .trim().split(/,?\s+/) function in the validation is a regex, that splits values into an array, per , and optionally a space after it.
-If all the required fields are filled in correctly (including the amount of images),
+1. Check if the user has a userId session.
+2. Then check if the Profile is really existing, based on this users id.
+3. Then there is a lot of form validation.
+4. The .trim().split(/,?\s+/) function in the validation is a regex, that splits values into an array,
+per , and optionally a space after it.
+5. If all the required fields are filled in correctly (including the amount of images),
 their profile (as created in the Sign Up controller) will be updated with the new values.
 */
 

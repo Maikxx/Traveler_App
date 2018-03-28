@@ -13,9 +13,9 @@ import { ProfileType } from '../types/ProfileType'
 /*
 Controller that handles sending messages.
 
-The user is checked for existance and after that the message construction is set up.
-When the chat is updated, there is a message pushed to the messages array of the chat in question.
-If that succeeds the user is redirected to their chat.
+1. The user is checked for existance and after that the message construction is set up.
+2. When the chat is updated, there is a message pushed to the messages array of the chat in question.
+3. If that succeeds the user is redirected to their chat.
 */
 
 function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response) {

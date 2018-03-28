@@ -13,9 +13,9 @@ import handleHttpError from '../utils/handleError'
 /*
 Route for handling /chat requests.
 
-Checks if the user exists and is logged in, then it will get the chat requested (via params) from the database.
-It will then loop over all the chat participantsIds and get their profiles.
-This needs to be done in order for the chatData to be complete (you need a name of the person you chat with etc.)
+1. Checks if the user exists and is logged in, then it will get the chat requested (via params) from the database.
+2. It will then loop over all the chat participantsIds and get their profiles.
+3. This needs to be done in order for the chatData to be complete (you need a name of the person you chat with etc.)
 */
 
 function renderChat (req: express.Request & {session: SessionType}, res: express.Response) {
