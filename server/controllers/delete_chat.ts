@@ -12,54 +12,42 @@ import handleHttpError from '../utils/handleError'
 function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response) {
     const { _id: chatId } = req.params
 
+    // Check if the user has a userId session.
+    // Find a chat which corresponds with the id given by req.params.
+    // Update both the profiles, which are linked to this chat, so that they no longer contain this chatId.
     if (req.session && req.session.userId) {
         Chat.findOne({ _id: chatId })
             .then((chatResult: ChatType) => {
 
-                Profile.update({ _id: chatResult.chatWithId }, { $pullAll: { chats: [ chatId ] } })
+                Promise.all(chatResult.chatParticipants.map((participantId) => {
+                    return Profile.update({ _id: participantId }, { $pullAll: { chats: [ chatResult._id ] } })
+                }))
                     .then(() => {
-
-                        Profile.update({ _id: chatResult.ownUserId }, { $pullAll: { chats: [ chatId ] } })
-                            .then(() => {
-
-                                Chat.remove({ _id: chatId })
-                                    .catch(error => {
-
-                                        handleHttpError(
-                                            req,
-                                            res,
-                                            400,
-                                            '/',
-                                            'delete_chat',
-                                            'Either the chatId does not exist, or you do not own the chat!',
-                                            true,
-                                            error
-                                        )
-                                    })
-
-                                res.redirect('/chats')
-                            })
+                        Chat.remove({ _id: chatResult._id })
                             .catch(error => {
+
                                 handleHttpError(
                                     req,
                                     res,
-                                    400,
+                                    500,
                                     '/',
                                     'delete_chat',
-                                    'Cannot update the second profile!',
+                                    'Either the chatId does not exist, or you do not own the chat!',
                                     true,
                                     error
                                 )
                             })
+
+                        res.redirect('/chats')
                     })
                     .catch(error => {
                         handleHttpError(
                             req,
                             res,
-                            400,
+                            500,
                             '/',
                             'delete_chat',
-                            'Cannot update first profile!',
+                            'There was an error updating one or more of the profiles',
                             true,
                             error
                         )
@@ -77,6 +65,16 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
                     error
                 )
             })
+    } else {
+        handleHttpError(
+            req,
+            res,
+            409,
+            '/',
+            'delete_chat',
+            'You must be logged in to delete a chat!',
+            true
+        )
     }
 }
 
