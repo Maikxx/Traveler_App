@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
 import * as fs from 'fs'
 
 import Profile from '../models/profile'
@@ -21,6 +22,13 @@ their profile (as created in the Sign Up controller) will be updated with the ne
 */
 
 function handleSaveEditedProfile (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/my_profile/edit',
+        scope: 'save_edited_profile',
+        message: '',
+        logOut: false,
+    }
+
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
@@ -113,14 +121,9 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         !minSearchAge ||
                         !maxSearchAge
                     ) {
-                        handleHttpError(
-                            req,
-                            res,
-                            400,
-                            '/my_profile/edit',
-                            'save_edited_profile',
-                            'Not all required fields of the questionaire are filled in!'
-                        )
+                        cusErr.message = 'Not all required fields of the questionaire are filled in!'
+
+                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                         return
                     } else {
                         queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
@@ -190,14 +193,9 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                     }
 
                     if (req.files && req.files.length > 4) {
-                        handleHttpError(
-                            req,
-                            res,
-                            400,
-                            '/my_profile/edit',
-                            'save_edited_profile',
-                            'Too much images passed!'
-                        )
+                        cusErr.message = ''
+
+                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, 'Too much images passed!', cusErr.logOut)
                     } else if (req.files) {
                         Promise.all(req.files.map((file: MulterFile, i: number) => {
                             return fs.rename(file.path, `${file.destination}/${userId}_${i}.jpg`, (error: NodeJS.ErrnoException) => {
@@ -206,16 +204,10 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                                 } else {
                                     fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
                                         if (error) {
-                                            handleHttpError(
-                                                req,
-                                                res,
-                                                500,
-                                                '/my_profile/edit',
-                                                'save_edited_profile',
-                                                'Images unlinking error!',
-                                                false,
-                                                error
-                                            )
+                                            cusErr.message = 'Images unlinking error!'
+
+                                            handleHttpError(req, res, 500, cusErr.redirectTo,
+                                                cusErr.scope, cusErr.message, cusErr.logOut, error)
                                         }
                                     })
                                 }
@@ -228,47 +220,25 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                                         req.session.error = null
                                         res.status(200).redirect('/my_profile')
                                     })
-                                    .catch(error => {
-                                        handleHttpError(
-                                            req,
-                                            res,
-                                            500,
-                                            '/my_profile/edit',
-                                            'save_edited_profile',
-                                            'Could not find a profile!',
-                                            false,
-                                            error
-                                        )
+                                    .catch((error: mongoose.Error) => {
+                                        cusErr.message = 'Could not find a profile!'
+
+                                        handleHttpError(req, res, 500, cusErr.redirectTo,
+                                            cusErr.scope, cusErr.message, cusErr.logOut, error)
                                     })
                             })
-                            .catch(error => {
-                                handleHttpError(
-                                    req,
-                                    res,
-                                    500,
-                                    '/my_profile/edit',
-                                    'save_edited_profile',
-                                    'There was an uncaught error in the server!',
-                                    false,
-                                    error
-                                )
+                            .catch((error: mongoose.Error) => {
+                                cusErr.message = 'There was an uncaught error in the server!'
+
+                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                             })
                     }
                 }
             })
-            .catch(error => {
-                console.error(error)
-                console.error('Something went wrong with getting the id of a Profile!')
-                handleHttpError(
-                    req,
-                    res,
-                    500,
-                    '/my_profile/edit',
-                    'save_edited_profile',
-                    'Something went wrong with getting the id of a Profile!',
-                    false,
-                    error
-                )
+            .catch((error: mongoose.Error) => {
+                cusErr.message = 'Something went wrong with getting the id of a Profile!'
+
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     }
 }

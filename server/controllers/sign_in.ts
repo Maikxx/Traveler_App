@@ -19,14 +19,14 @@ If everything succeeds the user will be logged in, there will be cookies set and
 */
 
 function handleSignIn (req: express.Request & {session: SessionType}, res: express.Response) {
-    if (req.body) {
-        const cusErr = {
-            redirectTo: '/',
-            scope: 'log_in',
-            message: 'Authentication Failed!',
-            logOut: false,
-        }
+    const cusErr = {
+        redirectTo: '/',
+        scope: 'log_in',
+        message: 'Authentication Failed!',
+        logOut: false,
+    }
 
+    if (req.body) {
         const {
             email,
             password,
@@ -36,10 +36,9 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
             (email && email.length && validationRegex.email.test(email)) &&
             (password && password.length && validationRegex.password.test(password))
         ) {
-            Profile.find({ email })
-                .exec()
-                .then((user: ProfileType[]) => {
-                    if (!user || !user.length) {
+            Profile.findOne({ email })
+                .then((user: ProfileType) => {
+                    if (!user) {
                         handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                     }
 
@@ -63,6 +62,8 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
         } else {
             handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
         }
+    } else {
+        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }
 

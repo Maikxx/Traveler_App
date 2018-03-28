@@ -19,14 +19,14 @@ If deleting succeeds, navigate to the chats overview.
 */
 
 function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response) {
-    const { _id: chatId } = req.params
-
     const cusErr = {
         redirectTo: '/',
         scope: 'delete_chat',
         message: 'Authentication Failed!',
         logOut: true,
     }
+
+    const { _id: chatId } = req.params
 
     if (req.session && req.session.userId) {
         Chat.findOne({ _id: chatId })
