@@ -64,7 +64,15 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
 function deleteAccount(req: express.Request & {session: SessionType}, res: express.Response, cusErr: CustomErrorType, userId: string) {
     Profile.remove({ _id: userId })
         .then(() => {
-            res.status(204).redirect('/')
+            req.session.destroy((error: NodeJS.ErrnoException) => {
+                if (error) {
+                    cusErr.message = 'There was an error while removing you session!'
+
+                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                } else {
+                    res.status(204).redirect('/')
+                }
+            })
         })
         .catch((error: mongoose.Error) => {
             cusErr.message = 'There was an error while deleting your account!'
