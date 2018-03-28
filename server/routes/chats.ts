@@ -10,18 +10,42 @@ import { ChatType } from '../types/chatType'
 
 import handleHttpError from '../utils/handleError'
 
+/*
+Route for showing the users chats.
+
+1. THe code looks for a valid profile and gets it from the database.
+2. Get the chats of this user.
+3. Then the chats are being requested from the database.
+4. Check where the participant is not equal to the current user and find this persons profile in the database.
+5. Return the data required for showing up this chat correctly in the overview.
+6. The rawData gets filtered, so that only items which are not undefined are sent to the template.
+*/
+
 function renderChats (req: express.Request & {session: SessionType}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/',
+        scope: 'chats',
+        message: '',
+        logOut: false,
+    }
+
     if (req.session && req.session.userId) {
 
         Profile.findOne({ _id: req.session.userId })
             .then((myProfile: ProfileType) => {
+
                 if (myProfile.chats && myProfile.chats.length) {
+
                     Promise.all(myProfile.chats.map((chatId: string, i) => {
+
                         return Chat.findOne({ _id: chatId })
                             .then((chatResult: ChatType) => {
+
                                 for (let i = 0; i < chatResult.chatParticipants.length; i++) {
+
                                     // tslint:disable-next-line:triple-equals
                                     if (chatResult.chatParticipants[i] != req.session.userId) {
+
                                         return Profile.findOne({ _id: chatResult.chatParticipants[i] })
                                             .then((chatWithProfile: ProfileType) => ({
                                                 _id: chatResult._id,
@@ -31,15 +55,18 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                                     && chatWithProfile.profileImages[0].replace('public', ''),
                                             }))
                                             .catch((error: mongoose.Error) => {
-                                                // tslint:disable-next-line:ter-max-len
-                                                handleHttpError(req, res, 500, '/', 'chats', 'Something went wrong with getting the profile of a chat!', false, error)
+                                                cusErr.message = 'Something went wrong with getting the profile of a chat!'
+
+                                                handleHttpError(req, res, 500, cusErr.redirectTo,
+                                                    cusErr.scope, cusErr.message, cusErr.logOut, error)
                                             })
                                     }
                                 }
                             })
                             .catch((error: mongoose.Error) => {
-                                // tslint:disable-next-line:ter-max-len
-                                handleHttpError(req, res, 500, '/', 'chats', 'Something went wrong with getting the profile of a chat!', false, error)
+                                cusErr.message = 'Something went wrong with getting the profile of a chat!'
+
+                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                             })
                     }))
                         .then(rawData => {
@@ -47,15 +74,21 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                             res.status(200).render('chats.ejs', { openChatsData })
                         })
                         .catch((error: mongoose.Error) => {
-                            handleHttpError(req, res, 500, '/', 'chats', 'Boiled up error in the Promise.all!', false, error)
+                            cusErr.message = 'Boiled up error in the Promise.all!'
+
+                            handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                         })
                 }
             })
             .catch((error: mongoose.Error) => {
-                handleHttpError(req, res, 500, '/', 'chats', 'Invalid Own User ID!', false, error)
+                cusErr.message = 'Invalid Own User ID!'
+
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     } else {
-        handleHttpError(req, res, 403, '/', 'chats', 'You need to be logged in to view your chats!')
+        cusErr.message = 'You need to be logged in to view your chats!'
+
+        handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, true)
     }
 }
 
