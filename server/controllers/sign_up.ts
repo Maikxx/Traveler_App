@@ -10,7 +10,7 @@ import { ProfileType } from 'server/types/ProfileType'
 import handleHttpError from '../utils/handleError'
 
 /*
-Function that handles signing new users up.
+Controller that handles signing new users up.
 
 The data gets tested, before it is stored in Mongo.
 There are checks to see if a Profile already exists, if the data is valid and if the user filled in everything the right way.

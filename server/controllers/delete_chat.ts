@@ -1,4 +1,5 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
 
 import Chat from '../models/chat'
 import Profile from '../models/profile'
@@ -29,57 +30,29 @@ function handleDeleteChat (req: express.Request & {session: SessionType}, res: e
                 }))
                     .then(() => {
                         Chat.remove({ _id: chatResult._id })
-                            .catch(error => {
+                            .catch((error: mongoose.NativeError) => {
+                                const errorMessage = 'Either the chatId does not exist, or you do not own the chat!'
 
-                                handleHttpError(
-                                    req,
-                                    res,
-                                    500,
-                                    '/',
-                                    'delete_chat',
-                                    'Either the chatId does not exist, or you do not own the chat!',
-                                    true,
-                                    error
-                                )
+                                handleHttpError(req, res, 500, '/', 'delete_chat', errorMessage, true, error)
                             })
 
                         res.redirect('/chats')
                     })
-                    .catch(error => {
-                        handleHttpError(
-                            req,
-                            res,
-                            500,
-                            '/',
-                            'delete_chat',
-                            'There was an error updating one or more of the profiles',
-                            true,
-                            error
-                        )
+                    .catch((error: mongoose.NativeError) => {
+                        const errorMessage = 'There was an error updating one or more of the profiles!'
+
+                        handleHttpError(req, res, 500, '/', 'delete_chat', errorMessage, true, error)
                     })
             })
-            .catch(error => {
-                handleHttpError(
-                    req,
-                    res,
-                    400,
-                    '/',
-                    'delete_chat',
-                    'Can not find a chat with the passed id!',
-                    true,
-                    error
-                )
+            .catch((error: mongoose.NativeError) => {
+                const errorMessage = 'Can not find a chat with the passed id!'
+
+                handleHttpError(req, res, 400, '/', 'delete_chat', errorMessage, true, error)
             })
     } else {
-        handleHttpError(
-            req,
-            res,
-            409,
-            '/',
-            'delete_chat',
-            'You must be logged in to delete a chat!',
-            true
-        )
+        const errorMessage = 'You must be logged in to delete a chat!'
+
+        handleHttpError(req, res, 409, '/', 'delete_chat', errorMessage, true)
     }
 }
 
