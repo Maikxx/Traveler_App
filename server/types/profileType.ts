@@ -1,3 +1,5 @@
+// TypeScript interface for profiles, which is almost a 1-1 resemblance from the Mongoose schema.
+
 export interface ProfileType {
     _id: string,
     email?: string,

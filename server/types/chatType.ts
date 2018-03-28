@@ -1,3 +1,5 @@
+// TypeScript types for the chat system.
+
 export interface MessageType {
     messageById: String
     messageText: String

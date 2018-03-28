@@ -1,3 +1,6 @@
+// To do: Put this file in source and let it be automatically generated and transpiled.
+
+// Function that handles clicks on the menu icon in the top right of pages where this icon is present.
 const handleMenuClick = (() => {
     const menuToggle = document.getElementById('menu-toggle')
     const navigation = document.getElementById('tl-Navigation')
@@ -10,6 +13,7 @@ const handleMenuClick = (() => {
     }
 })()
 
+// Function that handles clicking the textbutton below the sign up form, to open the sign in window.
 const handleToggleSignInClick = (() => {
     const toggleSignIn = document.getElementById('toggle-sign-in-button')
     const navigation = document.getElementById('tl-Navigation')

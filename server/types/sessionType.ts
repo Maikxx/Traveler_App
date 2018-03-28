@@ -1,3 +1,5 @@
+// TypeScript interface for express-session on top of the express.Request interface.
+
 export interface SessionType {
     userId?: string
     lastMatchId?: string

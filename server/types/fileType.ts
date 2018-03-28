@@ -1,4 +1,5 @@
-// Set the typescript typing of the properties of the returned filetype.
+// Set the TypeScript interface of the properties of the returned FileType.
+
 export interface FileType {
     mimetype: string
     originalname: string

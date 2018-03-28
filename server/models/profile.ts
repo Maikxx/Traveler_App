@@ -1,5 +1,7 @@
 import * as mongoose from 'mongoose'
 
+// Create a Mongoose Schema for a profile type. A Schema is a blueprint, of which real entries in the DB are created.
+
 const profileSchema = new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     email: {
