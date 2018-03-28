@@ -10,6 +10,8 @@ import { ProfileType } from '../types/ProfileType'
 import getAge from '../utils/getAge'
 import handleHttpError from '../utils/handleError'
 
+// Todo: Refactor this file.
+
 /*
 Controller which handles saving of the questionaire page.
 

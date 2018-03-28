@@ -1,20 +1,35 @@
 import * as express from 'express'
 import * as fs from 'fs'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
+
 import { MulterFile } from '../types/multerFileType'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
-function handleSaveEditedProfile (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
-    const { userId } = req.session
+import handleHttpError from '../utils/handleError'
 
-    if (userId) {
+/*
+Controller which handles saving of the edited profile page.
+
+Check if the user has a userId session.
+Then check if the Profile is really existing, based on this users id.
+Then there is a lot of form validation.
+The .trim().split(/,?\s+/) function in the validation is a regex, that splits values into an array, per , and optionally a space after it.
+If all the required fields are filled in correctly (including the amount of images),
+their profile (as created in the Sign Up controller) will be updated with the new values.
+*/
+
+function handleSaveEditedProfile (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
+    if (req.session && req.session.userId) {
+        const { userId } = req.session
+
         Profile.findById(userId)
             .then((profile: ProfileType) => {
                 if (profile) {
                     req.session.error = null
 
+                    // New data, passed in by the form.
                     const {
                         hasTraveledTo,
                         favouriteHolidayDestination,
@@ -45,6 +60,7 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         wantsToTravelQuickly,
                     } = req.body
 
+                    // Default data, already known from the user.
                     const queryData = {
                         profileImages: profile.profileImages,
                         hasTraveledTo: profile.hasTraveledTo,
@@ -124,7 +140,7 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         queryData.matchSettings.maxSearchAge = maxSearchAge
                     }
 
-                // Not required fields
+                    // Not required fields
                     if (description && description.length) {
                         queryData.description = description
                     }
@@ -183,41 +199,61 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                             'Too much images passed!'
                         )
                     } else if (req.files) {
-                        req.files.forEach((file, i) => {
-                            try {
-                                fs.renameSync(file.path, `${file.destination}/${userId}_${i}.jpg`)
-                                queryData.profileImages.push(`${file.destination}/${userId}_${i}.jpg`)
-                            } catch (error) {
-                                fs.unlinkSync(file.path)
+                        Promise.all(req.files.map((file: MulterFile, i: number) => {
+                            return fs.rename(file.path, `${file.destination}/${userId}_${i}.jpg`, (error: NodeJS.ErrnoException) => {
+                                if (!error) {
+                                    queryData.profileImages.push(`${file.destination}/${userId}_${i}.jpg`)
+                                } else {
+                                    fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
+                                        if (error) {
+                                            handleHttpError(
+                                                req,
+                                                res,
+                                                500,
+                                                '/my_profile/edit',
+                                                'save_edited_profile',
+                                                'Images unlinking error!',
+                                                false,
+                                                error
+                                            )
+                                        }
+                                    })
+                                }
+                            })
+                        }))
+                            .then(() => {
+                                Profile.findOneAndUpdate({ _id: userId }, queryData)
+                                    .exec()
+                                    .then((result: ProfileType) => {
+                                        req.session.error = null
+                                        res.status(200).redirect('/my_profile')
+                                    })
+                                    .catch(error => {
+                                        handleHttpError(
+                                            req,
+                                            res,
+                                            500,
+                                            '/my_profile/edit',
+                                            'save_edited_profile',
+                                            'Could not find a profile!',
+                                            false,
+                                            error
+                                        )
+                                    })
+                            })
+                            .catch(error => {
                                 handleHttpError(
                                     req,
                                     res,
                                     500,
-                                    '/',
+                                    '/my_profile/edit',
                                     'save_edited_profile',
-                                    'Images unlinking error!'
+                                    'There was an uncaught error in the server!',
+                                    false,
+                                    error
                                 )
-                            }
-                        })
+                            })
                     }
-
-                    Profile.findOneAndUpdate({ _id: userId }, queryData)
-                        .exec()
-                        .then((result: ProfileType) => {
-                            req.session.error = null
-                            res.status(200).redirect('/my_profile')
-                        })
-                        .catch(error => {
-                            handleHttpError(
-                                req,
-                                res,
-                                500,
-                                '/my_profile/edit',
-                                'save_edited_profile',
-                                'Could not find a profile!',
-                                error
-                            )
-                        })
                 }
             })
             .catch(error => {
@@ -230,6 +266,7 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                     '/my_profile/edit',
                     'save_edited_profile',
                     'Something went wrong with getting the id of a Profile!',
+                    false,
                     error
                 )
             })
