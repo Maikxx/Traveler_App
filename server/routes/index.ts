@@ -1,8 +1,11 @@
 import * as express from 'express'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
+
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
+
+import handleHttpError from '../utils/handleError'
 
 function renderIndex (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session.error) {
