@@ -110,7 +110,14 @@
             font-size: inherit;
             font-family: 'Open Sans', sans-serif;
             border: 0;
+            text-decoration: underline;
+            cursor: pointer;
             background: none;
+            transition: 100ms ease-in-out color;
+
+            &:hover {
+                color: $form-text-color;
+            }
         }
     }
 
