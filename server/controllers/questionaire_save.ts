@@ -1,17 +1,31 @@
 import * as express from 'express'
 import * as fs from 'fs'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
-import getAge from '../utils/getAge'
+
 import { MulterFile } from '../types/multerFileType'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
+
+import getAge from '../utils/getAge'
+import handleHttpError from '../utils/handleError'
+
+/*
+Controller which handles saving of the questionaire page.
+
+Check if the user has a userId session.
+Then check if the Profile is really existing, based on this users id.
+Then there is a lot of form validation.
+The .trim().split(/,?\s+/) function in the validation is a regex, that splits values into an array, per , and optionally a space after it.
+If all the required fields are filled in correctly (including the amount of images),
+their profile (as created in the Sign Up controller) will be updated with the new values.
+*/
 
 function handleQuestionaireSave (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
     if (req.session && req.session.userId) {
         const _id = req.session.userId
 
-        Profile.count({ _id }, (error, count) => {
+        Profile.count({ _id }, (error, count: number) => {
             if (error) {
                 handleHttpError(
                     req,
@@ -198,24 +212,57 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                         false
                     )
                 } else if (req.files) {
-                    req.files.forEach((file, i) => {
-                        try {
-                            fs.renameSync(file.path, `${file.destination}/${_id}_${i}.jpg`)
-                            queryData.profileImages.push(`${file.destination}/${_id}_${i}.jpg`)
-                        } catch (error) {
-                            fs.unlinkSync(file.path)
+                    Promise.all(req.files.map((file: MulterFile, i: number) => {
+                        return fs.rename(file.path, `${file.destination}/${_id}_${i}.jpg`, (error: NodeJS.ErrnoException) => {
+                            if (!error) {
+                                queryData.profileImages.push(`${file.destination}/${_id}_${i}.jpg`)
+                            } else {
+                                fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
+                                    if (error) {
+                                        handleHttpError(
+                                            req,
+                                            res,
+                                            500,
+                                            '/questionaire',
+                                            'questionaire',
+                                            'Images unlinking error!',
+                                            false,
+                                            error
+                                        )
+                                    }
+                                })
+                            }
+                        })
+                    }))
+                        .then(() => {
+                            Profile.findOneAndUpdate({ _id }, queryData)
+                                .exec()
+                                .then((result: ProfileType) => req.session.error = null)
+                                .catch(error => {
+                                    handleHttpError(
+                                        req,
+                                        res,
+                                        500,
+                                        '/questionaire',
+                                        'questionaire',
+                                        'Something went wrong with getting the id of a Profile!',
+                                        false,
+                                        error
+                                    )
+                                })
+                        })
+                        .catch((error) => {
                             handleHttpError(
                                 req,
                                 res,
                                 500,
-                                '/questionaire',
+                                '/',
                                 'questionaire',
-                                'Images unlinking error!',
-                                false,
+                                'There went something wrong inside of the server',
+                                true,
                                 error
                             )
-                        }
-                    })
+                        })
                 } else {
                     handleHttpError(
                         req,
@@ -227,22 +274,6 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                         false
                     )
                 }
-
-                Profile.findOneAndUpdate({ _id }, queryData)
-                    .exec()
-                    .then((result: ProfileType) => req.session.error = null)
-                    .catch(error => {
-                        handleHttpError(
-                            req,
-                            res,
-                            500,
-                            '/questionaire',
-                            'questionaire',
-                            'Something went wrong with getting the id of a Profile!',
-                            false,
-                            error
-                        )
-                    })
             }
         })
     } else {
