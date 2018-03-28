@@ -6,8 +6,6 @@ import Profile from '../models/profile'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
-import handleHttpError from '../utils/handleError'
-
 /*
 Route that handles the index page requests (/)
 
@@ -40,17 +38,20 @@ function renderIndex (req: express.Request & {session: SessionType}, res: expres
                     error: req.session && req.session.error || null,
                 })
             } else {
-                res.status(500).render('index.ejs', {
-                    availableTravelersData: null,
-                    error: req.session.error,
-                })
+                renderErrorIndex(req, res)
             }
         })
         .catch((error: mongoose.Error) => {
-            const errorMessage = 'There was an error getting results for you!'
-
-            handleHttpError(req, res, 400, '/', 'index', errorMessage, false, error)
+            console.error(error)
+            renderErrorIndex(req, res)
         })
+}
+
+function renderErrorIndex(req: express.Request & {session: SessionType}, res: express.Response) {
+    res.status(500).render('index.ejs', {
+        availableTravelersData: null,
+        error: req.session.error,
+    })
 }
 
 export default renderIndex
