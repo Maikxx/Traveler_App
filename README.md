@@ -79,7 +79,7 @@ When those two are running go to `localhost:8000`.
 
 ## Database
 
-Traveler uses a NoSQL database ([MongoDB](https://www.mongodb.com)) to store it's data. The preferance of a NoSQL database over the SQL database is purely out of ease of use and familiarity. For communicating with the database Traveler uses [Mongoose](http://mongoosejs.com).
+Traveler uses a NoSQL database ([MongoDB][mongo]) to store it's data. The preferance of a NoSQL database over the SQL database is purely out of ease of use and familiarity. For communicating with the database Traveler uses [Mongoose][mongoose].
 
 ### Data
 
@@ -103,7 +103,20 @@ When all users are saved to the database, the connection with Mongo is closed ag
 
 ## Code Cohesion
 
-All the routes are put in to the folder called [routes]((https://github.com/Maikxx/traveler-dating-app/tree/master/server/routes), where all the routes of the [server](https://github.com/Maikxx/traveler-dating-app/blob/master/server/server.ts) are defined.
+This application uses the following (among others) packages / technologies:
+* [Body Parser](https://github.com/expressjs/body-parser)
+* [Express](https://expressjs.com/)
+* [Express Session](https://github.com/expressjs/session)
+* [Gulp](https://gulpjs.com/)
+* [MongoDB][mongo]
+* [Mongoose][mongoose]
+* [Multer](https://github.com/expressjs/multer)
+* [NodeJS](https://nodejs.org/en/)
+* [Nodemon](https://github.com/remy/nodemon)
+* [Sass](https://sass-lang.com/)
+* [TypeScript](http://www.typescriptlang.org/)
+
+All the routes are put in to the folder called [routes](https://github.com/Maikxx/traveler-dating-app/tree/master/server/routes), where all the routes of the [server](https://github.com/Maikxx/traveler-dating-app/blob/master/server/server.ts) are defined.
 Each route handles a different route. My take on a route is that it is working with the help of a GET request.
 
 On the other side of the spectrum, I also have a folder called [controllers](https://github.com/Maikxx/traveler-dating-app/tree/master/server/controllers).
@@ -113,3 +126,5 @@ In this folder are all the controllers, of the application. A controller in my e
 [Apache](LICENSE) © [Maikel van Veen][developer]
 
 [developer]: https://github.com/Maikxx
+[mongo]: https://www.mongodb.com/
+[mongoose]: http://mongoosejs.com/
