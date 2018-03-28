@@ -2,12 +2,15 @@ import * as express from 'express'
 import { SessionType } from '../types/SessionType'
 import * as httpStatus from 'http-status'
 
-// Function for catching all types of errors and sending an error back to the view, said to render.
-// The code is the HTTP status code.
-// Scope is where the error comes from (sometimes there is no error.stack, so I did this).
-// Message is what will be shown to the user.
-// LogOut is a decision wether or not the user needs to be logged out.
-// If there is an error, like from a promise, then log that.
+/*
+Function for catching all types of errors and sending an error back to the view, said to render.
+
+The code is the HTTP status code.
+Scope is where the error comes from (sometimes there is no error.stack, so I did this).
+Message is what will be shown to the user.
+LogOut is a decision wether or not the user needs to be logged out.
+If there is an error, like from a promise, then log that.
+*/
 
 function handleHttpError (
         req: express.Request & {session: SessionType},

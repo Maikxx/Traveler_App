@@ -1,6 +1,9 @@
-// Function for getting the age, based on someones birthday.
-// As found (in non TS and ES6+) on StackOverflow by
-// Naveen at https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd
+/*
+Function for getting the age, based on someones birthday.
+
+As found (in non TS and ES6+) on StackOverflow by Naveen,
+at https://stackoverflow.com/questions/4060004/calculate-age-given-the-birth-date-in-the-format-yyyymmdd
+*/
 
 function getAge (birthdate: string) {
     if (birthdate && birthdate.length) {

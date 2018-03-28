@@ -8,13 +8,18 @@ import { ChatType } from '../types/chatType'
 
 import handleHttpError from '../utils/handleError'
 
-// Function controller which handles deleting chats.
+/*
+Controller which handles deleting chats.
+
+Check if the user has a userId session.
+Find a chat which corresponds with the id given by req.params.
+Update both the profiles, which are linked to this chat, so that they no longer contain this chatId.
+If deleting succeeds, navigate to the chats overview.
+*/
+
 function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response) {
     const { _id: chatId } = req.params
 
-    // Check if the user has a userId session.
-    // Find a chat which corresponds with the id given by req.params.
-    // Update both the profiles, which are linked to this chat, so that they no longer contain this chatId.
     if (req.session && req.session.userId) {
         Chat.findOne({ _id: chatId })
             .then((chatResult: ChatType) => {
