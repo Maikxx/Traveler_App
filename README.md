@@ -101,6 +101,14 @@ Here the tool creates a mock schema, which resembles the real Mongoose schema, a
 This model is then used to instantiate (i.e. create) a new profile for that current iteration (user) of the MockData.json file.
 When all users are saved to the database, the connection with Mongo is closed again.
 
+## Code Cohesion
+
+All the routes are put in to the folder called [routes]((https://github.com/Maikxx/traveler-dating-app/tree/master/server/routes), where all the routes of the [server](https://github.com/Maikxx/traveler-dating-app/blob/master/server/server.ts) are defined.
+Each route handles a different route. My take on a route is that it is working with the help of a GET request.
+
+On the other side of the spectrum, I also have a folder called [controllers](https://github.com/Maikxx/traveler-dating-app/tree/master/server/controllers).
+In this folder are all the controllers, of the application. A controller in my eyes is something that take a POST request and transforms data into something usable, and does something with this data, like storing something in the database.
+
 ## Licence
 [Apache](LICENSE) © [Maikel van Veen][developer]
 
