@@ -107,7 +107,7 @@ All the routes are put in to the folder called [routes]((https://github.com/Maik
 Each route handles a different route. My take on a route is that it is working with the help of a GET request.
 
 On the other side of the spectrum, I also have a folder called [controllers](https://github.com/Maikxx/traveler-dating-app/tree/master/server/controllers).
-In this folder are all the controllers, of the application. A controller in my eyes is something that take a POST request and transforms data into something usable, and does something with this data, like storing something in the database.
+In this folder are all the controllers, of the application. A controller in my eyes is something that takes a POST request and transforms data into something usable, and does something with this data, like storing something in the database.
 
 ## Licence
 [Apache](LICENSE) © [Maikel van Veen][developer]
