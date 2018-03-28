@@ -22,10 +22,13 @@ function renderIndex (req: express.Request & {session: SessionType}, res: expres
 
                 res.render('index.ejs', {
                     availableTravelersData,
-                    error: req.session.error || null,
+                    error: req.session && req.session.error || null,
                 })
             } else {
-                res.status(500).render('index.ejs')
+                res.status(500).render('index.ejs', {
+                    availableTravelersData: null,
+                    error: req.session.error,
+                })
             }
         })
         .catch(error => {

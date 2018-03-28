@@ -1,8 +1,11 @@
 import * as express from 'express'
-import { SessionType } from '../types/SessionType'
-import handleHttpError from '../utils/handleError'
+
 import Chat from '../models/chat'
+
+import { SessionType } from '../types/SessionType'
 import { ChatType } from 'server/types/chatType'
+
+import handleHttpError from '../utils/handleError'
 
 function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response) {
     if (req.session && req.session.userId) {
