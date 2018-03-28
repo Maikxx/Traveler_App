@@ -61,6 +61,7 @@ Install the full application by doing the following in the *terminal*:
 ```bash
 git clone git@github.com:Maikxx/traveler-dating-app.git
 cd traveler-dating-app
+npm install
 ```
 
 After that you can watch (and build) the css with:

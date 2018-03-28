@@ -11,8 +11,6 @@ import { ChatType } from '../types/chatType'
 import handleHttpError from '../utils/handleError'
 
 function renderChats (req: express.Request & {session: SessionType}, res: express.Response) {
-    req.session.error = null
-
     if (req.session && req.session.userId) {
 
         Profile.findOne({ _id: req.session.userId })
