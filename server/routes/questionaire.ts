@@ -1,49 +1,50 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
+
 import { SessionType } from '../types/SessionType'
 
-function renderQuestionaire (req: express.Request & {session: SessionType}, res: express.Response) {
-    if (req.session && req.session.userId) {
-        const _id = req.session.userId
+import handleHttpError from '../utils/handleError'
 
-        Profile.count({ _id })
-            .then((count: number) => {
-                if (count > 0) {
-                    res.render('questionaire.ejs', { _id })
+/*
+Route for showing the user the questionaire.
+
+1. Check if the user is in the database and has a session.
+2. If it is not render an error, else render the page.
+*/
+
+function renderQuestionaire (req: express.Request & {session: SessionType}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/',
+        scope: 'questionaire',
+        message: '',
+        logOut: true,
+    }
+
+    if (req.session && req.session.userId) {
+        const { userId } = req.session
+
+        Profile.count({ _id: userId })
+            .then((amount: number) => {
+                if (amount) {
+                    res.render('questionaire.ejs', { _id: userId })
                 } else {
-                    handleHttpError(
-                        req,
-                        res,
-                        500,
-                        '/',
-                        'questionaire',
-                        'There are not more than 0 items found!'
-                    )
+                    cusErr.message = 'There are not more than 0 items found!'
+
+                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                 }
             })
-            .catch(error => {
-                handleHttpError(
-                    req,
-                    res,
-                    500,
-                    '/',
-                    'questionaire',
-                    'An error occured counting profiles!',
-                    true,
-                    error
-                )
+            .catch((error: mongoose.Error) => {
+                cusErr.message = 'An error occured counting profiles!'
+
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
 
     } else {
-        handleHttpError(
-            req,
-            res,
-            401,
-            '/',
-            'questionaire',
-            'You are not logged in!'
-        )
+        cusErr.message = 'You are not logged in!'
+
+        handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }
 
