@@ -2,6 +2,10 @@ import * as express from 'express'
 import handleHttpError from '../utils/handleError'
 import { SessionType } from '../types/SessionType'
 
+/*
+Route for handling all the not founds.
+*/
+
 function renderNotFound (
         error: express.Errback,
         req: express.Request & {session: SessionType},
