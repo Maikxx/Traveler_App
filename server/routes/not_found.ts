@@ -1,6 +1,8 @@
 import * as express from 'express'
-import handleHttpError from '../utils/handleError'
+
 import { SessionType } from '../types/SessionType'
+
+import handleHttpError from '../utils/handleError'
 
 /*
 Route for handling all the not founds.
