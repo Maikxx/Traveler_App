@@ -82,7 +82,9 @@ When those two are running go to `localhost:8000`.
 
 ### Disclaimer
 
-This project makes use of the build pack for nodemon, in combination with TypeScript (which handles transforming ts to js on the fly), that is not owned by me, neither do I take credit for building them. This build pack is made by [Lifely](https://lifely.nl/).
+This project makes use of the boilerplate for nodemon, in combination with TypeScript (which handles transforming ts to js on the fly, with the tsconfig.json), that is not owned by me, neither do I take credit for building them. This build pack is made by [Lifely](https://lifely.nl/).
+
+All of the rest of this application is made and owned by [Maikel van Veen][developer]
 
 ### Packages and technologies
 
