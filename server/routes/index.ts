@@ -15,7 +15,7 @@ Route that handles the index page requests (/)
 will be sent if there goes something wrong.
 */
 
-function renderIndex (errBack: express.Errback, req: express.Request & {session: SessionType}, res: express.Response) {
+function renderIndex (req: express.Request & {session: SessionType}, res: express.Response) {
     if (process.env.NODE_ENV !== 'production') {
         if (req.session && req.session.error) {
             console.error(req.session.error)
