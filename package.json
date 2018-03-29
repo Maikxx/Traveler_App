@@ -8,8 +8,8 @@
     "clear-dist": "rm -rf dist/",
     "build-ts": "yarn clear-dist && tsc",
     "build": "yarn build-ts && babel --copy-files --include node_modules --out-dir dist dist",
-    "serve": "nodemon --delay 3 --ignore \"test\" --watch ./dist --exec babel-node dist/server.js || exit 1",
-    "start-app": "yarn build-ts && concurrently \"tsc -w\" \"(sleep 3 && yarn serve)\" --raw"
+    "serve": "nodemon --delay 3 --ignore 'test' --watch ./dist --exec babel-node dist/server.js || exit 1",
+    "start-app": "yarn build-ts && concurrently 'tsc -w' '(sleep 3 && yarn serve)' --raw"
   },
   "private": true,
   "author": "Maikel van Veen",
