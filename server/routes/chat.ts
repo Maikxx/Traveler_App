@@ -30,7 +30,7 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
         const { _id: chatId } = req.params
 
         Profile.findOne({ _id: req.session.userId })
-            .then((myProfile) => {
+            .then((myProfile: ProfileType) => {
                 Chat.findOne({ _id: chatId })
                     .then((chatResult: ChatType) => {
 

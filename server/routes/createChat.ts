@@ -28,36 +28,44 @@ function createChat (req: express.Request & {session: SessionType}, res: express
     }
 
     if (req.session && req.session.userId && req.session.lastMatchId) {
+        Profile.findOne({ _id: req.session.userId })
+            .then((myProfile: ProfileType) => {
+                Profile.findOne({ _id: req.session.lastMatchId })
+                    .then((chatWithProfile: ProfileType) => {
 
-        Profile.findOne({ _id: req.session.lastMatchId })
-            .then((chatWithProfile: ProfileType) => {
+                        const newChat = new Chat({
+                            _id: new mongoose.Types.ObjectId(),
+                            chatParticipants: [ req.session.userId, chatWithProfile._id ],
+                            ownUserId: req.session.userId,
+                            chatWithId: chatWithProfile._id,
+                            messages: [],
+                        })
 
-                const newChat = new Chat({
-                    _id: new mongoose.Types.ObjectId(),
-                    chatParticipants: [ req.session.userId, chatWithProfile._id ],
-                    ownUserId: req.session.userId,
-                    chatWithId: chatWithProfile._id,
-                    messages: [],
-                })
+                        newChat.save()
+                            .then(() => {
 
-                newChat.save()
-                    .then(() => {
+                                Chat.findOne({ _id: newChat._id })
+                                    .then((chatResult: ChatType) => {
 
-                        Chat.findOne({ _id: newChat._id })
-                            .then((chatResult: ChatType) => {
+                                        Promise.all(chatResult.chatParticipants && chatResult.chatParticipants.map((participantId) => {
 
-                                Promise.all(chatResult.chatParticipants && chatResult.chatParticipants.map((participantId) => {
+                                            return Profile.update({ _id: participantId }, { $push: { chats: chatResult._id } })
+                                                .catch((error: mongoose.Error) => {
+                                                    cusErr.message = 'Internal Server Error!'
 
-                                    return Profile.update({ _id: participantId }, { $push: { chats: chatResult._id } })
-                                        .catch((error: mongoose.Error) => {
-                                            cusErr.message = 'Internal Server Error!'
+                                                    handleHttpError(req, res, 500, cusErr.redirectTo,
+                                                        cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                                })
+                                        }))
+                                            .then(() => {
+                                                res.redirect(`/chat/${chatResult._id}`)
+                                            })
+                                            .catch((error: mongoose.Error) => {
+                                                cusErr.message = 'Error while getting back the saved chat!'
 
-                                            handleHttpError(req, res, 500, cusErr.redirectTo,
-                                                cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                        })
-                                }))
-                                    .then(() => {
-                                        res.redirect(`/chat/${chatResult._id}`)
+                                                handleHttpError(req, res, 500, cusErr.redirectTo,
+                                                    cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                            })
                                     })
                                     .catch((error: mongoose.Error) => {
                                         cusErr.message = 'Error while getting back the saved chat!'
@@ -67,21 +75,21 @@ function createChat (req: express.Request & {session: SessionType}, res: express
                                     })
                             })
                             .catch((error: mongoose.Error) => {
-                                cusErr.message = 'Error while getting back the saved chat!'
+                                cusErr.message = 'Error while saving a new chat!'
 
                                 handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                             })
                     })
                     .catch((error: mongoose.Error) => {
-                        cusErr.message = 'Error while saving a new chat!'
+                        cusErr.message = 'Invalid lastMatchId!'
 
                         handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                     })
             })
             .catch((error: mongoose.Error) => {
-                cusErr.message = 'Invalid lastMatchId!'
+                cusErr.message = 'The id in your session does not match any user in our database!'
 
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, true, error)
             })
     } else {
         cusErr.message = 'You need to be logged in to create a chat!'

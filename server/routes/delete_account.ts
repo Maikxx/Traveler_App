@@ -30,9 +30,11 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
     }
 
     if (req.session && req.session.userId) {
-        Profile.findOne({ _id: req.session.userId })
-            .then((result: ProfileType) => {
-                const { profileImages } = result
+        const { userId } = req.session
+
+        Profile.findOne({ _id: userId })
+            .then((myProfile: ProfileType) => {
+                const { profileImages } = myProfile
 
                 if (profileImages && profileImages.length) {
                     profileImages.forEach((imagePath: string) => {
@@ -45,9 +47,9 @@ function handleDeleteAccount (req: express.Request & {session: SessionType}, res
                         })
                     })
 
-                    deleteAccount(req, res, cusErr, req.session.userId)
+                    deleteAccount(req, res, cusErr, userId)
                 } else {
-                    deleteAccount(req, res, cusErr, req.session.userId)
+                    deleteAccount(req, res, cusErr, userId)
                 }
             })
             .catch((error: mongoose.Error) => {

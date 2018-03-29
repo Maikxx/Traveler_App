@@ -30,8 +30,9 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
     }
 
     if (req.session && req.session.userId) {
+        const { userId } = req.session
 
-        Profile.findOne({ _id: req.session.userId })
+        Profile.findOne({ _id: userId })
             .then((myProfile: ProfileType) => {
 
                 if (myProfile.chats && myProfile.chats.length) {
@@ -44,7 +45,7 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
                                 for (let i = 0; i < chatResult.chatParticipants.length; i++) {
 
                                     // tslint:disable-next-line:triple-equals
-                                    if (chatResult.chatParticipants[i] != req.session.userId) {
+                                    if (chatResult.chatParticipants[i] != userId) {
 
                                         return Profile.findOne({ _id: chatResult.chatParticipants[i] })
                                             .then((chatWithProfile: ProfileType) => ({
@@ -83,7 +84,7 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
             .catch((error: mongoose.Error) => {
                 cusErr.message = 'Invalid Own User ID!'
 
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     } else {
         cusErr.message = 'You need to be logged in to view your chats!'
