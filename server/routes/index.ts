@@ -28,13 +28,14 @@ function renderIndex (req: express.Request & {session: SessionType}, res: expres
 
     Profile.find()
         .limit(4)
-        .then((results: ProfileType[]) => {
-            if (results && results.length) {
-                const availableTravelersData = results.map((result: ProfileType) => ({
-                    _id: result._id,
-                    fullName: result.fullName,
-                    profileImage: result.profileImages && result.profileImages[0] && result.profileImages[0].replace('public', ''),
-                    profileDescription: result.description,
+        .then((availableTravelers: ProfileType[]) => {
+            if (availableTravelers && availableTravelers.length) {
+                const availableTravelersData = availableTravelers.map((availableTraveler: ProfileType) => ({
+                    _id: availableTraveler._id,
+                    fullName: availableTraveler.fullName,
+                    profileImage: availableTraveler.profileImages
+                        && availableTraveler.profileImages[0] && availableTraveler.profileImages[0].replace('public', ''),
+                    profileDescription: availableTraveler.description,
                 }))
 
                 res.render('index.ejs', {
