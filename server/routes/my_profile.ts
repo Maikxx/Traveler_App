@@ -1,85 +1,80 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
+
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
+import handleHttpError from '../utils/handleError'
+
+/*
+Route for showing the user their profile page.
+
+1. Check if the user has a valid session and exists in the database.
+2. Get their profile data.
+3. Render it to the page.
+*/
+
 function renderMyProfile (req: express.Request & {session: SessionType}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/',
+        scope: 'my_profile',
+        message: '',
+        logOut: true,
+    }
+
     if (req.session && req.session.userId) {
-        Profile.find({ _id: req.session.userId })
-            .then((result: ProfileType[]) => {
-                if (result && result.length) {
-                    req.session.error = null
+        Profile.findOne({ _id: req.session.userId })
+            .then((myProfile: ProfileType) => {
+                req.session.error = null
 
-                    const currentResult = result[0]
-
-                    const profileData = {
-                        _id: currentResult._id,
-                        firstName: currentResult.firstName,
-                        fullName: currentResult.fullName,
-                        ownGender: currentResult.ownGender,
-                        birthdate: currentResult.birthdate,
-                        age: currentResult.age,
-                        profileImages: currentResult.profileImages &&
-                            currentResult.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
-                        description: currentResult.description,
-                        hasTraveledTo: currentResult.hasTraveledTo,
-                        favouriteHolidayDestination: currentResult.favouriteHolidayDestination,
-                        favouriteHolidayTypes: currentResult.favouriteHolidayTypes,
-                        plansHolidaysAhead: currentResult.plansHolidaysAhead,
-                        likesToHike: currentResult.likesToHike,
-                        prefersInterContinental: currentResult.prefersInterContinental,
-                        wantsToVisitSoon: currentResult.wantsToVisitSoon,
-                        hasVisitedThisMuchDestinations: currentResult.hasVisitedThisMuchDestinations,
-                        favouriteOverallTravelTime: currentResult.favouriteOverallTravelTime,
-                        wantsToTravelQuickly: currentResult.wantsToTravelQuickly,
-                        mostImportantInRelationShip: currentResult.mostImportantInRelationShip,
-                        wantsToMarry: currentResult.wantsToMarry,
-                        foremostRelationshipMotivation: currentResult.foremostRelationshipMotivation,
-                        wantsToOrAlreadyHasChildren: currentResult.wantsToOrAlreadyHasChildren,
-                        drinksAlcohol: currentResult.drinksAlcohol,
-                        smokes: currentResult.smokes,
-                        likesToBeInNature: currentResult.likesToBeInNature,
-                        favouriteMusicGenre: currentResult.favouriteMusicGenre,
-                        yearlyEarns: currentResult.yearlyEarns,
-                        livesIn: currentResult.livesIn,
-                        jobTitle: currentResult.jobTitle,
-                        lengthInCm: currentResult.lengthInCm,
-                    }
-
-                    res.render('my_profile.ejs', { profileData })
-                } else {
-                    handleHttpError(
-                        req,
-                        res,
-                        500,
-                        '/',
-                        'my_profile',
-                        'No result found!'
-                    )
+                const profileData = {
+                    _id: myProfile._id,
+                    firstName: myProfile.firstName,
+                    fullName: myProfile.fullName,
+                    ownGender: myProfile.ownGender,
+                    birthdate: myProfile.birthdate,
+                    age: myProfile.age,
+                    profileImages: myProfile.profileImages &&
+                        myProfile.profileImages.length &&
+                        myProfile.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
+                    description: myProfile.description,
+                    hasTraveledTo: myProfile.hasTraveledTo,
+                    favouriteHolidayDestination: myProfile.favouriteHolidayDestination,
+                    favouriteHolidayTypes: myProfile.favouriteHolidayTypes,
+                    plansHolidaysAhead: myProfile.plansHolidaysAhead,
+                    likesToHike: myProfile.likesToHike,
+                    prefersInterContinental: myProfile.prefersInterContinental,
+                    wantsToVisitSoon: myProfile.wantsToVisitSoon,
+                    hasVisitedThisMuchDestinations: myProfile.hasVisitedThisMuchDestinations,
+                    favouriteOverallTravelTime: myProfile.favouriteOverallTravelTime,
+                    wantsToTravelQuickly: myProfile.wantsToTravelQuickly,
+                    mostImportantInRelationShip: myProfile.mostImportantInRelationShip,
+                    wantsToMarry: myProfile.wantsToMarry,
+                    foremostRelationshipMotivation: myProfile.foremostRelationshipMotivation,
+                    wantsToOrAlreadyHasChildren: myProfile.wantsToOrAlreadyHasChildren,
+                    drinksAlcohol: myProfile.drinksAlcohol,
+                    smokes: myProfile.smokes,
+                    likesToBeInNature: myProfile.likesToBeInNature,
+                    favouriteMusicGenre: myProfile.favouriteMusicGenre,
+                    yearlyEarns: myProfile.yearlyEarns,
+                    livesIn: myProfile.livesIn,
+                    jobTitle: myProfile.jobTitle,
+                    lengthInCm: myProfile.lengthInCm,
                 }
+
+                res.render('my_profile.ejs', { profileData })
             })
-            .catch(error => {
-                handleHttpError(
-                    req,
-                    res,
-                    500,
-                    '/',
-                    'my_profile',
-                    'Error while finding a person!',
-                    true,
-                    error
-                )
+            .catch((error: mongoose.Error) => {
+                cusErr.message = 'Error while finding your profile!'
+
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     } else {
-        handleHttpError(
-            req,
-            res,
-            401,
-            '/',
-            'my_profile',
-            'You are not logged in!'
-        )
+        cusErr.message = 'You are not logged in!'
+
+        handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }
 
