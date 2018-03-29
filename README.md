@@ -82,9 +82,15 @@ When those two are running go to `localhost:8000`.
 
 ### Disclaimer
 
-This project makes use of the boilerplate for nodemon, in combination with TypeScript (which handles transforming ts to js on the fly, with the tsconfig.json), that is not owned by me, neither do I take credit for building them. This build pack is made by [Lifely](https://lifely.nl/).
+This project makes use of the boilerplate for nodemon, in combination with TypeScript (which handles transforming ts to js on the fly, with the tsconfig.json), that is not owned by me, neither do I take credit for building them. This boilerplate is made by [Lifely](https://lifely.nl/).
 
-All of the rest of this application is made and owned by [Maikel van Veen][developer]
+### Scripts
+
+* `clear-dist`: Removes (clears out) the dist folder and all it's contents.
+* `build-ts`: Runs `clear-dist` and transforms the TypeScript to JavaScript.
+* `build`: Runs `build-ts` and transpiles the source code to ES5, which then copies these files, including the required *node-modules* to the dist folder.
+* `serve`: Runs nodemon in watch mode, which watches over changes in the dist folder, and then babelify the files, so it is visible well on inferior browsers.
+* `start-app`: Runs `build-ts`, initially, and then runs the TS compiler in watch mode while also then running `serve`.
 
 ### Packages and technologies
 
