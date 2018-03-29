@@ -139,9 +139,21 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         queryData.wantsToTravelQuickly = wantsToTravelQuickly
                         queryData.likesToBeInNature = likesToBeInNature
                         queryData.matchSettings.matchHasToLikeToBeInNature = matchHasToLikeToBeInNature
-                        queryData.matchSettings.maxMatchDistance = maxMatchDistance
-                        queryData.matchSettings.minSearchAge = minSearchAge
-                        queryData.matchSettings.maxSearchAge = maxSearchAge
+                        queryData.matchSettings.maxMatchDistance = parseInt(maxMatchDistance, 10)
+                        queryData.matchSettings.minSearchAge = parseInt(minSearchAge, 10)
+                        queryData.matchSettings.maxSearchAge = parseInt(maxSearchAge, 10)
+                    }
+
+                    if (queryData.matchSettings.minSearchAge < 18 || queryData.matchSettings.maxSearchAge < 18) {
+                        cusErr.message = 'You can not search for people who are less than 18 years old!'
+
+                        handleHttpError(req, res, 400, cusErr.redirectTo, 'questionaire', cusErr.message, cusErr.logOut)
+                    }
+
+                    if (queryData.matchSettings.minSearchAge > queryData.matchSettings.maxSearchAge) {
+                        cusErr.message = 'Your minimal search age must be higher than your maximal search age!'
+
+                        handleHttpError(req, res, 400, cusErr.redirectTo, 'questionaire', cusErr.message, cusErr.logOut)
                     }
 
                     // Not required fields
