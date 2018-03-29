@@ -41,7 +41,7 @@ function handleHttpError (
         console.error(error)
     }
 
-    console.log(`${message} in: ${scope}, with code: ${code} and title: ${httpStatus[code]}!`)
+    console.log(`${message} in: ${scope}, with code: ${code} and title: ${httpStatus[code]}`)
 
     res.status(code).redirect(redirectToHere)
 }

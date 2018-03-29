@@ -33,7 +33,7 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
-        Profile.findById(userId)
+        Profile.findOne({ _id: userId })
             .then((profile: ProfileType) => {
                 if (profile) {
                     req.session.error = null

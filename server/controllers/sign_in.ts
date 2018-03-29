@@ -43,13 +43,13 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                         handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                     }
 
-                    bcrypt.compare(password, user[0].password, (error: NodeJS.ErrnoException, response: any) => {
+                    bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: any) => {
                         if (error) {
                             handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                         }
 
                         if (response) {
-                            req.session.userId = user[0]._id
+                            req.session.userId = user._id
                             req.session.error = null
                             res.redirect('/matches_overview')
                         } else {

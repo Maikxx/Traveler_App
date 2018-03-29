@@ -27,7 +27,7 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
     }
 
     if (req.session && req.session.userId) {
-        Profile.findById(req.session.userId)
+        Profile.findOne({ _id: req.session.userId })
             .then((result: ProfileType) => {
                 const { userId: messageById } = req.session
                 const { message: messageText } = req.body

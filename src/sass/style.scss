@@ -112,6 +112,8 @@ select {
         .tl-NavigationToggle {
             display: flex;
             align-items: center;
+            width: auto;
+            height: 100%;
 
             img[alt="menu-toggle"] {
                 width: auto;
