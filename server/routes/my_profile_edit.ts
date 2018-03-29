@@ -1,10 +1,21 @@
 import * as express from 'express'
+import * as mongoose from 'mongoose'
+
 import Profile from '../models/profile'
-import handleHttpError from '../utils/handleError'
+
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
+import handleHttpError from '../utils/handleError'
+
 function renderMyProfileEdit (req: express.Request & {session: SessionType}, res: express.Response) {
+    const cusErr = {
+        redirectTo: '/my_profile',
+        scope: 'my_profile_edit',
+        message: '',
+        logOut: false,
+    }
+
     if (req.session.error) {
         console.log(req.session.error)
     }
@@ -13,8 +24,6 @@ function renderMyProfileEdit (req: express.Request & {session: SessionType}, res
         Profile.find({ _id: req.session.userId })
             .then((result: ProfileType[]) => {
                 if (result && result.length) {
-                    req.session.error = null
-
                     const currentResult = result[0]
 
                     const profileData = {
@@ -59,37 +68,20 @@ function renderMyProfileEdit (req: express.Request & {session: SessionType}, res
 
                     res.render('my_profile_edit.ejs', { profileData })
                 } else {
-                    handleHttpError(
-                        req,
-                        res,
-                        500,
-                        '/',
-                        'my_profile_edit',
-                        'No result found!'
-                    )
+                    cusErr.message = 'No result found!'
+
+                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                 }
             })
-            .catch(error => {
-                handleHttpError(
-                    req,
-                    res,
-                    500,
-                    '/',
-                    'my_profile_edit',
-                    'Something went wrong in profile edit!',
-                    true,
-                    error
-                )
+            .catch((error: mongoose.Error) => {
+                cusErr.message = 'Something went wrong in profile edit!'
+
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     } else {
-        handleHttpError(
-            req,
-            res,
-            401,
-            '/',
-            'my_profile_edit',
-            'You are not logged in!'
-        )
+        cusErr.message = 'You are not logged in!'
+
+        handleHttpError(req, res, 403, '/', cusErr.scope, cusErr.message, true)
     }
 }
 
