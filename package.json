@@ -4,7 +4,6 @@
   "description": "A worflow for a website for my study",
   "main": "index.js",
   "scripts": {
-    "start": "yarn start-app",
     "clear-dist": "rm -rf dist/",
     "build-ts": "yarn clear-dist && tsc",
     "build": "yarn build-ts && babel --copy-files --include node_modules --out-dir dist dist",

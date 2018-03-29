@@ -73,7 +73,7 @@ gulp
 While in another tab having the server running with:
 
 ```bash
-npm start
+npm start-app
 ```
 
 When those two are running go to `localhost:8000`.
