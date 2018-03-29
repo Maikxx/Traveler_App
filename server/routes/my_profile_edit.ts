@@ -8,6 +8,13 @@ import { ProfileType } from '../types/ProfileType'
 
 import handleHttpError from '../utils/handleError'
 
+/*
+Route for handling showing the users edit view of the users profile.
+
+1. Check if the user has an active session and is actually valid.
+2. Get the current users data and store it in a variable that will be rendered as default values in the inputs.
+*/
+
 function renderMyProfileEdit (req: express.Request & {session: SessionType}, res: express.Response) {
     const cusErr = {
         redirectTo: '/my_profile',
@@ -21,57 +28,50 @@ function renderMyProfileEdit (req: express.Request & {session: SessionType}, res
     }
 
     if (req.session && req.session.userId) {
-        Profile.find({ _id: req.session.userId })
-            .then((result: ProfileType[]) => {
-                if (result && result.length) {
-                    const currentResult = result[0]
-
-                    const profileData = {
-                        _id: currentResult._id,
-                        firstName: currentResult.firstName,
-                        fullName: currentResult.fullName,
-                        ownGender: currentResult.ownGender,
-                        birthdate: currentResult.birthdate,
-                        age: currentResult.age,
-                        profileImages: currentResult.profileImages &&
-                            currentResult.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
-                        description: currentResult.description,
-                        hasTraveledTo: currentResult.hasTraveledTo,
-                        favouriteHolidayDestination: currentResult.favouriteHolidayDestination,
-                        favouriteHolidayTypes: currentResult.favouriteHolidayTypes,
-                        plansHolidaysAhead: currentResult.plansHolidaysAhead,
-                        likesToHike: currentResult.likesToHike,
-                        prefersInterContinental: currentResult.prefersInterContinental,
-                        wantsToVisitSoon: currentResult.wantsToVisitSoon,
-                        hasVisitedThisMuchDestinations: currentResult.hasVisitedThisMuchDestinations,
-                        favouriteOverallTravelTime: currentResult.favouriteOverallTravelTime,
-                        wantsToTravelQuickly: currentResult.wantsToTravelQuickly,
-                        mostImportantInRelationShip: currentResult.mostImportantInRelationShip,
-                        wantsToMarry: currentResult.wantsToMarry,
-                        foremostRelationshipMotivation: currentResult.foremostRelationshipMotivation,
-                        wantsToOrAlreadyHasChildren: currentResult.wantsToOrAlreadyHasChildren,
-                        drinksAlcohol: currentResult.drinksAlcohol,
-                        smokes: currentResult.smokes,
-                        likesToBeInNature: currentResult.likesToBeInNature,
-                        favouriteMusicGenre: currentResult.favouriteMusicGenre,
-                        yearlyEarns: currentResult.yearlyEarns,
-                        livesIn: currentResult.livesIn,
-                        jobTitle: currentResult.jobTitle,
-                        lengthInCm: currentResult.lengthInCm,
-                        matchSettings: {
-                            matchHasToLikeToBeInNature: currentResult.matchSettings.matchHasToLikeToBeInNature,
-                            maxMatchDistance: currentResult.matchSettings.maxMatchDistance,
-                            minSearchAge: currentResult.matchSettings.minSearchAge,
-                            maxSearchAge: currentResult.matchSettings.maxSearchAge,
-                        },
-                    }
-
-                    res.render('my_profile_edit.ejs', { profileData })
-                } else {
-                    cusErr.message = 'No result found!'
-
-                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+        Profile.findOne({ _id: req.session.userId })
+            .then((myProfile: ProfileType) => {
+                const profileData = {
+                    _id: myProfile._id,
+                    firstName: myProfile.firstName,
+                    fullName: myProfile.fullName,
+                    ownGender: myProfile.ownGender,
+                    birthdate: myProfile.birthdate,
+                    age: myProfile.age,
+                    profileImages: myProfile.profileImages &&
+                        myProfile.profileImages.length &&
+                        myProfile.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
+                    description: myProfile.description,
+                    hasTraveledTo: myProfile.hasTraveledTo,
+                    favouriteHolidayDestination: myProfile.favouriteHolidayDestination,
+                    favouriteHolidayTypes: myProfile.favouriteHolidayTypes,
+                    plansHolidaysAhead: myProfile.plansHolidaysAhead,
+                    likesToHike: myProfile.likesToHike,
+                    prefersInterContinental: myProfile.prefersInterContinental,
+                    wantsToVisitSoon: myProfile.wantsToVisitSoon,
+                    hasVisitedThisMuchDestinations: myProfile.hasVisitedThisMuchDestinations,
+                    favouriteOverallTravelTime: myProfile.favouriteOverallTravelTime,
+                    wantsToTravelQuickly: myProfile.wantsToTravelQuickly,
+                    mostImportantInRelationShip: myProfile.mostImportantInRelationShip,
+                    wantsToMarry: myProfile.wantsToMarry,
+                    foremostRelationshipMotivation: myProfile.foremostRelationshipMotivation,
+                    wantsToOrAlreadyHasChildren: myProfile.wantsToOrAlreadyHasChildren,
+                    drinksAlcohol: myProfile.drinksAlcohol,
+                    smokes: myProfile.smokes,
+                    likesToBeInNature: myProfile.likesToBeInNature,
+                    favouriteMusicGenre: myProfile.favouriteMusicGenre,
+                    yearlyEarns: myProfile.yearlyEarns,
+                    livesIn: myProfile.livesIn,
+                    jobTitle: myProfile.jobTitle,
+                    lengthInCm: myProfile.lengthInCm,
+                    matchSettings: {
+                        matchHasToLikeToBeInNature: myProfile.matchSettings.matchHasToLikeToBeInNature,
+                        maxMatchDistance: myProfile.matchSettings.maxMatchDistance,
+                        minSearchAge: myProfile.matchSettings.minSearchAge,
+                        maxSearchAge: myProfile.matchSettings.maxSearchAge,
+                    },
                 }
+
+                res.render('my_profile_edit.ejs', { profileData })
             })
             .catch((error: mongoose.Error) => {
                 cusErr.message = 'Something went wrong in profile edit!'
