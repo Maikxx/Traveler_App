@@ -20,7 +20,7 @@ Route for handling /chat requests.
 
 function renderChat (req: express.Request & {session: SessionType}, res: express.Response) {
     const cusErr = {
-        redirectTo: '/',
+        redirectTo: '/chats',
         scope: 'chat',
         message: '',
         logOut: false,
