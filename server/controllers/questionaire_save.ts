@@ -103,6 +103,7 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                             minSearchAge: null,
                             maxSearchAge: null,
                         },
+                        hasFinishedQuestionaire: false,
                     }
 
                     // Required Fields
@@ -236,6 +237,8 @@ function handleQuestionaireSave (req: express.Request & {session: SessionType} &
                             })
                         }))
                             .then(() => {
+                                queryData.hasFinishedQuestionaire = true
+
                                 Profile.findOneAndUpdate({ _id }, queryData)
                                     .then((result: ProfileType) => req.session.error = null)
                                     .catch((error: mongoose.Error) => {

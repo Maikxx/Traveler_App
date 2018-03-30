@@ -15,7 +15,7 @@ function renderNotFound (
         next: express.NextFunction
 ) {
     if (error) {
-        return handleHttpError(req, res, 404, '/', 'not_found', 'An error occured in the Not Found route!', true, error)
+        return handleHttpError(req, res, 404, '/', 'not_found', 'This page could not be found!', true, error)
     }
 }
 

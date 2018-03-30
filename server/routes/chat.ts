@@ -31,44 +31,50 @@ function renderChat (req: express.Request & {session: SessionType}, res: express
 
         Profile.findOne({ _id: req.session.userId })
             .then((myProfile: ProfileType) => {
-                Chat.findOne({ _id: chatId })
-                    .then((chatResult: ChatType) => {
+                if (!myProfile.hasFinishedQuestionaire) {
+                    cusErr.message = 'You have not yet filled in the questionaire!'
 
-                        chatResult.chatParticipants.map((participantId: string) => {
+                    return handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
+                } else {
+                    Chat.findOne({ _id: chatId })
+                        .then((chatResult: ChatType) => {
+
+                            const otherUserId = chatResult.chatParticipants.filter((participantId: string) => {
+                                // tslint:disable-next-line:triple-equals
+                                return req.session.userId != participantId
+                            })
+
                             // tslint:disable-next-line:triple-equals
-                            if (participantId != myProfile._id) {
-                                Profile.findOne({ _id: participantId })
-                                    .then((chatWithProfile: ProfileType) => {
-
-                                        res.render('chat.ejs', {
-                                            chatData: {
-                                                chatId,
-                                                chatWithName: chatWithProfile.firstName,
-                                                chatWithId: chatWithProfile._id,
-                                                messages: chatResult.messages
-                                                    && chatResult.messages.length
-                                                    && chatResult.messages.map((message: MessageType) => ({
-                                                        messageById: message.messageById,
-                                                        messageText: message.messageText,
-                                                        sentByWho: req.session.userId === message.messageById ? 'me' : 'them',
-                                                    })),
-                                            },
-                                        })
+                            Profile.findOne({ _id: otherUserId[0] })
+                                .then((chatWithProfile: ProfileType) => {
+                                    res.render('chat.ejs', {
+                                        chatData: {
+                                            chatId,
+                                            chatWithName: chatWithProfile.firstName,
+                                            chatWithId: chatWithProfile._id,
+                                            messages: chatResult.messages
+                                                && chatResult.messages.length
+                                                && chatResult.messages.map((message: MessageType) => ({
+                                                    messageById: message.messageById,
+                                                    messageText: message.messageText,
+                                                    sentByWho: req.session.userId === message.messageById ? 'me' : 'them',
+                                                })),
+                                        },
                                     })
-                                    .catch((error: mongoose.Error) => {
-                                        cusErr.message = 'Something went wrong inside the server, please try again!'
+                                })
+                                .catch((error: mongoose.Error) => {
+                                    cusErr.message = 'Something went wrong inside the server, please try again!'
 
-                                        handleHttpError(req, res, 500, cusErr.redirectTo,
-                                            cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                    })
-                            }
+                                    handleHttpError(req, res, 500, cusErr.redirectTo,
+                                        cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                })
                         })
-                    })
-                    .catch((error: mongoose.Error) => {
-                        cusErr.message = 'Something went wrong inside the server, please try again!'
+                        .catch((error: mongoose.Error) => {
+                            cusErr.message = 'Something went wrong inside the server, please try again!'
 
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                    })
+                            handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                        })
+                }
             })
             .catch((error: mongoose.Error) => {
                 cusErr.message = 'Invalid userId!'

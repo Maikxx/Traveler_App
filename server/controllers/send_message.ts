@@ -28,18 +28,23 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
 
     if (req.session && req.session.userId) {
         Profile.findOne({ _id: req.session.userId })
-            .then((result: ProfileType) => {
-                const { userId: messageById } = req.session
-                const { message: messageText } = req.body
-                const { _id: chatId } = req.params
+            .then((myProfile: ProfileType) => {
+                if (!myProfile.hasFinishedQuestionaire) {
+                    cusErr.message = 'You have not yet filled in the questionaire!'
 
-                if (messageText && messageText.length) {
-                    const newMessage = {
-                        messageById,
-                        messageText,
-                    }
+                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
+                } else {
+                    const { userId: messageById } = req.session
+                    const { message: messageText } = req.body
+                    const { _id: chatId } = req.params
 
-                    Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
+                    if (messageText && messageText.length) {
+                        const newMessage = {
+                            messageById,
+                            messageText,
+                        }
+
+                        Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
                         .then((result: ChatType) => {
                             res.status(201).redirect(`/chat/${chatId}`)
                         })
@@ -48,10 +53,11 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
 
                             handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                         })
-                } else {
-                    cusErr.message = 'You can not have empty messages!'
+                    } else {
+                        cusErr.message = 'You can not have empty messages!'
 
-                    handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                    }
                 }
             })
             .catch((error: mongoose.Error) => {

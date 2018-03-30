@@ -35,50 +35,59 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
         Profile.findOne({ _id: userId })
             .then((myProfile: ProfileType) => {
 
-                if (myProfile.chats && myProfile.chats.length) {
+                if (!myProfile.hasFinishedQuestionaire) {
+                    cusErr.message = 'You have not yet filled in the questionaire!'
 
-                    Promise.all(myProfile.chats.map((chatId: string, i) => {
+                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
+                } else {
 
-                        return Chat.findOne({ _id: chatId })
-                            .then((chatResult: ChatType) => {
+                    if (myProfile.chats && myProfile.chats.length) {
 
-                                for (let i = 0; i < chatResult.chatParticipants.length; i++) {
+                        Promise.all(myProfile.chats.map((chatId: string, i) => {
 
-                                    // tslint:disable-next-line:triple-equals
-                                    if (chatResult.chatParticipants[i] != userId) {
+                            return Chat.findOne({ _id: chatId })
+                                .then((chatResult: ChatType) => {
 
-                                        return Profile.findOne({ _id: chatResult.chatParticipants[i] })
-                                            .then((chatWithProfile: ProfileType) => ({
-                                                _id: chatResult._id,
-                                                fullName: chatWithProfile.fullName,
-                                                profileImageUrl: chatWithProfile.profileImages
-                                                    && chatWithProfile.profileImages.length
-                                                    && chatWithProfile.profileImages[0].replace('public', ''),
-                                            }))
-                                            .catch((error: mongoose.Error) => {
-                                                cusErr.message = 'Something went wrong with getting the profile of a chat!'
+                                    for (let i = 0; i < chatResult.chatParticipants.length; i++) {
 
-                                                handleHttpError(req, res, 500, cusErr.redirectTo,
-                                                    cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                            })
+                                        // tslint:disable-next-line:triple-equals
+                                        if (chatResult.chatParticipants[i] != userId) {
+
+                                            return Profile.findOne({ _id: chatResult.chatParticipants[i] })
+                                                .then((chatWithProfile: ProfileType) => ({
+                                                    _id: chatResult._id,
+                                                    fullName: chatWithProfile.fullName,
+                                                    profileImageUrl: chatWithProfile.profileImages
+                                                        && chatWithProfile.profileImages.length
+                                                        && chatWithProfile.profileImages[0].replace('public', ''),
+                                                }))
+                                                .catch((error: mongoose.Error) => {
+                                                    cusErr.message = 'Something went wrong with getting the profile of a chat!'
+
+                                                    handleHttpError(req, res, 500, cusErr.redirectTo,
+                                                        cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                                })
+                                        }
                                     }
-                                }
+                                })
+                                .catch((error: mongoose.Error) => {
+                                    cusErr.message = 'Something went wrong with getting the profile of a chat!'
+
+                                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                })
+                        }))
+                            .then(rawData => {
+                                const openChatsData = rawData.filter(data => data !== undefined)
+                                res.status(200).render('chats.ejs', { openChatsData })
                             })
                             .catch((error: mongoose.Error) => {
-                                cusErr.message = 'Something went wrong with getting the profile of a chat!'
+                                cusErr.message = 'Boiled up error in the Promise.all!'
 
                                 handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                             })
-                    }))
-                        .then(rawData => {
-                            const openChatsData = rawData.filter(data => data !== undefined)
-                            res.status(200).render('chats.ejs', { openChatsData })
-                        })
-                        .catch((error: mongoose.Error) => {
-                            cusErr.message = 'Boiled up error in the Promise.all!'
-
-                            handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                        })
+                    } else {
+                        res.status(200).render('chats.ejs', { openChatsData: null })
+                    }
                 }
             })
             .catch((error: mongoose.Error) => {

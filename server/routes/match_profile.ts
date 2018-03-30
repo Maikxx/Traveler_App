@@ -32,74 +32,78 @@ function renderMatchProfile (req: express.Request & {session: SessionType}, res:
 
         Profile.findOne({ _id: userId })
             .then((myProfile: ProfileType) => {
-                const { _id } = req.params
+                if (!myProfile.hasFinishedQuestionaire) {
+                    cusErr.message = 'You have not yet filled in the questionaire!'
 
-                if (_id && _id.length) {
-                    Profile.findOne({ _id })
-                        .then((matchProfile: ProfileType) => {
-                            const profileData = {
-                                _id: matchProfile._id,
-                                firstName: matchProfile.firstName,
-                                fullName: matchProfile.fullName,
-                                ownGender: matchProfile.ownGender,
-                                birthdate: matchProfile.birthdate,
-                                age: matchProfile.age,
-                                profileImages: matchProfile.profileImages &&
-                                    matchProfile.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
-                                description: matchProfile.description,
-                                hasTraveledTo: matchProfile.hasTraveledTo,
-                                favouriteHolidayDestination: matchProfile.favouriteHolidayDestination,
-                                favouriteHolidayTypes: matchProfile.favouriteHolidayTypes,
-                                plansHolidaysAhead: matchProfile.plansHolidaysAhead,
-                                likesToHike: matchProfile.likesToHike,
-                                prefersInterContinental: matchProfile.prefersInterContinental,
-                                wantsToVisitSoon: matchProfile.wantsToVisitSoon,
-                                hasVisitedThisMuchDestinations: matchProfile.hasVisitedThisMuchDestinations,
-                                favouriteOverallTravelTime: matchProfile.favouriteOverallTravelTime,
-                                wantsToTravelQuickly: matchProfile.wantsToTravelQuickly,
-                                mostImportantInRelationShip: matchProfile.mostImportantInRelationShip,
-                                wantsToMarry: matchProfile.wantsToMarry,
-                                foremostRelationshipMotivation: matchProfile.foremostRelationshipMotivation,
-                                wantsToOrAlreadyHasChildren: matchProfile.wantsToOrAlreadyHasChildren,
-                                drinksAlcohol: matchProfile.drinksAlcohol,
-                                smokes: matchProfile.smokes,
-                                likesToBeInNature: matchProfile.likesToBeInNature,
-                                favouriteMusicGenre: matchProfile.favouriteMusicGenre,
-                                yearlyEarns: matchProfile.yearlyEarns,
-                                livesIn: matchProfile.livesIn,
-                                jobTitle: matchProfile.jobTitle,
-                                lengthInCm: matchProfile.lengthInCm,
-                                chatId: null,
-                            }
-
-                            Chat.findOne({ chatParticipants: { $all: [ userId, matchProfile._id ] } })
-                                .then((chatResult: ChatType) => {
-                                    if (chatResult) {
-                                        profileData.chatId = chatResult._id
-                                    } else {
-                                        req.session.lastMatchId = profileData._id
-                                    }
-
-                                    console.log(profileData.chatId)
-                                    console.log(req.session.lastMatchId)
-
-                                    res.render('match_profile.ejs', { profileData })
-                                })
-                                .catch((error: mongoose.Error) => {
-                                    cusErr.message = 'Internal Server Error!'
-
-                                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                })
-                        })
-                        .catch((error: mongoose.Error) => {
-                            cusErr.message = 'Invalid id passed in!'
-
-                            handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                        })
+                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
                 } else {
-                    cusErr.message = 'No id passed in to the url!'
+                    const { _id: matchId } = req.params
 
-                    handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                    if (matchId && matchId.length) {
+                        Profile.findOne({ _id: matchId })
+                            .then((matchProfile: ProfileType) => {
+                                const profileData = {
+                                    _id: matchProfile._id,
+                                    firstName: matchProfile.firstName,
+                                    fullName: matchProfile.fullName,
+                                    ownGender: matchProfile.ownGender,
+                                    birthdate: matchProfile.birthdate,
+                                    age: matchProfile.age,
+                                    profileImages: matchProfile.profileImages &&
+                                        matchProfile.profileImages.map(profileImage => profileImage && profileImage.replace('public', '')),
+                                    description: matchProfile.description,
+                                    hasTraveledTo: matchProfile.hasTraveledTo,
+                                    favouriteHolidayDestination: matchProfile.favouriteHolidayDestination,
+                                    favouriteHolidayTypes: matchProfile.favouriteHolidayTypes,
+                                    plansHolidaysAhead: matchProfile.plansHolidaysAhead,
+                                    likesToHike: matchProfile.likesToHike,
+                                    prefersInterContinental: matchProfile.prefersInterContinental,
+                                    wantsToVisitSoon: matchProfile.wantsToVisitSoon,
+                                    hasVisitedThisMuchDestinations: matchProfile.hasVisitedThisMuchDestinations,
+                                    favouriteOverallTravelTime: matchProfile.favouriteOverallTravelTime,
+                                    wantsToTravelQuickly: matchProfile.wantsToTravelQuickly,
+                                    mostImportantInRelationShip: matchProfile.mostImportantInRelationShip,
+                                    wantsToMarry: matchProfile.wantsToMarry,
+                                    foremostRelationshipMotivation: matchProfile.foremostRelationshipMotivation,
+                                    wantsToOrAlreadyHasChildren: matchProfile.wantsToOrAlreadyHasChildren,
+                                    drinksAlcohol: matchProfile.drinksAlcohol,
+                                    smokes: matchProfile.smokes,
+                                    likesToBeInNature: matchProfile.likesToBeInNature,
+                                    favouriteMusicGenre: matchProfile.favouriteMusicGenre,
+                                    yearlyEarns: matchProfile.yearlyEarns,
+                                    livesIn: matchProfile.livesIn,
+                                    jobTitle: matchProfile.jobTitle,
+                                    lengthInCm: matchProfile.lengthInCm,
+                                    chatId: null,
+                                }
+
+                                Chat.findOne({ chatParticipants: { $all: [ userId, matchProfile._id ] } })
+                                    .then((chatResult: ChatType) => {
+                                        if (chatResult) {
+                                            profileData.chatId = chatResult._id
+                                        } else {
+                                            req.session.lastMatchId = profileData._id
+                                        }
+
+                                        res.render('match_profile.ejs', { profileData })
+                                    })
+                                    .catch((error: mongoose.Error) => {
+                                        cusErr.message = 'Internal Server Error!'
+
+                                        handleHttpError(req, res, 500, cusErr.redirectTo,
+                                            cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                    })
+                            })
+                            .catch((error: mongoose.Error) => {
+                                cusErr.message = 'Invalid id passed in!'
+
+                                handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                            })
+                    } else {
+                        cusErr.message = 'No id passed in to the url!'
+
+                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                    }
                 }
             })
             .catch((error: mongoose.Error) => {

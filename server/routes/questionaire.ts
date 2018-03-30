@@ -4,6 +4,7 @@ import * as mongoose from 'mongoose'
 import Profile from '../models/profile'
 
 import { SessionType } from '../types/SessionType'
+import { ProfileType } from '../types/ProfileType'
 
 import handleHttpError from '../utils/handleError'
 
@@ -25,18 +26,25 @@ function renderQuestionaire (req: express.Request & {session: SessionType}, res:
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
-        Profile.count({ _id: userId })
-            .then((amount: number) => {
-                if (amount) {
-                    res.render('questionaire.ejs', { _id: userId })
+        Profile.findOne({ _id: userId })
+            .then((myProfile: ProfileType) => {
+                if (myProfile) {
+                    if (!myProfile.hasFinishedQuestionaire) {
+                        res.render('questionaire.ejs', { _id: myProfile._id })
+                    } else {
+                        cusErr.message = 'You can only fill in the questionaire once!'
+
+                        handleHttpError(req, res, 400, '/matches_overview',
+                            cusErr.scope, cusErr.message, false)
+                    }
                 } else {
-                    cusErr.message = 'There are not more than 0 items found!'
+                    cusErr.message = 'Your profile is not found!'
 
                     handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
                 }
             })
             .catch((error: mongoose.Error) => {
-                cusErr.message = 'An error occured counting profiles!'
+                cusErr.message = 'An error occured getting profiles!'
 
                 handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })

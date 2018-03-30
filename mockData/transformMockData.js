@@ -34,6 +34,9 @@ fs.readFile(filePath, async (error, data) => {
                     profile.smokes = 'Yes, sometimes'
                 }
 
+                profile.hasFinishedQuestionaire = true
+                profile._id = i
+
                 profile.password = hash
 
                 console.log(profile)

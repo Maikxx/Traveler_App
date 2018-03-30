@@ -35,39 +35,44 @@ function renderMatchesOverview (req: express.Request & {session: SessionType}, r
     if (req.session && req.session.userId) {
         Profile.findOne({ _id: req.session.userId })
             .then((myProfile: ProfileType) => {
+                if (!myProfile.hasFinishedQuestionaire) {
+                    cusErr.message = 'You have not yet filled in the questionaire!'
 
-                Profile.find({ _id: { $ne: myProfile._id } })
-                    .where('ownGender', myProfile.matchSettings.lookingForGender)
-                    .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
-                    .where('matchSettings.lookingForGender', myProfile.ownGender)
-                    .where('matchSettings.minSearchAge').gte(myProfile.age)
-                    // .where('matchSettings.maxSearchAge').lte(myProfile.age)
-                    .limit(10)
-                    .then((matchedProfiles: ProfileType[]) => {
-                        req.session.error = null
+                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
+                } else {
+                    Profile.find({ _id: { $ne: myProfile._id } })
+                        .where('ownGender', myProfile.matchSettings.lookingForGender)
+                        .where('age').gte(myProfile.matchSettings.minSearchAge).lte(myProfile.matchSettings.maxSearchAge)
+                        .where('matchSettings.lookingForGender', myProfile.ownGender)
+                        .where('matchSettings.minSearchAge').gte(myProfile.age)
+                        // .where('matchSettings.maxSearchAge').lte(myProfile.age)
+                        .limit(10)
+                        .then((matchedProfiles: ProfileType[]) => {
+                            req.session.error = null
 
-                        const overviewData = matchedProfiles.map((matchedProfile: ProfileType) => ({
-                            _id: matchedProfile._id,
-                            firstName: matchedProfile.firstName,
-                            fullName: matchedProfile.fullName,
-                            profileImages: matchedProfile.profileImages &&
-                                matchedProfile.profileImages.length &&
-                                matchedProfile.profileImages.map(profileImage => profileImage.replace('public', '')),
-                            age: matchedProfile.age,
-                            ownGender: matchedProfile.ownGender,
-                            description: matchedProfile.description,
-                            favouriteHolidayDestination: matchedProfile.favouriteHolidayDestination,
-                            likesToHike: matchedProfile.likesToHike,
-                            favouriteOverallTravelTime: matchedProfile.favouriteOverallTravelTime,
-                        }))
+                            const overviewData = matchedProfiles.map((matchedProfile: ProfileType) => ({
+                                _id: matchedProfile._id,
+                                firstName: matchedProfile.firstName,
+                                fullName: matchedProfile.fullName,
+                                profileImages: matchedProfile.profileImages &&
+                                    matchedProfile.profileImages.length &&
+                                    matchedProfile.profileImages.map(profileImage => profileImage.replace('public', '')),
+                                age: matchedProfile.age,
+                                ownGender: matchedProfile.ownGender,
+                                description: matchedProfile.description,
+                                favouriteHolidayDestination: matchedProfile.favouriteHolidayDestination,
+                                likesToHike: matchedProfile.likesToHike,
+                                favouriteOverallTravelTime: matchedProfile.favouriteOverallTravelTime,
+                            }))
 
-                        res.render('matches_overview.ejs', { overviewData })
-                    })
-                    .catch((error: mongoose.Error) => {
-                        cusErr.message = 'Error while finding a profile!'
+                            res.render('matches_overview.ejs', { overviewData })
+                        })
+                        .catch((error: mongoose.Error) => {
+                            cusErr.message = 'Error while finding a profile!'
 
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                    })
+                            handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                        })
+                }
             })
             .catch((error: mongoose.Error) => {
                 cusErr.message = 'Error finding your profile!'

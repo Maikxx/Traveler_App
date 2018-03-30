@@ -34,8 +34,12 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
         const { userId } = req.session
 
         Profile.findOne({ _id: userId })
-            .then((profile: ProfileType) => {
-                if (profile) {
+            .then((myProfile: ProfileType) => {
+                if (!myProfile.hasFinishedQuestionaire) {
+                    cusErr.message = 'You have not yet filled in the questionaire!'
+
+                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
+                } else {
                     req.session.error = null
 
                     // New data, passed in by the form.
@@ -71,36 +75,37 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
 
                     // Default data, already known from the user.
                     const queryData = {
-                        profileImages: profile.profileImages,
-                        hasTraveledTo: profile.hasTraveledTo,
-                        favouriteHolidayDestination: profile.favouriteHolidayDestination,
-                        favouriteHolidayTypes: profile.favouriteHolidayTypes,
-                        plansHolidaysAhead: profile.plansHolidaysAhead,
-                        likesToHike: profile.likesToHike,
-                        prefersInterContinental: profile.prefersInterContinental,
-                        wantsToVisitSoon: profile.wantsToVisitSoon,
-                        hasVisitedThisMuchDestinations: profile.hasVisitedThisMuchDestinations,
-                        favouriteOverallTravelTime: profile.favouriteOverallTravelTime,
-                        wantsToMarry: profile.wantsToMarry,
-                        foremostRelationshipMotivation: profile.foremostRelationshipMotivation,
-                        wantsToOrAlreadyHasChildren: profile.wantsToOrAlreadyHasChildren,
-                        drinksAlcohol: profile.drinksAlcohol,
-                        smokes: profile.smokes,
-                        likesToBeInNature: profile.likesToBeInNature,
-                        favouriteMusicGenre: profile.favouriteMusicGenre,
-                        yearlyEarns: profile.yearlyEarns,
-                        birthdate: profile.birthdate,
-                        livesIn: profile.livesIn,
-                        jobTitle: profile.jobTitle,
-                        lengthInCm: profile.lengthInCm,
-                        description: profile.description,
-                        mostImportantInRelationShip: profile.mostImportantInRelationShip,
-                        wantsToTravelQuickly: profile.wantsToTravelQuickly,
+                        profileImages: myProfile.profileImages,
+                        hasTraveledTo: myProfile.hasTraveledTo,
+                        favouriteHolidayDestination: myProfile.favouriteHolidayDestination,
+                        favouriteHolidayTypes: myProfile.favouriteHolidayTypes,
+                        plansHolidaysAhead: myProfile.plansHolidaysAhead,
+                        likesToHike: myProfile.likesToHike,
+                        prefersInterContinental: myProfile.prefersInterContinental,
+                        wantsToVisitSoon: myProfile.wantsToVisitSoon,
+                        hasVisitedThisMuchDestinations: myProfile.hasVisitedThisMuchDestinations,
+                        favouriteOverallTravelTime: myProfile.favouriteOverallTravelTime,
+                        wantsToMarry: myProfile.wantsToMarry,
+                        foremostRelationshipMotivation: myProfile.foremostRelationshipMotivation,
+                        wantsToOrAlreadyHasChildren: myProfile.wantsToOrAlreadyHasChildren,
+                        drinksAlcohol: myProfile.drinksAlcohol,
+                        smokes: myProfile.smokes,
+                        likesToBeInNature: myProfile.likesToBeInNature,
+                        favouriteMusicGenre: myProfile.favouriteMusicGenre,
+                        yearlyEarns: myProfile.yearlyEarns,
+                        birthdate: myProfile.birthdate,
+                        livesIn: myProfile.livesIn,
+                        jobTitle: myProfile.jobTitle,
+                        lengthInCm: myProfile.lengthInCm,
+                        description: myProfile.description,
+                        mostImportantInRelationShip: myProfile.mostImportantInRelationShip,
+                        wantsToTravelQuickly: myProfile.wantsToTravelQuickly,
                         matchSettings: {
-                            matchHasToLikeToBeInNature: profile.matchSettings.matchHasToLikeToBeInNature,
-                            maxMatchDistance: profile.matchSettings.maxMatchDistance,
-                            minSearchAge: profile.matchSettings.minSearchAge,
-                            maxSearchAge: profile.matchSettings.maxSearchAge,
+                            lookingForGender: myProfile.matchSettings.lookingForGender,
+                            matchHasToLikeToBeInNature: myProfile.matchSettings.matchHasToLikeToBeInNature,
+                            maxMatchDistance: myProfile.matchSettings.maxMatchDistance,
+                            minSearchAge: myProfile.matchSettings.minSearchAge,
+                            maxSearchAge: myProfile.matchSettings.maxSearchAge,
                         },
                     }
 

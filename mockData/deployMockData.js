@@ -164,6 +164,9 @@ const profileSchema = new mongoose.Schema({
         },
     },
     chats: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' } ],
+    hasFinishedQuestionaire: {
+        type: Boolean,
+    },
 })
 
 // Create a mock MODEL.
@@ -213,6 +216,7 @@ Promise.all(file.map((profile, i) => {
                 minSearchAge: profile.matchSettings.minSearchAge,
                 maxSearchAge: profile.matchSettings.maxSearchAge,
             },
+            hasFinishedQuestionaire: profile.hasFinishedQuestionaire,
         }
     )
 

@@ -68,6 +68,7 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                     matchSettings: {
                                         lookingForGender,
                                     },
+                                    hasFinishedQuestionaire: false,
                                 })
 
                                 newUser.save()

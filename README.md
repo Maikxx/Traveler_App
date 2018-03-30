@@ -15,7 +15,6 @@ When users sign up, their account is created and partially filled in, with thing
 
 When users have succesfully signed up, they are taken to the *questionaire* page. Here they are asked to fill in their profile (not everything is required, however). They can only *continue using their account* if they finish filling in the required fields.
 
-<!-- Build this -->
 If they leave the page and sign in, while not having finished the questionaire correctly, then they will be sent back to the questionaire.
 
 ### Matches overview
