@@ -45,18 +45,18 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
                         }
 
                         Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
-                        .then((result: ChatType) => {
-                            res.status(201).redirect(`/chat/${chatId}`)
-                        })
-                        .catch((error: mongoose.Error) => {
-                            cusErr.message = 'Something went wrong with getting a chat!'
+                            .then((result: ChatType) => {
+                                res.status(201).redirect(`/chat/${chatId}`)
+                            })
+                            .catch((error: mongoose.Error) => {
+                                cusErr.message = 'Something went wrong with getting a chat!'
 
-                            handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                        })
+                                handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                            })
                     } else {
                         cusErr.message = 'You can not have empty messages!'
 
-                        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                        handleHttpError(req, res, 400, `/chat/${chatId}`, cusErr.scope, cusErr.message, cusErr.logOut)
                     }
                 }
             })
