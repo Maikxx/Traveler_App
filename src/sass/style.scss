@@ -181,15 +181,20 @@ select {
 
         label {
             display: flex;
+            justify-content: flex-end;
 
             span {
                 color: $form-text-color;
-                flex: 1;
+                white-space: nowrap;
+                min-width: 25%;
+                text-align: right;
                 font-size: 80%;
+                margin-right: $spacing-base;
             }
 
             input {
-                flex: 4;
+                width: 50%;
+                max-width: $spacing-base * 50;
             }
 
             & + label {
