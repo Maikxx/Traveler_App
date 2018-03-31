@@ -407,44 +407,48 @@ form {
             text-align: center;
         }
     }
-}
 
-.tl-FullProfileInformation {
-    width: 100%;
-
-    &__title {
-        margin-bottom: getSpacing(0.5);
-        font-size: 110%;
-    }
-
-    &__content {
-        list-style: none;
+    .tl-FullProfileInformation {
         width: 100%;
 
-        .tl-Field {
-            display: flex;
+        &__title {
+            margin-bottom: getSpacing(0.5);
+            font-size: 110%;
+        }
+
+        &__content {
+            list-style: none;
             width: 100%;
-            justify-content: space-between;
 
-            &__title {
-                font-weight: bold;
-                color: $form-text-color;
-                font-size: 100%;
-                max-width: 50%;
-                align-self: flex-start;
-            }
+            .tl-Field {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
 
-            &__value {
-                vertical-align: bottom;
-                max-width: 40%;
-                text-align: right;
-                align-self: center;
-            }
+                &__title {
+                    font-weight: bold;
+                    color: $form-text-color;
+                    font-size: 100%;
+                    max-width: 50%;
+                    align-self: flex-start;
+                }
 
-            & + .tl-Field {
-                margin-top: getSpacing(0.5);
-                padding-top: getSpacing(0.5);
-                border-top: 1px solid $form-border-color;
+                &__value {
+                    vertical-align: bottom;
+                    max-width: 40%;
+                    text-align: right;
+                    align-self: center;
+
+                    &::first-letter {
+                        text-transform: uppercase;
+                    }
+                }
+
+                & + .tl-Field {
+                    margin-top: getSpacing(0.5);
+                    padding-top: getSpacing(0.5);
+                    border-top: 1px solid $form-border-color;
+                }
             }
         }
     }
