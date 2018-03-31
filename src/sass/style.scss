@@ -347,6 +347,10 @@ select {
     color: #ffffff;
 }
 
+form .tl-CTA-Button {
+    margin-left: auto;
+}
+
 @import 'pages/index';
 @import 'pages/Questionaire';
 @import 'pages/MatchesOverview';
