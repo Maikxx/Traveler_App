@@ -173,7 +173,7 @@ select {
         max-width: $spacing-max-width;
 
         legend {
-            display: hidden;
+            visibility: hidden;
             position: absolute;
             left:  -9999px;
             top: -9999px;
