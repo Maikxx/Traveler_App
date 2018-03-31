@@ -15,58 +15,6 @@
         width: 100%;
         position: relative;
 
-        header {
-            width: 100%;
-            margin-bottom: getSpacing(2);
-
-            h1 {
-                font-size: 120%;
-            }
-        }
-
-        p {
-            margin-bottom: getSpacing(2);
-
-            &::first-letter {
-                text-transform: capitalize;
-            }
-        }
-
-        .tl-FullProfileInformation {
-            list-style: none;
-            width: 100%;
-            margin-top: getSpacing(1);
-
-            .tl-Field {
-                display: flex;
-                justify-content: space-between;
-
-                &__title,
-                &__value {
-                    max-width: 50%;
-                }
-
-                &__title {
-                    font-weight: bold;
-                    color: $form-text-color;
-                    align-self: flex-start;
-                    font-size: 100%;
-                }
-
-                &__value {
-                    vertical-align: bottom;
-                    text-align: right;
-                    align-self: center;
-                }
-
-                & + .tl-Field {
-                    margin-top: getSpacing(0.5);
-                    padding-top: getSpacing(0.5);
-                    border-top: 1px solid $form-border-color;
-                }
-            }
-        }
-
         footer {
             width: 100%;
             margin-top: getSpacing(1);
