@@ -1,11 +1,11 @@
-node_modules/
-dist/
-
-public/visitorProfileImages
-public/css
-public/js
-
 data/
+dist/
+node_modules/
+
+public/visitorProfileImages/
+public/css/
+public/js/
+
 .env
 nodemon.json
 
