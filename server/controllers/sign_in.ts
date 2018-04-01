@@ -74,7 +74,7 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
     } else {
         cusErr.message = errorMessages.requiredFieldMissingOrInvalid
 
-        handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+        handleHttpError(req, res, 412, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }
 
