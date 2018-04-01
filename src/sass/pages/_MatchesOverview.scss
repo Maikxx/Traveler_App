@@ -84,6 +84,15 @@
                         font-weight: bold;
                         font-size: 100%;
                         color: $form-text-color;
+                        max-width: 65%;
+                    }
+
+                    .tl-FieldValue {
+                        white-space: normal;
+                    }
+
+                    + li {
+                        margin-top: getSpacing(1);
                     }
                 }
             }
