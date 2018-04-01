@@ -85,11 +85,21 @@ This project makes use of the boilerplate for nodemon, in combination with TypeS
 
 ### Scripts
 
-* `clear-dist`: Removes (clears out) the dist folder and all it's contents.
+* `prefix-css`: Must be run seperately, when deploying to production form. Does what it's name implies.
+* `build-css`: Runs **node-sass-chokidar** in *silent*, *compressed* mode. This script transforms the `.scss` into a single `.css` file.
 * `build-ts`: Runs `clear-dist` and transforms the TypeScript to JavaScript.
-* `build`: Runs `build-ts` and transpiles the source code to ES5, which then copies these files, including the required *node-modules* to the dist folder.
-* `serve`: Runs nodemon in watch mode, which watches over changes in the dist folder, and then babelify the files, so it is visible well on inferior browsers.
-* `start-app`: Runs `build-ts`, initially, and then runs the TS compiler in watch mode while also then running `serve`.
+* `build`: Runs `build-ts` and transpiles the source code to ES5, which then *copies* these files, including the required *node-modules* to the dist folder.
+* `clear-dist`: Removes (clears out) the dist folder and all it's contents.
+* `generateMockData`: Script that *transforms* the raw mock data into usable data and then *deploys* it into the database.
+* `serve`: Runs nodemon in *watch* mode, which watches over changes in the dist folder, and then babelify the files, so it is visible well on inferior browsers.
+* `start-app`: Runs `build-ts`, initially, and then:
+    Runs the **TS compiler** in *watch* mode.
+    Runs `watch-css`.
+    Runs `watch-client-js`.
+    Runs `serve` after a certain amount of time.
+All the concurrent processes are ran in *raw* mode, which means that only essential things (e.g. errors) are logged to the console.
+* `watch-client-js`: Runs **babel** without an rc file, in watch mode. This transpiles the client-side JavaScript to ES5.
+* `watch-css`: Runs `build-css` once and then runs the whole `build-css` script in *quiet*, *recursive* (listens for file changes in the nested files) and *watch* mode.
 
 ### Packages and technologies
 
