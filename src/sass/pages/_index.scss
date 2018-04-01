@@ -125,6 +125,18 @@
     .tl-FormField {
         padding: getSpacing(1) 0;
         border-bottom: 1px solid $form-border-color;
+        opacity: 1;
+        height: auto;
+        visibility: visible;
+        transition: opacity 1s, height 0s, padding 0s;
+
+        &.hide-field {
+            opacity: 0;
+            height: 0;
+            border: 0;
+            visibility: hidden;
+            padding: 0;
+        }
 
         &:first-of-type {
             border-top: 1px solid $form-border-color;

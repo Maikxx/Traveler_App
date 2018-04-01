@@ -29,3 +29,21 @@ const handleToggleSignInClick = (() => {
         })
     }
 })()
+
+// Function that handles progressive enhancement for the sign up form.
+const waitForPasswordToComplete = (() => {
+    const passwordField = document.getElementById('sign-up-password')
+    const repeatPasswordField = document.getElementById('sign-up-repeat-password-field')
+
+    if (passwordField && repeatPasswordField) {
+        repeatPasswordField.classList.add('hide-field')
+
+        passwordField.addEventListener('input', (e) => {
+            if (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/.test(e.target.value)) {
+                repeatPasswordField.classList.remove('hide-field')
+            } else {
+                repeatPasswordField.classList.add('hide-field')
+            }
+        })
+    }
+})()
