@@ -2,7 +2,8 @@ node_modules/
 dist/
 
 public/visitorProfileImages
-public/style.css
+public/css
+public/js
 
 data/
 .env
