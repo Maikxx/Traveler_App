@@ -22,7 +22,7 @@
         <nav class="tl-Navigation" id="tl-Navigation">
             <form action="/sign_in" method="POST">
                 <fieldset>
-                    <legend>Sign In</legend>
+                    <legend>Sign in!</legend>
                     <label>
                         <span class="tl-RequiredFieldTitle">Email</span>
                         <input
@@ -43,7 +43,7 @@
                             required
                         >
                     </label>
-                    <button class="tl-CTA-Button" id="sign-in-button" type="submit">Sign In</button>
+                    <button class="tl-CTA-Button" id="sign-in-button" type="submit">Sign in!</button>
                 </fieldset>
             </form>
         </nav>
@@ -78,15 +78,19 @@
                     </section>
                 <% } %>
             </article>
+
             <form action="/sign_up" class="tl-SignUpForm" method="POST">
                 <div>
-                    <h2>Sign up for free! Don't worry it will remain free, forever!</h2>
+                    <h2>
+                        Sign up for free!<br>
+                        Don't worry it will remain free, forever!
+                    </h2>
                     <fieldset>
                         <legend>Account information</legend>
 
                         <div class="tl-FormField">
                             <label for="fullName">
-                                <span class="tl-RequiredFieldTitle">Full name:</span>
+                                <span class="tl-RequiredFieldTitle">Full name</span>
                                 <input
                                     type="text"
                                     name="fullName"
@@ -98,7 +102,7 @@
 
                         <div class="tl-FormField">
                             <label for="email">
-                                <span class="tl-RequiredFieldTitle">Email address:</span>
+                                <span class="tl-RequiredFieldTitle">Email address</span>
                                 <input
                                     type="email"
                                     name="email"
@@ -111,7 +115,7 @@
 
                         <div class="tl-FormField">
                             <label for="password">
-                                <span class="tl-RequiredFieldTitle">Password:</span>
+                                <span class="tl-RequiredFieldTitle">Password</span>
                                 <small>At least 1 lowercase, 1 uppercase, 1 number, a punctuation mark and it must be at least 8 characters long.</small>
                                 <input
                                     type="password"
@@ -125,7 +129,7 @@
 
                         <div class="tl-FormField">
                             <label for="repeatPassword">
-                                <span class="tl-RequiredFieldTitle">Repeat password:</span>
+                                <span class="tl-RequiredFieldTitle">Repeat password</span>
                                 <input
                                     type="password"
                                     name="repeatPassword"
@@ -140,7 +144,7 @@
                         <legend>Gender information</legend>
 
                         <div class="tl-FormField">
-                            <label class="tl-RequiredFieldTitle" for="ownGenderMale">Your gender:</label>
+                            <label class="tl-RequiredFieldTitle" for="ownGenderMale">Your gender</label>
                             <label for="ownGenderMale">
                                 <span>Male</span>
                                 <input
@@ -164,7 +168,7 @@
                         </div>
 
                         <div class="tl-FormField">
-                            <label class="tl-RequiredFieldTitle" for="lookingForGenderMale">Looking for a:</label>
+                            <label class="tl-RequiredFieldTitle" for="lookingForGenderMale">Looking for a</label>
                             <label for="lookingForGenderMale">
                                 <span>Male</span>
                                 <input
