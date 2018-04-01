@@ -106,11 +106,12 @@
         display: inline-block;
         margin-top: getSpacing(1);
 
-        > button {
+        > a {
             font-size: inherit;
             font-family: 'Open Sans', sans-serif;
             border: 0;
             text-decoration: underline;
+            color: inherit;
             cursor: pointer;
             background: none;
             transition: 100ms ease-in-out color;

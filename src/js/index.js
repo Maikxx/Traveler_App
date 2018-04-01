@@ -17,7 +17,8 @@ const handleToggleSignInClick = (() => {
     const navigation = document.getElementById('tl-Navigation')
 
     if (toggleSignIn && navigation) {
-        toggleSignIn.addEventListener('click', function () {
+        toggleSignIn.addEventListener('click', (e) => {
+            e.preventDefault()
 
             window.location.hash === '#tl-Navigation' ? (
                 window.location.hash = '',
