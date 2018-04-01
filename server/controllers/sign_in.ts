@@ -37,7 +37,7 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
         (email && email.length && validationRegex.email.test(email)) &&
         (password && password.length && validationRegex.password.test(password))
     ) {
-        Profile.findOne({ email })
+        Profile.findOne({ email: email.toLowerCase() })
             .then((user: ProfileType) => {
                 if (!user) {
                     handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
