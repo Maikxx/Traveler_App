@@ -22,8 +22,8 @@ const handleToggleSignInClick = (() => {
 
             window.location.hash === '#tl-Navigation' ? (
                 window.location.hash = '',
-                window.location.hash = 'tl-Navigation'
-            ) : window.location.hash = 'tl-Navigation'
+                window.location.hash = '#tl-Navigation'
+            ) : window.location.hash = '#tl-Navigation'
 
             navigation.classList.toggle('nav-toggled')
         })
