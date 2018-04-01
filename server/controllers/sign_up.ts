@@ -43,10 +43,9 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
         ownGender && ownGender.length &&
         lookingForGender && lookingForGender.length
     ) {
-        Profile.find({ email: email.toLowerCase() })
-            .exec()
-            .then((user: ProfileType[]) => {
-                if (user && user.length) {
+        Profile.findOne({ email: email.toLowerCase() })
+            .then((user: ProfileType) => {
+                if (user) {
                     cusErr.message = 'Mail already exists!'
 
                     handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, false)
