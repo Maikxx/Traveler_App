@@ -6,16 +6,17 @@
 
     .tl-TitleSection {
         color: black;
-        margin: 0 0 getSpacing(1.5);
 
         h1 {
             width: 100%;
-            font-size: 150%;
+            font-size: 115%;
             letter-spacing: 0.7px;
+            line-height: 1;
         }
 
         p {
             margin: getSpacing(1) 0;
+            font-size: 90%;
         }
     }
 

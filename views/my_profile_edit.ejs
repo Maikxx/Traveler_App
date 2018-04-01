@@ -12,7 +12,7 @@
         <header class="tl-PageHeader">
             <ol>
                 <li>
-                    <a href="/my_profile/<%= profileData._id %>">Back to my profile</a>
+                    <a href="/my_profile">Back to my profile</a>
                 </li>
                 <li>
                     <label class="tl-NavigationToggle">
@@ -38,8 +38,6 @@
         </nav>
 
         <main class="tl-MyProfilePage">
-            <h1>Hi <%= profileData.firstName %>!</h1>
-            <span>Here you can adjust your profile.</span>
             <form action="/save_edited_profile" method="POST" class="tl-Card tl-ProfileFormCard" enctype="multipart/form-data">
                 <fieldset class="tl-MyProfilePage__subject">
                     <legend>Travel</legend>
