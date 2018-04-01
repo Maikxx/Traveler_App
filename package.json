@@ -10,9 +10,9 @@
     "build-ts": "yarn clear-dist && tsc",
     "build": "yarn build-ts && babel --copy-files --include node_modules --out-dir dist dist",
     "generateMockData": "node ./mockData/transformMockData.js && node ./mockData/deployMockData.js",
-    "serve": "nodemon --watch ./dist --exec babel-node dist/server.js || exit 1",
+    "serve": "nodemon -w ./dist --exec babel-node dist/server.js || exit 1",
     "start-app": "yarn build-ts && concurrently 'tsc -w' 'yarn watch-css' '(sleep 6 && yarn serve)' --raw",
-    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./client/sass client/sass -o public/css --watch -q --recursive --output-style compressed"
+    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./client/sass client/sass -o public/css --output-style compressed -wqr"
   },
   "private": true,
   "author": "Maikel van Veen",
