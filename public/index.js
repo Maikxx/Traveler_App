@@ -14,11 +14,12 @@ var handleMenuClick = (function() {
       b = document.getElementById("tl-Navigation");
     a &&
       b &&
-      a.addEventListener("click", function() {
+      a.addEventListener("click", function(e) {
+        e.preventDefault();
         "#tl-Navigation" === window.location.hash
           ? ((window.location.hash = ""),
-            (window.location.hash = "tl-Navigation"))
-          : (window.location.hash = "tl-Navigation"),
+            (window.location.hash = "#tl-Navigation"))
+          : (window.location.hash = "#tl-Navigation"),
           b.classList.toggle("nav-toggled");
       });
   })();
