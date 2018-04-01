@@ -45,9 +45,7 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
 
                 bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: any) => {
                     if (error) {
-                        cusErr.message = errorMessages.serverError
-
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
                     }
 
                     if (response) {
@@ -60,21 +58,15 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                             res.redirect('/questionaire')
                         }
                     } else {
-                        cusErr.message = errorMessages.serverError
-
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, errorMessages.serverError, cusErr.logOut)
                     }
                 })
             })
             .catch((error: mongoose.Error) => {
-                cusErr.message = errorMessages.serverError
-
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
             })
     } else {
-        cusErr.message = errorMessages.requiredFieldMissingOrInvalid
-
-        handleHttpError(req, res, 412, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+        handleHttpError(req, res, 412, cusErr.redirectTo, cusErr.scope, errorMessages.requiredFieldMissingOrInvalid, cusErr.logOut)
     }
 }
 

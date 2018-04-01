@@ -9,6 +9,7 @@ import { ProfileType } from '../types/ProfileType'
 
 import validationRegex from '../utils/regex'
 import handleHttpError from '../utils/handleError'
+import errorMessages from '../utils/errorMessages'
 
 /*
 Controller that handles signing new users up.
@@ -53,10 +54,8 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                     } else {
                         bcrypt.hash(req.body.password, 10, (error: NodeJS.ErrnoException, hash: string) => {
                             if (error) {
-                                cusErr.message = 'Uncaught error!'
-
-                                handleHttpError(req, res, 400, cusErr.redirectTo,
-                                    cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                handleHttpError(req, res, 500, cusErr.redirectTo,
+                                    cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
                             } else {
                                 const newUser = new Profile({
                                     _id: new mongoose.Types.ObjectId(),
@@ -75,6 +74,7 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                     .then((result: ProfileType) => {
                                         req.session.userId = result._id
                                         req.session.error = null
+
                                         res.status(200).redirect(`/questionaire`)
                                     })
                                     .catch((error: mongoose.Error) => {
