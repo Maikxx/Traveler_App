@@ -9,6 +9,7 @@ import { ProfileType } from '../types/ProfileType'
 
 import validationRegex from '../utils/regex'
 import handleHttpError from '../utils/handleError'
+import errorMessages from '../utils/errorMessages'
 
 /*
 Controller for handling signing in of users.
@@ -23,47 +24,49 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
     const cusErr = {
         redirectTo: '/',
         scope: 'log_in',
-        message: 'Authentication Failed!',
+        message: errorMessages.generalAuthenticationFailed,
         logOut: false,
     }
 
-    if (req.body) {
-        const {
-            email,
-            password,
-        } = req.body
+    const {
+        email,
+        password,
+    } = req.body
 
-        if (
-            (email && email.length && validationRegex.email.test(email)) &&
-            (password && password.length && validationRegex.password.test(password))
-        ) {
-            Profile.findOne({ email })
-                .then((user: ProfileType) => {
-                    if (!user) {
-                        handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+    if (
+        (email && email.length && validationRegex.email.test(email)) &&
+        (password && password.length && validationRegex.password.test(password))
+    ) {
+        Profile.findOne({ email })
+            .then((user: ProfileType) => {
+                if (!user) {
+                    handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                }
+
+                bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: any) => {
+                    if (error) {
+                        cusErr.message = errorMessages.serverError
+
+                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
                     }
 
-                    bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: any) => {
-                        if (error) {
-                            handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                        }
+                    if (response) {
+                        req.session.userId = user._id
+                        req.session.error = null
+                        res.redirect('/matches_overview')
+                    } else {
+                        cusErr.message = errorMessages.serverError
 
-                        if (response) {
-                            req.session.userId = user._id
-                            req.session.error = null
-                            res.redirect('/matches_overview')
-                        } else {
-                            handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
-                        }
-                    })
+                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                    }
                 })
-                .catch((error: mongoose.Error) => {
-                    handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                })
-        } else {
-            handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
-        }
+            })
+            .catch((error: mongoose.Error) => {
+                handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+            })
     } else {
+        cusErr.message = errorMessages.requiredFieldMissingOrInvalid
+
         handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
     }
 }

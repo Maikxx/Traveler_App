@@ -10,7 +10,7 @@ import * as multer from 'multer'
 import * as mongoose from 'mongoose'
 import * as session from 'express-session'
 
-console.log('Re(starting)')
+console.log('(Re)starting...')
 
 // Start a connection to the database with enviroment variables.
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)

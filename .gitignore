@@ -10,3 +10,5 @@ nodemon.json
 
 mockData/backup.json
 mockData/MOCK_DATA.json
+
+yarn-error.log
