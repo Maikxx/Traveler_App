@@ -48,10 +48,17 @@
                                 <img src="<%= profile.profileImages[0] %>" alt="Matched traveler user: <%= profile.fullName %>">
                             <% } %>
                         </header>
-                        <p><%= profile.description %></p>
-                        <section class="tl-MainTravelInformation">
-                            <% if (profile.favouriteHolidayDestination || profile.likesToHike || profile.favouriteOverallTravelTime) { %>
-                                <h3>Most important travel information about <%= profile.firstName %> <% if (profile.age) { %>(<%= profile.age %>) <% } %></h3>
+
+                        <% if (profile.description && profile.description.length) { %>
+                            <section class="tl-ProfileDescription">
+                                <h2 class="tl-ProfileDescription__title">About <%= profile.firstName %></h2>
+                                <p class="tl-ProfileDescription__value"><%= profile.description %></p>
+                            </section>
+                        <% } %>
+
+                        <% if (profile.favouriteHolidayDestination || profile.likesToHike || profile.favouriteOverallTravelTime) { %>
+                            <section class="tl-MainTravelInformation">
+                                <h3>Important travel information</h3>
                                 <ol>
                                     <% if (profile.favouriteHolidayDestination && profile.favouriteHolidayDestination.length) { %>
                                         <li>
@@ -72,9 +79,10 @@
                                         </li>
                                     <% } %>
                                 </ol>
-                            <% } %>
-                        </section>
+                            </section>
+                        <% } %>
                     </a>
+
                     <footer>
                         <a class="tl-CTA-Button" href="/match_profile/<%= profile._id %>">Show more about <%= profile.firstName %></a>
                     </footer>

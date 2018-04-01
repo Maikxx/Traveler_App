@@ -27,7 +27,6 @@
         cursor: pointer;
 
         > a {
-            padding: getSpacing(0.5);
             display: flex;
             flex-wrap: wrap;
             align-items: flex-start;
@@ -53,17 +52,22 @@
             }
         }
 
-        p {
-            margin: getSpacing(0.5) 0 0;
+        .tl-ProfileDescription {
             width: 100%;
 
-            &::first-letter {
-                text-transform: capitalize;
+            &__title {
+                font-size: 105%;
+            }
+
+            &__value {
+                &::first-letter {
+                    text-transform: capitalize;
+                }
             }
         }
 
         .tl-MainTravelInformation {
-            margin: getSpacing(1) 0 getSpacing(3);
+            margin-bottom: getSpacing(3);
             width: 100%;
 
             h3 {

@@ -51,10 +51,12 @@
                     <% }) %>
                 </section>
 
-                <section class="tl-ProfileDescription">
-                    <h2 class="tl-ProfileDescription__title">About <%= profileData.firstName %></h2>
-                    <p class="tl-ProfileDescription__value"><%= profileData.description %></p>
-                </section>
+                <% if (profileData.description && profileData.description.length) { %>
+                    <section class="tl-ProfileDescription">
+                        <h2 class="tl-ProfileDescription__title">About <%= profileData.firstName %></h2>
+                        <p class="tl-ProfileDescription__value"><%= profileData.description %></p>
+                    </section>
+                <% } %>
 
                 <section class="tl-FullProfileInformation">
                     <h2 class="tl-FullProfileInformation__title">My information</h2>

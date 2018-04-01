@@ -49,7 +49,7 @@
                     <% }) %>
                 </section>
 
-                <% if (profileData.description) { %>
+                <% if (profileData.description && profileData.description.length) { %>
                     <section class="tl-ProfileDescription">
                         <h2 class="tl-ProfileDescription__title">About <%= profileData.firstName %></h2>
                         <p class="tl-ProfileDescription__value"><%= profileData.description %></p>
