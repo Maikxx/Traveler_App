@@ -60,7 +60,7 @@ Install the full application by doing the following in the *terminal*:
 ```bash
 git clone git@github.com:Maikxx/traveler-dating-app.git
 cd traveler-dating-app
-npm install
+yarn
 ```
 
 After that you can watch (and build) the css with:
@@ -72,7 +72,7 @@ gulp
 While in another tab having the server running with:
 
 ```bash
-npm start-app
+yarn start-app
 ```
 
 When those two are running go to `localhost:8000`.
