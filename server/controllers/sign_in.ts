@@ -53,7 +53,12 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                     if (response) {
                         req.session.userId = user._id
                         req.session.error = null
-                        res.redirect('/matches_overview')
+
+                        if (user.hasFinishedQuestionaire) {
+                            res.redirect('/matches_overview')
+                        } else {
+                            res.redirect('/questionaire')
+                        }
                     } else {
                         cusErr.message = errorMessages.serverError
 
@@ -62,7 +67,9 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                 })
             })
             .catch((error: mongoose.Error) => {
-                handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                cusErr.message = errorMessages.serverError
+
+                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
             })
     } else {
         cusErr.message = errorMessages.requiredFieldMissingOrInvalid
