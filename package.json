@@ -4,15 +4,15 @@
   "description": "This application is a basic level dating platform for people who love to travel, but who have not found a soulmate yet.",
   "main": "index.js",
   "scripts": {
-    "autoprefix-css": "autoprefixer-cli -o public/css/style.min.css public/css/style.css",
-    "build-css": "node-sass-chokidar --include-path ./client/sass client/sass -o public/css --output-style compressed -q && yarn autoprefix-css",
+    "autoprefix-css": "autoprefixer-cli -o public/css/style.pref.css public/css/style.css",
+    "build-css": "node-sass-chokidar --include-path ./client/sass client/sass -o public/css --output-style compressed -q",
     "clear-dist": "rm -rf dist/",
     "build-ts": "yarn clear-dist && tsc",
     "build": "yarn build-ts && babel --copy-files --include node_modules --out-dir dist dist",
     "generateMockData": "node ./mockData/transformMockData.js && node ./mockData/deployMockData.js",
     "serve": "nodemon --watch ./dist --exec babel-node dist/server.js || exit 1",
     "start-app": "yarn build-ts && concurrently 'tsc -w' 'yarn watch-css' '(sleep 6 && yarn serve)' --raw",
-    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./client/sass client/sass -o public/css -w -q --recursive --output-style compressed"
+    "watch-css": "yarn build-css && node-sass-chokidar --include-path ./client/sass client/sass -o public/css --watch -q --recursive --output-style compressed"
   },
   "private": true,
   "author": "Maikel van Veen",

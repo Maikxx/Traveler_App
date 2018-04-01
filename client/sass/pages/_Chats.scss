@@ -58,7 +58,7 @@
     &__delete-chat {
         padding: getSpacing(1.5);
         cursor: pointer;
-        background: url('localhost:8000/img/rubbish-bin.svg') no-repeat center;
+        background: url('/img/rubbish-bin.svg') no-repeat center;
         background-size: cover;
         border: 0;
     }
