@@ -23,7 +23,6 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
     const cusErr = {
         redirectTo: '/',
         scope: 'sign_up',
-        message: '',
         logOut: false,
     }
 
@@ -46,9 +45,7 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
         Profile.findOne({ email: email.toLowerCase() })
             .then((user: ProfileType) => {
                 if (user) {
-                    cusErr.message = 'Mail already exists!'
-
-                    handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, false)
+                    handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, errorMessages.mailExists, false)
                 } else {
                     bcrypt.hash(req.body.password, 10, (error: NodeJS.ErrnoException, hash: string) => {
                         if (error) {
@@ -76,25 +73,19 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
                                     res.status(200).redirect(`/questionaire`)
                                 })
                                 .catch((error: mongoose.Error) => {
-                                    cusErr.message = 'Error while saving a new user!'
-
                                     handleHttpError(req, res, 500, cusErr.redirectTo,
-                                        cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                        cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
                                 })
                         }
                     })
                 }
             })
             .catch((error: mongoose.Error) => {
-                cusErr.message = 'Something went wrong with getting your mail!'
-
                 handleHttpError(req, res, 500, cusErr.redirectTo,
-                    cusErr.scope, cusErr.message, cusErr.logOut, error)
+                    cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
             })
     } else {
-        cusErr.message = 'Mail is not valid!'
-
-        handleHttpError(req, res, 422, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+        handleHttpError(req, res, 412, cusErr.redirectTo, cusErr.scope, errorMessages.requiredFieldMissingOrInvalid, cusErr.logOut)
     }
 }
 

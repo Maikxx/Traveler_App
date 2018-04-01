@@ -24,7 +24,6 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
     const cusErr = {
         redirectTo: '/',
         scope: 'log_in',
-        message: errorMessages.generalAuthenticationFailed,
         logOut: false,
     }
 
@@ -40,7 +39,8 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
         Profile.findOne({ email: email.toLowerCase() })
             .then((user: ProfileType) => {
                 if (!user) {
-                    handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+                    handleHttpError(req, res, 409, cusErr.redirectTo,
+                        cusErr.scope, errorMessages.generalAuthenticationFailed, cusErr.logOut)
                 }
 
                 bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: any) => {
