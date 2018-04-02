@@ -1,13 +1,10 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 
 import Chat from '../models/chat'
 import Profile from '../models/profile'
 
 import { SessionType } from '../types/SessionType'
 import { ChatType } from '../types/chatType'
-
-import handleHttpError from '../utils/handleError'
 
 /*
 Controller which handles deleting chats.
@@ -18,48 +15,35 @@ Controller which handles deleting chats.
 4. If deleting succeeds, navigate to the chats overview.
 */
 
-function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response) {
+async function handleDeleteChat (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 401,
         redirectTo: '/',
         scope: 'delete_chat',
-        message: 'Authentication Failed!',
+        message: 'You need to be logged in to delete a chat!',
         logOut: true,
     }
 
     const { _id: chatId } = req.params
 
     if (req.session && req.session.userId) {
-        Chat.findOne({ _id: chatId })
-            .then((chatResult: ChatType) => {
+        try {
+            const chatResult = await Chat.findOne({ _id: chatId }) as ChatType
 
-                Promise.all(chatResult.chatParticipants.map((participantId) => {
-                    return Profile.update({ _id: participantId }, { $pullAll: { chats: [ chatResult._id ] } })
-                }))
-                    .then(() => {
-                        Chat.remove({ _id: chatResult._id })
-                            .catch((error: mongoose.Error) => {
-                                cusErr.message = 'Either the chatId does not exist, or you do not own the chat!'
+            await Promise.all(chatResult.chatParticipants.map(async (participantId: string) => {
+                await Profile.update({ _id: participantId }, { $pullAll: { chats: [ chatResult._id ] } })
+            }))
 
-                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                            })
+            await Chat.remove({ _id: chatResult._id })
 
-                        res.redirect('/chats')
-                    })
-                    .catch((error: mongoose.Error) => {
-                        cusErr.message = 'There was an error updating one or more of the profiles!'
-
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                    })
-            })
-            .catch((error: mongoose.Error) => {
-                cusErr.message = 'Can not find a chat with the passed id!'
-
-                handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-            })
+            res.redirect('/chats')
+        } catch (error) {
+            next(error)
+        }
     } else {
-        cusErr.message = 'You must be logged in to delete a chat!'
-
-        handleHttpError(req, res, 409, '/', cusErr.scope, cusErr.message, true)
+        next(cusErr)
     }
 }
 
