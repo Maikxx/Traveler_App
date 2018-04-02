@@ -30,7 +30,10 @@ const handleToggleSignInClick = (() => {
     }
 })()
 
-// Function that handles progressive enhancement for the sign up form.
+/*
+Function that handles progressive enhancement for the sign up form.
+Password regex as seen on https://stackoverflow.com/a/19605207 from Anubhava.
+*/
 const waitForPasswordToComplete = (() => {
     const passwordField = document.getElementById('sign-up-password')
     const repeatPasswordField = document.getElementById('sign-up-repeat-password-field')

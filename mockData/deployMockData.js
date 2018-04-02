@@ -16,7 +16,7 @@ const profileSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        match: /^\w+@\w+\..{2,3}(.{2,3})?$/,
+        match: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
         required: true,
     },
     password: {

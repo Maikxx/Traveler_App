@@ -1,5 +1,8 @@
 import * as mongoose from 'mongoose'
 
+import validationRegex from '../utils/regex'
+import getAge from '../utils/getAge'
+
 // Create a Mongoose Schema for a profile type. A Schema is a blueprint, of which real entries in the DB are created.
 
 const profileSchema = new mongoose.Schema({
@@ -7,12 +10,12 @@ const profileSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        match: /^\w+@\w+\..{2,3}(.{2,3})?$/,
+        match: validationRegex.email,
         required: true,
     },
     password: {
         type: String,
-        match: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$/,
+        match: validationRegex.password,
         required: true,
     },
     // Development only
@@ -37,20 +40,7 @@ const profileSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        default: () => {
-            if (this.birthdate && this.birthdate.length) {
-                const today = new Date()
-                const birthDate = new Date(this.birthdate)
-                let age = today.getFullYear() - birthDate.getFullYear()
-                const m = today.getMonth() - birthDate.getMonth()
-
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--
-                }
-
-                return age
-            }
-        },
+        default: getAge(this.birthdate),
     },
     profileImages: {
         type: Array,
