@@ -1,12 +1,9 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 
 import Profile from '../models/profile'
 
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
-
-import handleHttpError from '../utils/handleError'
 
 /*
 Route for showing the user the questionaire.
@@ -15,44 +12,33 @@ Route for showing the user the questionaire.
 2. If it is not render an error, else render the page.
 */
 
-function renderQuestionaire (req: express.Request & {session: SessionType}, res: express.Response) {
+async function renderQuestionaire (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 401,
         redirectTo: '/',
         scope: 'questionaire',
-        message: '',
+        message: 'You need to be logged in fill in your questionaire!',
         logOut: true,
     }
 
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
-        Profile.findOne({ _id: userId })
-            .then((myProfile: ProfileType) => {
-                if (myProfile) {
-                    if (!myProfile.hasFinishedQuestionaire) {
-                        res.render('questionaire.ejs', { _id: myProfile._id })
-                    } else {
-                        cusErr.message = 'You can only fill in the questionaire once!'
+        try {
+            const myProfile = await Profile.findOne({ _id: userId }) as ProfileType
 
-                        handleHttpError(req, res, 400, '/matches_overview',
-                            cusErr.scope, cusErr.message, false)
-                    }
-                } else {
-                    cusErr.message = 'Your profile is not found!'
-
-                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
-                }
-            })
-            .catch((error: mongoose.Error) => {
-                cusErr.message = 'An error occured getting profiles!'
-
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-            })
-
+            if (!myProfile.hasFinishedQuestionaire) {
+                res.render('questionaire.ejs', { _id: myProfile._id })
+            } else {
+                res.status(400).redirect('/matches_overview')
+            }
+        } catch (error) {
+            next(error)
+        }
     } else {
-        cusErr.message = 'You are not logged in!'
-
-        handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
+        next(cusErr)
     }
 }
 
