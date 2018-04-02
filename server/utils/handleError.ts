@@ -24,16 +24,16 @@ function handleHttpError (
         logOut: boolean = true,
         error?: mongoose.Error | NodeJS.ErrnoException | express.Errback
 ) {
-    if (logOut) {
-        if (req.session && req.session.userId) {
-            req.session.userId = null
-        }
-    }
-
     if (req.session) {
         req.session.error = {
             code,
             title: message,
+        }
+    }
+
+    if (logOut) {
+        if (req.session && req.session.userId) {
+            req.session.userId = null
         }
     }
 
