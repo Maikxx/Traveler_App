@@ -1,5 +1,4 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 
 import Profile from '../models/profile'
 
@@ -15,7 +14,7 @@ Route that handles the index page requests (/)
 will be sent if there goes something wrong.
 */
 
-function renderIndex (req: express.Request & {session: SessionType}, res: express.Response) {
+async function renderIndex (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     if (process.env.NODE_ENV !== 'production') {
         if (req.session && req.session.error) {
             console.error(req.session.error)
@@ -26,37 +25,30 @@ function renderIndex (req: express.Request & {session: SessionType}, res: expres
         }
     }
 
-    Profile.find()
-        .limit(4)
-        .then((availableTravelers: ProfileType[]) => {
-            if (availableTravelers && availableTravelers.length) {
-                const availableTravelersData = availableTravelers.map((availableTraveler: ProfileType) => ({
-                    _id: availableTraveler._id,
-                    fullName: availableTraveler.fullName,
-                    profileImage: availableTraveler.profileImages
-                        && availableTraveler.profileImages[0] && availableTraveler.profileImages[0].replace('public', ''),
-                    profileDescription: availableTraveler.description,
-                }))
+    try {
+        const availableTravelers = await Profile.find().limit(4) as ProfileType[]
+        if (availableTravelers && availableTravelers.length) {
+            const availableTravelersData = availableTravelers.map((availableTraveler: ProfileType) => ({
+                _id: availableTraveler._id,
+                fullName: availableTraveler.fullName,
+                profileImage: availableTraveler.profileImages
+                    && availableTraveler.profileImages[0] && availableTraveler.profileImages[0].replace('public', ''),
+                profileDescription: availableTraveler.description,
+            }))
 
-                res.render('index.ejs', {
-                    availableTravelersData,
-                    error: req.session && req.session.error || null,
-                })
-            } else {
-                renderErrorIndex(req, res)
-            }
-        })
-        .catch((error: mongoose.Error) => {
-            console.error(error)
-            renderErrorIndex(req, res)
-        })
-}
-
-function renderErrorIndex(req: express.Request & {session: SessionType}, res: express.Response) {
-    res.status(500).render('index.ejs', {
-        availableTravelersData: null,
-        error: req.session.error,
-    })
+            res.status(200).render('index.ejs', {
+                availableTravelersData,
+                error: req.session && req.session.error || null,
+            })
+        } else {
+            res.status(500).render('index.ejs', {
+                availableTravelersData: null,
+                error: req.session && req.session.error,
+            })
+        }
+    } catch (error) {
+        next(error)
+    }
 }
 
 export default renderIndex

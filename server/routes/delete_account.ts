@@ -1,16 +1,11 @@
 import * as fs from 'fs'
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 
 import Profile from '../models/profile'
 
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 import { CustomErrorType } from '../types/customErrorType'
-
-import handleHttpError from '../utils/handleError'
-
-// Todo make this a DELETE route, instead of a get.
 
 /*
 Route for deleting users.
@@ -21,67 +16,60 @@ Route for deleting users.
 4. Destroy the users session.
 */
 
-function handleDeleteAccount (req: express.Request & {session: SessionType}, res: express.Response) {
+async function handleDeleteAccount (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 401,
         redirectTo: '/',
         scope: 'delete_account',
-        message: '',
+        message: 'You need to be logged in to send a message!',
         logOut: true,
     }
 
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
-        Profile.findOne({ _id: userId })
-            .then((myProfile: ProfileType) => {
-                const { profileImages } = myProfile
+        try {
+            const myProfile = await Profile.findOne({ _id: userId }) as ProfileType
+            const { profileImages } = myProfile
 
-                if (profileImages && profileImages.length) {
-                    profileImages.forEach((imagePath: string) => {
-                        fs.unlink(imagePath, (error: NodeJS.ErrnoException) => {
-                            if (error) {
-                                cusErr.message = 'There was an error unlinking an image!'
-
-                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                            }
-                        })
+            if (profileImages && profileImages.length) {
+                await profileImages.forEach(async (imagePath: string) => {
+                    await fs.unlink(imagePath, (error: NodeJS.ErrnoException) => {
+                        if (error) {
+                            throw error
+                        }
                     })
+                })
 
-                    deleteAccount(req, res, cusErr, userId)
-                } else {
-                    deleteAccount(req, res, cusErr, userId)
-                }
-            })
-            .catch((error: mongoose.Error) => {
-                cusErr.message = 'No such user exists!'
-
-                handleHttpError(req, res, 401, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-            })
+                deleteAccount(req, res, next, cusErr, userId)
+            } else {
+                deleteAccount(req, res, next, cusErr, userId)
+            }
+        } catch (error) {
+            next(error)
+        }
     } else {
-        cusErr.message = 'You are not logged in!'
-
-        handleHttpError(req, res, 401, cusErr.redirectTo, cusErr.scope, cusErr.message, true)
+        next(cusErr)
     }
 }
 
-function deleteAccount(req: express.Request & {session: SessionType}, res: express.Response, cusErr: CustomErrorType, userId: string) {
-    Profile.remove({ _id: userId })
-        .then(() => {
-            req.session.destroy((error: NodeJS.ErrnoException) => {
-                if (error) {
-                    cusErr.message = 'There was an error while removing you session!'
+// tslint:disable-next-line:ter-max-len
+async function deleteAccount(req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction, cusErr: CustomErrorType, userId: string) {
+    try {
+        await Profile.remove({ _id: userId })
 
-                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                } else {
-                    res.status(204).redirect('/')
-                }
-            })
+        req.session.destroy((error: NodeJS.ErrnoException) => {
+            if (error) {
+                throw error
+            } else {
+                res.status(204).redirect('/')
+            }
         })
-        .catch((error: mongoose.Error) => {
-            cusErr.message = 'There was an error while deleting your account!'
-
-            handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-        })
+    } catch (error) {
+        next(error)
+    }
 }
 
 export default handleDeleteAccount
