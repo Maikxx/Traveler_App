@@ -1,5 +1,4 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 import * as fs from 'fs'
 
 import Profile from '../models/profile'
@@ -22,8 +21,10 @@ per , and optionally a space after it.
 their profile (as created in the Sign Up controller) will be updated with the new values.
 */
 
-function handleSaveEditedProfile (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response) {
+// tslint:disable-next-line:ter-max-len
+async function handleSaveEditedProfile (req: express.Request & {session: SessionType} & {files: MulterFile[]}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        code: 500,
         redirectTo: '/my_profile/edit',
         scope: 'save_edited_profile',
         message: '',
@@ -33,8 +34,12 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
-        Profile.findOne({ _id: userId })
-            .then((myProfile: ProfileType) => {
+        try {
+            const myProfile = await Profile.findOne({ _id: userId }) as ProfileType
+
+            if (!myProfile.hasFinishedQuestionaire) {
+                throw new Error('You have not yet filled in the questionaire!')
+            } else {
                 if (!myProfile.hasFinishedQuestionaire) {
                     cusErr.message = 'You have not yet filled in the questionaire!'
 
@@ -42,40 +47,39 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                 } else {
                     req.session.error = null
 
-                    // New data, passed in by the form.
+                        // New data, passed in by the form.
                     const {
-                        hasTraveledTo,
-                        favouriteHolidayDestination,
-                        favouriteHolidayTypes,
-                        plansHolidaysAhead,
-                        likesToHike,
-                        prefersInterContinental,
-                        wantsToVisitSoon,
-                        hasVisitedThisMuchDestinations,
-                        favouriteOverallTravelTime,
-                        wantsToMarry,
-                        foremostRelationshipMotivation,
-                        wantsToOrAlreadyHasChildren,
-                        drinksAlcohol,
-                        smokes,
-                        likesToBeInNature,
-                        favouriteMusicGenre,
-                        yearlyEarns,
-                        livesIn,
-                        jobTitle,
-                        lengthInCm,
-                        description,
-                        matchHasToLikeToBeInNature,
-                        mostImportantInRelationShip,
-                        maxMatchDistance,
-                        minSearchAge,
-                        maxSearchAge,
-                        wantsToTravelQuickly,
-                    } = req.body
+                            hasTraveledTo,
+                            favouriteHolidayDestination,
+                            favouriteHolidayTypes,
+                            plansHolidaysAhead,
+                            likesToHike,
+                            prefersInterContinental,
+                            wantsToVisitSoon,
+                            hasVisitedThisMuchDestinations,
+                            favouriteOverallTravelTime,
+                            wantsToMarry,
+                            foremostRelationshipMotivation,
+                            wantsToOrAlreadyHasChildren,
+                            drinksAlcohol,
+                            smokes,
+                            likesToBeInNature,
+                            favouriteMusicGenre,
+                            yearlyEarns,
+                            livesIn,
+                            jobTitle,
+                            lengthInCm,
+                            description,
+                            matchHasToLikeToBeInNature,
+                            mostImportantInRelationShip,
+                            maxMatchDistance,
+                            minSearchAge,
+                            maxSearchAge,
+                            wantsToTravelQuickly,
+                        } = req.body
 
-                    // Default data, already known from the user.
+                        // Default data, already known from the user.
                     const queryData = {
-                        profileImages: myProfile.profileImages,
                         hasTraveledTo: myProfile.hasTraveledTo,
                         favouriteHolidayDestination: myProfile.favouriteHolidayDestination,
                         favouriteHolidayTypes: myProfile.favouriteHolidayTypes,
@@ -109,28 +113,27 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         },
                     }
 
-                    // Required Fields
+                        // Required Fields
                     if (
-                        !hasTraveledTo || !hasTraveledTo.length ||
-                        !favouriteHolidayDestination || !favouriteHolidayDestination.length ||
-                        !favouriteHolidayTypes || !favouriteHolidayTypes.length ||
-                        !plansHolidaysAhead || !plansHolidaysAhead.length ||
-                        !likesToHike || !likesToHike.length ||
-                        !prefersInterContinental || !prefersInterContinental.length ||
-                        !wantsToVisitSoon || !wantsToVisitSoon.length ||
-                        !hasVisitedThisMuchDestinations || !hasVisitedThisMuchDestinations.length ||
-                        !favouriteOverallTravelTime || !favouriteOverallTravelTime.length ||
-                        !wantsToTravelQuickly || !wantsToTravelQuickly.length ||
-                        !likesToBeInNature || !likesToBeInNature.length ||
-                        !matchHasToLikeToBeInNature || !matchHasToLikeToBeInNature.length ||
-                        !maxMatchDistance ||
-                        !minSearchAge ||
-                        !maxSearchAge
-                    ) {
+                            !hasTraveledTo || !hasTraveledTo.length ||
+                            !favouriteHolidayDestination || !favouriteHolidayDestination.length ||
+                            !favouriteHolidayTypes || !favouriteHolidayTypes.length ||
+                            !plansHolidaysAhead || !plansHolidaysAhead.length ||
+                            !likesToHike || !likesToHike.length ||
+                            !prefersInterContinental || !prefersInterContinental.length ||
+                            !wantsToVisitSoon || !wantsToVisitSoon.length ||
+                            !hasVisitedThisMuchDestinations || !hasVisitedThisMuchDestinations.length ||
+                            !favouriteOverallTravelTime || !favouriteOverallTravelTime.length ||
+                            !wantsToTravelQuickly || !wantsToTravelQuickly.length ||
+                            !likesToBeInNature || !likesToBeInNature.length ||
+                            !matchHasToLikeToBeInNature || !matchHasToLikeToBeInNature.length ||
+                            !maxMatchDistance ||
+                            !minSearchAge ||
+                            !maxSearchAge
+                        ) {
                         cusErr.message = 'Not all required fields of the questionaire are filled in!'
 
                         handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut)
-                        return
                     } else {
                         queryData.hasTraveledTo = hasTraveledTo.trim().split(/,?\s+/)
                         queryData.favouriteHolidayDestination = favouriteHolidayDestination
@@ -161,7 +164,7 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                         handleHttpError(req, res, 400, cusErr.redirectTo, 'questionaire', cusErr.message, cusErr.logOut)
                     }
 
-                    // Not required fields
+                        // Not required fields
                     if (description && description.length) {
                         queryData.description = description
                     }
@@ -211,53 +214,43 @@ function handleSaveEditedProfile (req: express.Request & {session: SessionType} 
                     }
 
                     if (req.files && req.files.length > 4) {
-                        cusErr.message = ''
-
                         handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, 'Too much images passed!', cusErr.logOut)
-                    } else if (req.files) {
-                        Promise.all(req.files.map((file: MulterFile, i: number) => {
-                            return fs.rename(file.path, `${file.destination}/${userId}_${i}.jpg`, (error: NodeJS.ErrnoException) => {
+                    } else if (req.files && req.files.length) {
+                        await Promise.all(req.files.map(async (file: MulterFile, i: number) => {
+                            await fs.rename(file.path, `${file.destination}/${userId}_${i}.jpg`, async (error: NodeJS.ErrnoException) => {
                                 if (!error) {
-                                    queryData.profileImages.push(`${file.destination}/${userId}_${i}.jpg`)
+                                    // tslint:disable-next-line:ter-max-len
+                                    await Profile.update({ _id: userId }, { $push: { profileImages: `${file.destination}/${userId}_${i}.jpg` } })
                                 } else {
                                     fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
                                         if (error) {
-                                            cusErr.message = 'Images unlinking error!'
-
-                                            handleHttpError(req, res, 500, cusErr.redirectTo,
-                                                cusErr.scope, cusErr.message, cusErr.logOut, error)
+                                            throw error
                                         }
                                     })
                                 }
                             })
                         }))
-                            .then(() => {
-                                Profile.findOneAndUpdate({ _id: userId }, queryData)
-                                    .exec()
-                                    .then((result: ProfileType) => {
-                                        req.session.error = null
-                                        res.status(200).redirect('/my_profile')
-                                    })
-                                    .catch((error: mongoose.Error) => {
-                                        cusErr.message = 'Could not find a profile!'
 
-                                        handleHttpError(req, res, 500, cusErr.redirectTo,
-                                            cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                    })
-                            })
-                            .catch((error: mongoose.Error) => {
-                                cusErr.message = 'There was an uncaught error in the server!'
+                        await Profile.update({ _id: userId }, queryData)
 
-                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                            })
+                        res.status(200).redirect('/my_profile')
+                    } else {
+                        await Profile.update({ _id: userId }, queryData)
+
+                        res.status(200).redirect('/my_profile')
                     }
                 }
-            })
-            .catch((error: mongoose.Error) => {
-                cusErr.message = 'Something went wrong with getting the id of a Profile!'
+            }
+        } catch (error) {
+            next(error)
+        }
+    } else {
+        cusErr.code = 401
+        cusErr.redirectTo = '/'
+        cusErr.logOut = true
+        cusErr.message = 'You need to be logged in to save this questionaire!'
 
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-            })
+        next(cusErr)
     }
 }
 

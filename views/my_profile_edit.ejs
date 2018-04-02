@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="tl-MyProfilePage__question">
-                        <label for="favouriteHolidayTypesRoundtrip">What is, or are, your favourite holiday type(s)?</label>
+                        <label for="favouriteHolidayTypesRoundtrip" class="tl-RequiredFieldTitle">What is, or are, your favourite holiday type(s)?</label>
                         <label for="favouriteHolidayTypesRoundtrip">
                             <span>Roundtrips</span>
                             <input
@@ -375,7 +375,6 @@
                             <span>Please write a description, that you want to be shown on your profile!</span>
                             <textarea
                                 name="description"
-                                required
                             ><% if (profileData.description && profileData.description.length) { %><%= profileData.description %><% } %></textarea>
                         </label>
                     </div>
