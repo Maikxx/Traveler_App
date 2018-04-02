@@ -21,12 +21,11 @@ async function renderChat (req: express.Request & {session: SessionType}, res: e
     const cusErr = {
         req,
         res,
-        code: 500,
-        redirectTo: '/chats',
+        code: 401,
+        redirectTo: '/',
         scope: 'chat',
-        message: '',
-        logOut: false,
-        error: null,
+        message: 'You need to be logged in to send a message!',
+        logOut: true,
     }
 
     if (req.session && req.session.userId) {
@@ -64,9 +63,8 @@ async function renderChat (req: express.Request & {session: SessionType}, res: e
             next(error)
         }
     } else {
-        cusErr.message = 'You need to be logged in to send a message!'
         cusErr.code = 401
-        cusErr.logOut = true
+        cusErr.message = 'You need to be logged in to send a message!'
 
         next(cusErr)
     }

@@ -22,11 +22,11 @@ async function renderChats (req: express.Request & {session: SessionType}, res: 
     const cusErr = {
         req,
         res,
-        code: 500,
+        code: 401,
         redirectTo: '/',
         scope: 'chats',
-        message: '',
-        logOut: false,
+        message: 'You need to be logged in to send a message!',
+        logOut: true,
     }
 
     if (req.session && req.session.userId) {
@@ -68,10 +68,6 @@ async function renderChats (req: express.Request & {session: SessionType}, res: 
             next(error)
         }
     } else {
-        cusErr.code = 403
-        cusErr.message = 'You need to be logged in to view your chats!'
-        cusErr.logOut = true
-
         next(cusErr)
     }
 }
