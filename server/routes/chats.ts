@@ -1,5 +1,4 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 
 import Profile from '../models/profile'
 import Chat from '../models/chat'
@@ -7,8 +6,6 @@ import Chat from '../models/chat'
 import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/profileType'
 import { ChatType } from '../types/chatType'
-
-import handleHttpError from '../utils/handleError'
 
 /*
 Route for showing the users chats.
@@ -21,8 +18,11 @@ Route for showing the users chats.
 6. The rawData gets filtered, so that only items which are not undefined are sent to the template.
 */
 
-function renderChats (req: express.Request & {session: SessionType}, res: express.Response) {
+async function renderChats (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 500,
         redirectTo: '/',
         scope: 'chats',
         message: '',
@@ -32,73 +32,47 @@ function renderChats (req: express.Request & {session: SessionType}, res: expres
     if (req.session && req.session.userId) {
         const { userId } = req.session
 
-        Profile.findOne({ _id: userId })
-            .then((myProfile: ProfileType) => {
+        try {
+            const myProfile = await Profile.findOne({ _id: userId }) as ProfileType
 
-                if (!myProfile.hasFinishedQuestionaire) {
-                    cusErr.message = 'You have not yet filled in the questionaire!'
+            if (!myProfile.hasFinishedQuestionaire) {
+                throw new Error('You have not yet filled in the questionaire!')
+            } else {
+                if (myProfile.chats && myProfile.chats.length) {
+                    const rawData = await Promise.all(myProfile.chats.map(async (chatId: string, i) => {
+                        const chatResult = await Chat.findOne({ _id: chatId }) as ChatType
 
-                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
+                        for (let i = 0; i < chatResult.chatParticipants.length; i++) {
+                            // tslint:disable-next-line:triple-equals
+                            if (chatResult.chatParticipants[i] != userId) {
+                                const chatWithProfile = await Profile.findOne({ _id: chatResult.chatParticipants[i] }) as ProfileType
+
+                                return {
+                                    _id: chatResult._id,
+                                    fullName: chatWithProfile.fullName,
+                                    profileImageUrl: chatWithProfile.profileImages
+                                        && chatWithProfile.profileImages.length
+                                        && chatWithProfile.profileImages[0].replace('public', ''),
+                                }
+                            }
+                        }
+                    }))
+
+                    const openChatsData = rawData.filter(data => data !== undefined)
+                    res.status(200).render('chats.ejs', { openChatsData })
                 } else {
-
-                    if (myProfile.chats && myProfile.chats.length) {
-
-                        Promise.all(myProfile.chats.map((chatId: string, i) => {
-
-                            return Chat.findOne({ _id: chatId })
-                                .then((chatResult: ChatType) => {
-
-                                    for (let i = 0; i < chatResult.chatParticipants.length; i++) {
-
-                                        // tslint:disable-next-line:triple-equals
-                                        if (chatResult.chatParticipants[i] != userId) {
-
-                                            return Profile.findOne({ _id: chatResult.chatParticipants[i] })
-                                                .then((chatWithProfile: ProfileType) => ({
-                                                    _id: chatResult._id,
-                                                    fullName: chatWithProfile.fullName,
-                                                    profileImageUrl: chatWithProfile.profileImages
-                                                        && chatWithProfile.profileImages.length
-                                                        && chatWithProfile.profileImages[0].replace('public', ''),
-                                                }))
-                                                .catch((error: mongoose.Error) => {
-                                                    cusErr.message = 'Something went wrong with getting the profile of a chat!'
-
-                                                    handleHttpError(req, res, 500, cusErr.redirectTo,
-                                                        cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                                })
-                                        }
-                                    }
-                                })
-                                .catch((error: mongoose.Error) => {
-                                    cusErr.message = 'Something went wrong with getting the profile of a chat!'
-
-                                    handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                                })
-                        }))
-                            .then(rawData => {
-                                const openChatsData = rawData.filter(data => data !== undefined)
-                                res.status(200).render('chats.ejs', { openChatsData })
-                            })
-                            .catch((error: mongoose.Error) => {
-                                cusErr.message = 'Boiled up error in the Promise.all!'
-
-                                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                            })
-                    } else {
-                        res.status(200).render('chats.ejs', { openChatsData: null })
-                    }
+                    res.status(200).render('chats.ejs', { openChatsData: null })
                 }
-            })
-            .catch((error: mongoose.Error) => {
-                cusErr.message = 'Invalid Own User ID!'
-
-                handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-            })
+            }
+        } catch (error) {
+            next(error)
+        }
     } else {
+        cusErr.code = 403
         cusErr.message = 'You need to be logged in to view your chats!'
+        cusErr.logOut = true
 
-        handleHttpError(req, res, 403, cusErr.redirectTo, cusErr.scope, cusErr.message, true)
+        next(cusErr)
     }
 }
 
