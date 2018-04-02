@@ -23,7 +23,7 @@ async function handleDeleteAccount (req: express.Request & {session: SessionType
         code: 401,
         redirectTo: '/',
         scope: 'delete_account',
-        message: 'You need to be logged in to send a message!',
+        message: 'You need to be logged in to delete your account!',
         logOut: true,
     }
 

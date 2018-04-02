@@ -24,7 +24,7 @@ async function renderChat (req: express.Request & {session: SessionType}, res: e
         code: 401,
         redirectTo: '/',
         scope: 'chat',
-        message: 'You need to be logged in to send a message!',
+        message: 'You need to be logged in to see this chat!',
         logOut: true,
     }
 

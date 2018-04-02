@@ -24,7 +24,7 @@ async function createChat (req: express.Request & {session: SessionType}, res: e
         code: 401,
         redirectTo: '/',
         scope: 'createChat',
-        message: 'You need to be logged in to send a message!',
+        message: 'You need to be logged in to create a chat!',
         logOut: true,
     }
 

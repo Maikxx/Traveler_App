@@ -2,8 +2,6 @@ import * as express from 'express'
 
 import { SessionType } from '../types/SessionType'
 
-import handleHttpError from '../utils/handleError'
-
 /*
 Route for loggin users out.
 
@@ -11,20 +9,21 @@ Route for loggin users out.
 2. Redirect the user back to the homepage.
 */
 
-function handleLogOut (req: express.Request & {session: SessionType}, res: express.Response) {
+function handleLogOut (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 401,
         redirectTo: '/',
         scope: 'log_out',
-        message: '',
+        message: 'You need to be logged in to log out!',
         logOut: true,
     }
 
     if (req.session) {
         req.session.destroy((error: NodeJS.ErrnoException) => {
             if (error) {
-                cusErr.message = 'There was an error logging you out!'
-
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
+                next(cusErr)
             } else {
                 res.status(204).redirect('/')
             }
