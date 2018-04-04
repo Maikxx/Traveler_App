@@ -1,5 +1,4 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 import * as bcrypt from 'bcrypt'
 
 import Profile from '../models/profile'
@@ -8,7 +7,6 @@ import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
 import validationRegex from '../utils/regex'
-import handleHttpError from '../utils/handleError'
 import errorMessages from '../utils/errorMessages'
 
 /*
