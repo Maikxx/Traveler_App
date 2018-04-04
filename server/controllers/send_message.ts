@@ -1,13 +1,10 @@
 import * as express from 'express'
-import * as mongoose from 'mongoose'
 
 import Chat from '../models/chat'
 import Profile from '../models/profile'
 
 import { SessionType } from '../types/SessionType'
-import { ChatType } from '../types/chatType'
 
-import handleHttpError from '../utils/handleError'
 import { ProfileType } from '../types/ProfileType'
 
 /*
@@ -18,8 +15,9 @@ Controller that handles sending messages.
 3. If that succeeds the user is redirected to their chat.
 */
 
-function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response) {
+async function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        code: 500,
         redirectTo: '/chats',
         scope: 'send_message',
         message: '',
@@ -27,48 +25,38 @@ function handleSendMessage (req: express.Request & {session: SessionType}, res: 
     }
 
     if (req.session && req.session.userId) {
-        Profile.findOne({ _id: req.session.userId })
-            .then((myProfile: ProfileType) => {
-                if (!myProfile.hasFinishedQuestionaire) {
-                    cusErr.message = 'You have not yet filled in the questionaire!'
+        try {
+            const myProfile = await Profile.findOne({ _id: req.session.userId }) as ProfileType
 
-                    handleHttpError(req, res, 403, '/questionaire', cusErr.scope, cusErr.message, cusErr.logOut)
-                } else {
-                    const { userId: messageById } = req.session
-                    const { message: messageText } = req.body
-                    const { _id: chatId } = req.params
+            if (!myProfile.hasFinishedQuestionaire) {
+                throw new Error('You have not yet filled in the questionaire!')
+            } else {
+                const { userId: messageById } = req.session
+                const { message: messageText } = req.body
+                const { _id: chatId } = req.params
 
-                    if (messageText && messageText.length) {
-                        const newMessage = {
-                            messageById,
-                            messageText,
-                        }
-
-                        Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
-                            .then((result: ChatType) => {
-                                res.status(201).redirect(`/chat/${chatId}`)
-                            })
-                            .catch((error: mongoose.Error) => {
-                                cusErr.message = 'Something went wrong with getting a chat!'
-
-                                handleHttpError(req, res, 400, cusErr.redirectTo, cusErr.scope, cusErr.message, cusErr.logOut, error)
-                            })
-                    } else {
-                        cusErr.message = 'You can not have empty messages!'
-
-                        handleHttpError(req, res, 400, `/chat/${chatId}`, cusErr.scope, cusErr.message, cusErr.logOut)
+                if (messageText && messageText.length) {
+                    const newMessage = {
+                        messageById,
+                        messageText,
                     }
+
+                    await Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
+                    res.status(201).redirect(`/chat/${chatId}`)
+                } else {
+                    throw new Error('You can not have empty messages!')
                 }
-            })
-            .catch((error: mongoose.Error) => {
-                cusErr.message = 'Your userId does not exist in our database, you are now logged out!'
-
-                handleHttpError(req, res, 409, '/', cusErr.scope, cusErr.message, true, error)
-            })
+            }
+        } catch (error) {
+            next(error)
+        }
     } else {
-        cusErr.message = 'You need to be logged in to send a message!'
+        cusErr.code = 401
+        cusErr.redirectTo = '/'
+        cusErr.logOut = true
+        cusErr.message = 'You need to be logged in to save this questionaire!'
 
-        handleHttpError(req, res, 401, '/', cusErr.scope, cusErr.message, true)
+        next(cusErr)
     }
 }
 
