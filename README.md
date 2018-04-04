@@ -129,6 +129,7 @@ To get the database running:
 * Install [brew](https://brew.sh/index_nl).
 * Run `brew update` in the terminal.
 * Run `brew install mongodb` in the terminal.
+* Make sure Mongo is running, with `brew services start mongodb`.
 * Select the database location you want the server to use (default is `mkdir -p /data/db`).
 * Create a database with a name (you need to set this in the `.env` file as *DB_NAME*) and a collection in this database with the name of *profiles*.
 * Also specify a *DB_HOST* in the `.env` file. (This is where the database runs, like 'localhost'.)
