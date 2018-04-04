@@ -47,7 +47,7 @@ async function handleSaveEditedProfile (req: express.Request & {session: Session
                 } else {
                     req.session.error = null
 
-                        // New data, passed in by the form.
+                    // New data, passed in by the form.
                     const {
                             hasTraveledTo,
                             favouriteHolidayDestination,
@@ -78,7 +78,7 @@ async function handleSaveEditedProfile (req: express.Request & {session: Session
                             wantsToTravelQuickly,
                         } = req.body
 
-                        // Default data, already known from the user.
+                    // Default data, already known from the user.
                     const queryData = {
                         hasTraveledTo: myProfile.hasTraveledTo,
                         favouriteHolidayDestination: myProfile.favouriteHolidayDestination,
@@ -113,7 +113,7 @@ async function handleSaveEditedProfile (req: express.Request & {session: Session
                         },
                     }
 
-                        // Required Fields
+                    // Required Fields
                     if (
                             !hasTraveledTo || !hasTraveledTo.length ||
                             !favouriteHolidayDestination || !favouriteHolidayDestination.length ||
@@ -164,7 +164,7 @@ async function handleSaveEditedProfile (req: express.Request & {session: Session
                         handleHttpError(req, res, 400, cusErr.redirectTo, 'questionaire', cusErr.message, cusErr.logOut)
                     }
 
-                        // Not required fields
+                    // Not required fields
                     if (description && description.length) {
                         queryData.description = description
                     }
