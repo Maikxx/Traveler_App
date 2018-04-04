@@ -49,7 +49,7 @@ async function handleSignIn (req: express.Request & {session: SessionType}, res:
                         throw new Error(errorMessages.serverError)
                     }
 
-                    if (response) {
+                    if (response && response.length) {
                         req.session.userId = user._id
                         req.session.error = null
 
