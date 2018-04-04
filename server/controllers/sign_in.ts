@@ -20,10 +20,14 @@ Controller for handling signing in of users.
 there will be cookies set and the user will be redirected to the matches overview page.
 */
 
-function handleSignIn (req: express.Request & {session: SessionType}, res: express.Response) {
+async function handleSignIn (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 412,
         redirectTo: '/',
         scope: 'log_in',
+        message: errorMessages.requiredFieldMissingOrInvalid,
         logOut: false,
     }
 
@@ -36,16 +40,15 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
         (email && email.length && validationRegex.email.test(email)) &&
         (password && password.length && validationRegex.password.test(password))
     ) {
-        Profile.findOne({ email: email.toLowerCase() })
-            .then((user: ProfileType) => {
-                if (!user) {
-                    handleHttpError(req, res, 409, cusErr.redirectTo,
-                        cusErr.scope, errorMessages.generalAuthenticationFailed, cusErr.logOut)
-                }
+        try {
+            const user = await Profile.findOne({ email: email.toLowerCase() }) as ProfileType
 
-                bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: any) => {
+            if (!user) {
+                throw new Error(errorMessages.generalAuthenticationFailed)
+            } else {
+                bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: string) => {
                     if (error) {
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
+                        throw new Error(errorMessages.serverError)
                     }
 
                     if (response) {
@@ -58,15 +61,15 @@ function handleSignIn (req: express.Request & {session: SessionType}, res: expre
                             res.redirect('/questionaire')
                         }
                     } else {
-                        handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, errorMessages.serverError, cusErr.logOut)
+                        throw new Error(errorMessages.serverError)
                     }
                 })
-            })
-            .catch((error: mongoose.Error) => {
-                handleHttpError(req, res, 500, cusErr.redirectTo, cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
-            })
+            }
+        } catch (error) {
+            next(error)
+        }
     } else {
-        handleHttpError(req, res, 412, cusErr.redirectTo, cusErr.scope, errorMessages.requiredFieldMissingOrInvalid, cusErr.logOut)
+        next(cusErr)
     }
 }
 

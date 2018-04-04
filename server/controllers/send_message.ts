@@ -17,6 +17,8 @@ Controller that handles sending messages.
 
 async function handleSendMessage (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
         code: 500,
         redirectTo: '/chats',
         scope: 'send_message',
