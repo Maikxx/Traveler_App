@@ -24,7 +24,7 @@ async function handleSignIn (req: express.Request & {session: SessionType}, res:
         res,
         code: 412,
         redirectTo: '/',
-        scope: 'log_in',
+        scope: 'sign_in',
         message: errorMessages.requiredFieldMissingOrInvalid,
         logOut: false,
     }

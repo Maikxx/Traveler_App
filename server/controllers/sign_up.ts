@@ -8,7 +8,6 @@ import { SessionType } from '../types/SessionType'
 import { ProfileType } from '../types/ProfileType'
 
 import validationRegex from '../utils/regex'
-import handleHttpError from '../utils/handleError'
 import errorMessages from '../utils/errorMessages'
 
 /*
@@ -19,10 +18,14 @@ Controller that handles signing new users up.
 3. If everything succeeds the new user will be stored in the database and the user will be redirected to the questionaire page.
 */
 
-function handleSignUp (req: express.Request & {session: SessionType}, res: express.Response) {
+async function handleSignUp (req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction) {
     const cusErr = {
+        req,
+        res,
+        code: 412,
         redirectTo: '/',
         scope: 'sign_up',
+        message: errorMessages.requiredFieldMissingOrInvalid,
         logOut: false,
     }
 
@@ -42,50 +45,38 @@ function handleSignUp (req: express.Request & {session: SessionType}, res: expre
         ownGender && ownGender.length &&
         lookingForGender && lookingForGender.length
     ) {
-        Profile.findOne({ email: email.toLowerCase() })
-            .then((user: ProfileType) => {
-                if (user) {
-                    handleHttpError(req, res, 409, cusErr.redirectTo, cusErr.scope, errorMessages.mailExists, false)
+        try {
+            await Profile.findOne({ email: email.toLowerCase() })
+
+            bcrypt.hash(req.body.password, 10, async (error: NodeJS.ErrnoException, hash: string) => {
+                if (error) {
+                    throw new Error(errorMessages.serverError)
                 } else {
-                    bcrypt.hash(req.body.password, 10, (error: NodeJS.ErrnoException, hash: string) => {
-                        if (error) {
-                            handleHttpError(req, res, 500, cusErr.redirectTo,
-                                cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
-                        } else {
-                            const newUser = new Profile({
-                                _id: new mongoose.Types.ObjectId(),
-                                fullName,
-                                firstName: fullName && fullName.length && fullName.substr(0, fullName.indexOf(' ')),
-                                email: email.toLowerCase(),
-                                password: hash,
-                                ownGender,
-                                matchSettings: {
-                                    lookingForGender,
-                                },
-                                hasFinishedQuestionaire: false,
-                            })
-
-                            newUser.save()
-                                .then((result: ProfileType) => {
-                                    req.session.userId = result._id
-                                    req.session.error = null
-
-                                    res.status(200).redirect(`/questionaire`)
-                                })
-                                .catch((error: mongoose.Error) => {
-                                    handleHttpError(req, res, 500, cusErr.redirectTo,
-                                        cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
-                                })
-                        }
+                    const newUser = new Profile({
+                        _id: new mongoose.Types.ObjectId(),
+                        fullName,
+                        firstName: fullName && fullName.length && fullName.substr(0, fullName.indexOf(' ')),
+                        email: email.toLowerCase(),
+                        password: hash,
+                        ownGender,
+                        matchSettings: {
+                            lookingForGender,
+                        },
+                        hasFinishedQuestionaire: false,
                     })
+
+                    const myProfile = await newUser.save() as ProfileType
+                    req.session.userId = myProfile._id
+                    req.session.error = null
+
+                    res.status(200).redirect(`/questionaire`)
                 }
             })
-            .catch((error: mongoose.Error) => {
-                handleHttpError(req, res, 500, cusErr.redirectTo,
-                    cusErr.scope, errorMessages.serverError, cusErr.logOut, error)
-            })
+        } catch (error) {
+            next(error)
+        }
     } else {
-        handleHttpError(req, res, 412, cusErr.redirectTo, cusErr.scope, errorMessages.requiredFieldMissingOrInvalid, cusErr.logOut)
+        next(cusErr)
     }
 }
 
