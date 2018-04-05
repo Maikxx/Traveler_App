@@ -52,6 +52,7 @@ const waitForPasswordToComplete = (() => {
     }
 })()
 
+// Function that transforms some error messages and does some stuff with it, that is relevant to the user.
 const checkErrorMessages = (() => {
     const errorBanner = document.querySelector('.tl-ErrorBanner')
 
