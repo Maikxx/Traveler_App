@@ -86,9 +86,19 @@ const prefillLocations = (() => {
 
     if (questionairePage) {
         fetch('http://localhost:5000/locations')
-            .then(data => data.json())
-            .then(data => {
-                console.log(data)
+            .then(rawData => rawData.json())
+            .then(parsedData => {
+                if (parsedData) {
+                    const locations = parsedData.data
+                    const hometownField = document.querySelector('input[name=livesIn]')
+
+                    hometownField.addEventListener('keyup', (e) => {
+                        const inputValue = hometownField.value.toLowerCase()
+                        const filtered = locations.filter(location => location.name.toLowerCase().startsWith(inputValue))
+                        console.log(filtered)
+                    })
+                    // const filtered = locations.filter(location => location.country === 'Netherlands')
+                }
             })
             .catch(error => {
                 console.log(error)
