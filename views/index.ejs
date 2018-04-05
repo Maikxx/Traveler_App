@@ -49,7 +49,11 @@
         </nav>
 
         <% if (error) { %>
-            <div class="tl-ErrorBanner"><%= error.title %></div>
+            <% if (error.title === 'Authentication failed!') { %>
+                <span class="tl-ErrorBanner"><%= error.title %> Please make sure that you have filled all fields in correctly.</span>
+            <% } else { %>
+                <span class="tl-ErrorBanner"><%= error.title %></span>
+            <% } %>
         <% } %>
 
         <main class="tl-IndexPage">
@@ -79,7 +83,7 @@
                 <% } %>
             </article>
 
-            <form action="/sign_up" class="tl-SignUpForm" method="POST">
+            <form action="/sign_up" class="tl-SignUpForm" method="POST" id="sign-up-form">
                 <div>
                     <h2>
                         Sign up for free!<br>
@@ -101,6 +105,7 @@
                         </div>
 
                         <div class="tl-FormField">
+                            <span class="js-error-message">You can not sign up a new user with an existing e-mail address.</span>
                             <label for="email">
                                 <span class="tl-RequiredFieldTitle">Email address</span>
                                 <input

@@ -1,5 +1,6 @@
 $spacing-base: 12px;
 $spacing-max-width: calc(#{$spacing-base} * 100);
+$spacing-max-width-minus-padding: calc(#{$spacing-base} * 98);
 
 @function getSpacing($spacing-modifier) {
     @return $spacing-base * $spacing-modifier;

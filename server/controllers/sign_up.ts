@@ -46,32 +46,36 @@ async function handleSignUp (req: express.Request & {session: SessionType}, res:
         lookingForGender && lookingForGender.length
     ) {
         try {
-            await Profile.findOne({ email: email.toLowerCase() })
+            const lookupProfile = await Profile.findOne({ email: email.toLowerCase() }) as ProfileType
 
-            bcrypt.hash(req.body.password, 10, async (error: NodeJS.ErrnoException, hash: string) => {
-                if (error) {
-                    throw new Error(errorMessages.serverError)
-                } else {
-                    const newUser = new Profile({
-                        _id: new mongoose.Types.ObjectId(),
-                        fullName,
-                        firstName: fullName && fullName.length && fullName.substr(0, fullName.indexOf(' ')),
-                        email: email.toLowerCase(),
-                        password: hash,
-                        ownGender,
-                        matchSettings: {
-                            lookingForGender,
-                        },
-                        hasFinishedQuestionaire: false,
-                    })
+            if (!lookupProfile) {
+                bcrypt.hash(req.body.password, 10, async (error: NodeJS.ErrnoException, hash: string) => {
+                    if (error) {
+                        throw new Error(errorMessages.serverError)
+                    } else {
+                        const newUser = new Profile({
+                            _id: new mongoose.Types.ObjectId(),
+                            fullName,
+                            firstName: fullName && fullName.length && fullName.substr(0, fullName.indexOf(' ')),
+                            email: email.toLowerCase(),
+                            password: hash,
+                            ownGender,
+                            matchSettings: {
+                                lookingForGender,
+                            },
+                            hasFinishedQuestionaire: false,
+                        })
 
-                    const myProfile = await newUser.save() as ProfileType
-                    req.session.userId = myProfile._id
-                    req.session.error = null
+                        const myProfile = await newUser.save() as ProfileType
+                        req.session.userId = myProfile._id
+                        req.session.error = null
 
-                    res.status(200).redirect(`/questionaire`)
-                }
-            })
+                        res.status(200).redirect(`/questionaire`)
+                    }
+                })
+            } else {
+                throw new Error('You can not sign up a new user with an existing e-mail address.')
+            }
         } catch (error) {
             next(error)
         }

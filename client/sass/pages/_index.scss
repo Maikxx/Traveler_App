@@ -87,6 +87,17 @@
 .tl-SignUpForm {
     margin: getSpacing(2) 0;
 
+    span.js-error-message {
+        display: none;
+    }
+
+    &.sign-up-error {
+        span.js-error-message {
+            display: block;
+            color: $error-color;
+        }
+    }
+
     h2 {
         font-size: 20px;
     }

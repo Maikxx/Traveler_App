@@ -1,4 +1,5 @@
-// Function that handles clicks on the menu icon in the top right of pages where this icon is present.
+// Function that handles clicks on the menu icon in the top right of pages where this icon is present.\
+// Handles progressive enhancement on the navigation menu.
 const handleMenuClick = (() => {
     const menuToggle = document.getElementById('menu-toggle')
     const navigation = document.getElementById('tl-Navigation')
@@ -48,5 +49,31 @@ const waitForPasswordToComplete = (() => {
                 repeatPasswordField.classList.add('hide-field')
             }
         })
+    }
+})()
+
+const checkErrorMessages = (() => {
+    const errorBanner = document.querySelector('.tl-ErrorBanner')
+
+    if (errorBanner && errorBanner.textContent) {
+        const message = errorBanner.textContent
+
+        if (message === 'Authentication failed! Please make sure that you have filled all fields in correctly.') {
+            const navigation = document.getElementById('tl-Navigation')
+            const loginFieldset = navigation.querySelector('fieldset')
+
+            if (loginFieldset) {
+                navigation.classList.add('js-active')
+                navigation.classList.toggle('nav-toggled')
+                loginFieldset.classList.add('auth-error')
+            }
+        } else if (message === 'You can not sign up a new user with an existing e-mail address.') {
+            const signUpForm = document.getElementById('sign-up-form')
+
+            if (signUpForm) {
+                signUpForm.classList.add('sign-up-error')
+                window.location.hash = '#sign-up-form'
+            }
+        }
     }
 })()

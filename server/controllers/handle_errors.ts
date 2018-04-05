@@ -22,7 +22,7 @@ function handleErrors(error: any, req: express.Request & {session: SessionType},
                     : 'No scope or stack received!',
             error.message
                 ? error.message
-                : 'Something went wrong inside of the server!',
+                : 'Something went wrong inside of the server, please try again!',
             error.logOut
                 ? error.logOut
                 : true,

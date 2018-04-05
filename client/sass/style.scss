@@ -120,7 +120,13 @@ main {
     fieldset {
         border: 0;
         margin: 0 auto;
-        max-width: $spacing-max-width;
+        max-width: $spacing-max-width-minus-padding;
+
+        &.auth-error {
+            input {
+                border: 2px solid $error-color !important;
+            }
+        }
 
         legend {
             visibility: hidden;
@@ -161,7 +167,7 @@ main {
     ol {
         list-style: none;
         margin: 0 auto;
-        max-width: $spacing-max-width;
+        max-width: $spacing-max-width-minus-padding;
 
         li {
             a, {
@@ -291,8 +297,9 @@ main {
 }
 
 .tl-ErrorBanner {
-    max-width: $spacing-max-width;
+    max-width: $spacing-max-width-minus-padding;
     padding: getSpacing(0.5) getSpacing(1);
+    display: block;
     background-color: $error-banner-background-color;
     margin: 0 auto;
     border-radius: 0 0 2px 2px;
