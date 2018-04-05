@@ -12,9 +12,7 @@ function handleErrors(error: any, req: express.Request & {session: SessionType},
             error.code
                 ? error.code
                 : 500,
-            error.redirectTo
-                ? error.redirectTo
-                : '/',
+            '/',
             error.scope
                 ? error.scope
                 : error.stack

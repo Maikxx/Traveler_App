@@ -9,8 +9,9 @@ import * as bodyParser from 'body-parser'
 import * as multer from 'multer'
 import * as mongoose from 'mongoose'
 import * as session from 'express-session'
+import * as cors from 'cors'
 
-console.log('(Re)starting...')
+console.log('(Re)starting server...')
 
 // Start a connection to the database with enviroment variables.
 mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`)
@@ -28,6 +29,7 @@ import notFoundRoute from './routes/not_found'
 import questionaireRoute from './routes/questionaire'
 import logOutRoute from './routes/log_out'
 import deleteAccountRoute from './routes/delete_account'
+import locationRoute from './routes/locations'
 
 // Import the controllers (mainly used for forms).
 import signInController from './controllers/sign_in'
@@ -59,6 +61,8 @@ const upload = multer({
 // Setup
 app.set('view engine', 'ejs')
 app.set('views', 'views')
+
+app.use(cors())
 app.use(helmet())
 app.use(express.static('public'))
 app.use(session({
@@ -82,6 +86,7 @@ app.get('/my_profile/edit', myProfileEditRoute)
 app.get('/questionaire', questionaireRoute)
 app.get('/log_out', logOutRoute)
 app.get('/delete_account', deleteAccountRoute)
+app.get('/locations', locationRoute)
 
 // Post Endpoints
 app.post('/sign_in', signInController)
