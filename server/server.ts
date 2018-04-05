@@ -36,6 +36,7 @@ import sendMessageController from './controllers/send_message'
 import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteChatController from './controllers/delete_chat'
 import questionaireSaveController from './controllers/questionaire_save'
+import handleErrors from './controllers/handle_errors'
 
 // Import a TS type for files.
 import { FileType } from './types/fileType'
@@ -92,6 +93,7 @@ app.post('/questionaire_save', upload.array('profileImages', 4), questionaireSav
 
 // Route for handling not founds.
 app.use(notFoundRoute)
+app.use(handleErrors)
 
 // Serving
 app.listen(8000)

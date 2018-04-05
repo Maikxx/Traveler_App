@@ -5,19 +5,15 @@ import { SessionType } from '../types/SessionType'
 import handleHttpError from '../utils/handleError'
 
 /*
-Route for handling all the not founds.
+Route for handling not founds.
 */
 
 function renderNotFound (
-        error: any,
         req: express.Request & {session: SessionType},
         res: express.Response,
         next: express.NextFunction
 ) {
-    if (error) {
-        console.error(error.stack)
-        return handleHttpError(req, res, 404, '/', 'not_found', 'This page could not be found!', true, error)
-    }
+    return handleHttpError(req, res, 404, '/', 'not_found', 'The page requested could not be found!', true)
 }
 
 export default renderNotFound
