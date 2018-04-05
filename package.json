@@ -12,7 +12,7 @@
     "generateMockData": "node ./mockData/transformMockData.js && node ./mockData/deployMockData.js",
     "serve": "nodemon -w ./dist --exec babel-node dist/server.js || exit 1",
     "start-app": "yarn build-ts && concurrently 'tsc -w' 'yarn watch-css' 'yarn watch-client-js' '(sleep 6 && yarn serve)' -r",
-    "watch-client-js": "yarn babel --no-babelrc client/js/index.js --out-file public/js/index.js --presets=latest -w",
+    "watch-client-js": "yarn babel --no-babelrc client/js --out-dir public/js --presets=latest -w",
     "watch-css": "yarn build-css && node-sass-chokidar --include-path ./client/sass client/sass -o public/css --output-style compressed -wqr"
   },
   "private": true,

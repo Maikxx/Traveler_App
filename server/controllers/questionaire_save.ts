@@ -31,8 +31,6 @@ async function handleQuestionaireSave (req: express.Request & {session: SessionT
         logOut: false,
     }
 
-    console.log(req.session.error)
-
     if (req.session && req.session.userId) {
         const _id = req.session.userId
 
