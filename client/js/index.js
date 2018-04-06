@@ -90,6 +90,7 @@ const prefillLocations = (() => {
             .then(parsedData => {
                 if (parsedData) {
                     const locations = parsedData.data
+
                     const favouriteHolidayDestinationField = document.querySelector('input[name=favouriteHolidayDestination]')
                     const hometownField = document.querySelector('input[name=livesIn]')
 
