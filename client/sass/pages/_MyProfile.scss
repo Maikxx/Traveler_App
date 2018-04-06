@@ -47,9 +47,10 @@
         > label {
             display: block;
             color: $form-text-color;
+            position: relative;
 
             &:first-of-type {
-                span,
+                span:not(.tl-LocationPreviewText),
                 small {
                     display: block;
                     margin-bottom: getSpacing(0.5);

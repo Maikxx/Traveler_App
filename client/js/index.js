@@ -83,8 +83,9 @@ const checkErrorMessages = (() => {
 // Communication with the API. Progressive enhancement on the location fields.
 const prefillLocations = (() => {
     const questionairePage = document.querySelector('.tl-Questionaire')
+    const myProfilePage = document.querySelector('.tl-MyProfilePage')
 
-    if (questionairePage) {
+    if (questionairePage || myProfilePage) {
         fetch('http://localhost:5000/locations')
             .then(rawData => rawData.json())
             .then(parsedData => {
