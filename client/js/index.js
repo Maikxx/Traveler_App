@@ -92,12 +92,24 @@ const prefillLocations = (() => {
                     const locations = parsedData.data
                     const hometownField = document.querySelector('input[name=livesIn]')
 
+                    const locationPreviewSpan = document.createElement('span')
+                    locationPreviewSpan.classList.add('tl-LocationPreviewText')
+                    hometownField.parentElement.appendChild(locationPreviewSpan)
+
+                    let inputValue
+                    let filteredValues
+
                     hometownField.addEventListener('keyup', (e) => {
-                        const inputValue = hometownField.value.toLowerCase()
-                        const filtered = locations.filter(location => location.name.toLowerCase().startsWith(inputValue))
-                        console.log(filtered)
+                        inputValue = hometownField.value.toLowerCase()
+                        filteredValues = locations.filter(location => location.name.toLowerCase().startsWith(inputValue))
+
+                        if (inputValue && inputValue.length > 1 && filteredValues && filteredValues.length) {
+                            locationPreviewSpan.classList.remove('hide-text')
+                            locationPreviewSpan.innerText = `${filteredValues[0].name}, ${filteredValues[0].country}`
+                        } else {
+                            locationPreviewSpan.classList.add('hide-text')
+                        }
                     })
-                    // const filtered = locations.filter(location => location.country === 'Netherlands')
                 }
             })
             .catch(error => {
