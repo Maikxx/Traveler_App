@@ -96,6 +96,9 @@ app.post('/delete_chat/:_id', deleteChatController)
 app.post('/delete_account', deleteAccountController)
 app.post('/questionaire_save', upload.array('profileImages', 4), questionaireSaveController)
 
+// Delete Endpoints
+app.delete('/delete_chat/:_id', deleteChatController)
+
 // Route for handling not founds.
 app.use(notFoundRoute)
 app.use(handleErrors)

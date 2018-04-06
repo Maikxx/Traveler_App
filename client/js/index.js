@@ -83,9 +83,9 @@ const checkErrorMessages = (() => {
 // Communication with the API. Progressive enhancement on the location fields.
 const prefillLocations = (() => {
     const questionairePage = document.querySelector('.tl-Questionaire')
-    const myProfilePage = document.querySelector('.tl-MyProfilePage')
+    const myProfileEditPage = document.querySelector('.tl-MyProfileEditPage')
 
-    if (questionairePage || myProfilePage) {
+    if (questionairePage || myProfileEditPage) {
         fetch('http://localhost:5000/locations')
             .then(rawData => rawData.json())
             .then(parsedData => {
@@ -148,5 +148,32 @@ const prefillLocations = (() => {
             .catch(error => {
                 console.log(error)
             })
+    }
+})()
+
+// Delete request for showing I handle http delete requests.
+const deleteChat = (() => {
+    const chatsPage = document.querySelector('.tl-ChatsPage')
+
+    if (chatsPage) {
+        const deleteChatButtons = document.querySelectorAll('.tl-ChatsPage__delete-chat')
+
+        if (deleteChatButtons && deleteChatButtons.length) {
+            deleteChatButtons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault()
+
+                    const form = button.parentElement
+                    const formAction = form.action
+
+                    fetch(formAction, {
+                        method: 'DELETE',
+                    })
+                        .then(data => data.json())
+                        .then(data => window.location.reload())
+                        .catch(error => console.error(error))
+                })
+            })
+        }
     }
 })()

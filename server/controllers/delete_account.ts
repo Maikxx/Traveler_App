@@ -10,7 +10,8 @@ import { CustomErrorType } from '../types/customErrorType'
 /*
 Route for deleting users.
 
-Note: The reason this is either a post request or a delete has to do with the fact this has to be working without JS.
+Note: The reason this is a post request has to do with the fact this has to have the user id from the session to delete.
+I did not want to mess with Socket.io.
 Note 2: Deleting with the mockData crashes the server, because it is trying to delete the only image (available-traveler.jpg) three times.
 With real data this won't happen, because all the images have their own id.
 
