@@ -106,6 +106,10 @@ const prefillLocations = (() => {
                         if (inputValue && inputValue.length > 1 && filteredValues && filteredValues.length) {
                             locationPreviewSpan.classList.remove('hide-text')
                             locationPreviewSpan.innerText = `${filteredValues[0].name}, ${filteredValues[0].country}`
+
+                            locationPreviewSpan.addEventListener('click', (e) => {
+                                hometownField.value = `${filteredValues[0].name}, ${filteredValues[0].country}`
+                            })
                         } else {
                             locationPreviewSpan.classList.add('hide-text')
                         }
