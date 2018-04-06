@@ -10,7 +10,8 @@ import { CustomErrorType } from '../types/customErrorType'
 /*
 Route for deleting users.
 
-1. THe code looks for a valid profile and gets it from the database.
+Note: The reason this is either a get request or a delete has to do with the fact this has to be working without JS.
+1. The code looks for a valid profile and gets it from the database.
 2. Delete all the profile images of this user, if he has any.
 3. Delete the users account.
 4. Destroy the users session.
