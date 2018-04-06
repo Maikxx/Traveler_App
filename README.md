@@ -72,6 +72,12 @@ Get the server running with:
 yarn start-app
 ```
 
+And in a different terminal window run:
+
+```bash
+yarn start-api
+```
+
 When this is running, go to `localhost:8000`.
 
 ## Development
@@ -95,6 +101,7 @@ This project makes use of the boilerplate for nodemon, in combination with TypeS
     Runs `watch-client-js`.
     Runs `serve` after a certain amount of time.
 All the concurrent processes are ran in *raw* mode, which means that only essential things (e.g. errors) are logged to the console.
+* `start-api`: Starts up the API, which makes the request from the front to the back-end and sends back location data.
 * `watch-client-js`: Runs **babel** without an rc file, in watch mode. This transpiles the client-side JavaScript to ES5.
 * `watch-css`: Runs `build-css` once and then runs the whole `build-css` script in *quiet*, *recursive* (listens for file changes in the nested files) and *watch* mode.
 
