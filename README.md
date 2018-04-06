@@ -6,6 +6,8 @@ This application is a basic level dating platform for people who love to travel,
 
 ### Home
 
+![Homepage Traveler](/docs/index.png) ![Homepage Traveler](/docs/sign-up.png)
+
 On the [homepage](<localhost:8000>) users can see an overview of available travelers, who use the application. This has been done, to get users to sign up and get inspired for filling in their profiles.
 
 Users can sign up for their account on the homepage, as well as sign in here, given they already have an account.
@@ -13,15 +15,18 @@ When users sign up, their account is created and partially filled in, with thing
 
 ### Questionaire
 
+![Questionaire Traveler](/docs/questionaire.png)
+
 When users have succesfully signed up, they are taken to the *questionaire* page. Here they are asked to fill in their profile (not everything is required, however). They can only *continue using their account* if they finish filling in the required fields.
 
 If they leave the page and sign in, while not having finished the questionaire correctly, then they will be sent back to the questionaire.
 
 ### Matches overview
 
+![Matches Overview Traveler](/docs/matches-overview.png)
+
 When they finish the questionaire succesfully, they will be taken to their *matches overview* page, where they can find all the people who they have been matched with, based on the information they provided in the questionaire.
 
-<!-- Take a look at this and generate more users -->
 Users are currently matched, based on (where more criteria might follow):
 * Age (if they fall within the age requirements, which the user has set in the questionaire)
 * Gender (if they fall within the gender requirements, which the user has set in the questionaire)
@@ -32,9 +37,13 @@ Also, this page will be the default homepage if the user is signed in, instead o
 
 ### Chat and match mechanism
 
+![Chat inside of Traveler](/docs/chat.png) ![Chat inside of Traveler](/docs/chat-with-messages.png) ![Chats Overview Traveler](/docs/chats.png)
+
 Users can allways chat, if they have been matched together, so there is no 'like or no-like'-system. This has been specifically designed, so that even people who might look less good, but still have an interest in someone, are not immediately removed from the other persons list.
 
 ### Match profile / chatting
+
+![Match Profile Traveler](/docs/match-profile-1.png) ![Match Profile Traveler](/docs/match-profile-2.png)
 
 Users can navigate to a matched person's profile, where they will be able to read everything that that person has filled in in either the questionaire or while editing their profile. There is also a chat button on a match their profile page, which you can use to start (or continue) a chat with this person.
 
@@ -44,12 +53,16 @@ Users can also delete this chat, equally as easy by clicking the trashcan next t
 
 ### Menu
 
+![Sign In Traveler](/docs/sign-in.png)
+
 From the matches profile page the user can also navigate to their own profile page, by clicking the icon in the top right corner, to bring down a menu and clicking on *my profile* there.
 The user can also navigate to an overview of their *chats*, as well as going back to the *matches overview*.
 
 In this menu, the user can also *log* his- or herself *out*, on every page, as long as the user is signed in (except for the index page of the application).
 
 ### My profile
+
+![My Profile Traveler](/docs/my-profile.png) ![My Profile Traveler](/docs/my-profile-edit-1.png) ![My Profile Traveler](/docs/my-profile-edit-2.png)
 
 On the users own *profile* page they can view their own filled in data, as well as edit their data, by clicking the button at the bottom of the page. If the user is in "edit mode", he or she can also decide to delete their account, by clicking the corresponding button at the bottom of the page.
 
