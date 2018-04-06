@@ -33,7 +33,7 @@ async function renderMyProfileEdit (req: express.Request & {session: SessionType
             const myProfile = await Profile.findOne({ _id: req.session.userId }) as ProfileType
 
             if (!myProfile.hasFinishedQuestionaire) {
-                throw new Error('You have not yet filled in the questionaire!')
+                res.status(409).redirect('/questionaire')
             } else {
                 const profileData = {
                     _id: myProfile._id,

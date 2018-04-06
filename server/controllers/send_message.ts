@@ -31,7 +31,7 @@ async function handleSendMessage (req: express.Request & {session: SessionType},
             const myProfile = await Profile.findOne({ _id: req.session.userId }) as ProfileType
 
             if (!myProfile.hasFinishedQuestionaire) {
-                throw new Error('You have not yet filled in the questionaire!')
+                res.status(409).redirect('/questionaire')
             } else {
                 const { userId: messageById } = req.session
                 const { message: messageText } = req.body
@@ -46,7 +46,7 @@ async function handleSendMessage (req: express.Request & {session: SessionType},
                     await Chat.update({ _id: chatId }, { $push: { messages: newMessage } })
                     res.status(201).redirect(`/chat/${chatId}`)
                 } else {
-                    throw new Error('You can not have empty messages!')
+                    res.status(400).redirect(`/chat/${chatId}`)
                 }
             }
         } catch (error) {

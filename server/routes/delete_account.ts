@@ -38,7 +38,7 @@ async function handleDeleteAccount (req: express.Request & {session: SessionType
                 await profileImages.forEach(async (imagePath: string) => {
                     await fs.unlink(imagePath, (error: NodeJS.ErrnoException) => {
                         if (error) {
-                            throw error
+                            next(error)
                         }
                     })
                 })
@@ -62,9 +62,9 @@ async function deleteAccount(req: express.Request & {session: SessionType}, res:
 
         req.session.destroy((error: NodeJS.ErrnoException) => {
             if (error) {
-                throw error
+                next(error)
             } else {
-                res.status(204).redirect('/')
+                res.status(201).redirect('/')
             }
         })
     } catch (error) {

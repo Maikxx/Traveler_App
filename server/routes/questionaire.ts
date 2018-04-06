@@ -32,9 +32,10 @@ async function renderQuestionaire (req: express.Request & {session: SessionType}
             if (!myProfile.hasFinishedQuestionaire) {
                 res.render('questionaire.ejs', { _id: myProfile._id })
             } else {
-                res.status(400).redirect('/matches_overview')
+                res.status(200).redirect('/matches_overview')
             }
         } catch (error) {
+            console.error(error)
             next(error)
         }
     } else {

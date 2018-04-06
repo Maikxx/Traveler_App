@@ -42,24 +42,28 @@ async function handleSignIn (req: express.Request & {session: SessionType}, res:
             const user = await Profile.findOne({ email: email.toLowerCase() }) as ProfileType
 
             if (!user) {
-                throw new Error(errorMessages.generalAuthenticationFailed)
+                cusErr.message = errorMessages.generalAuthenticationFailed
+
+                next(cusErr)
             } else {
-                bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, response: string) => {
+                bcrypt.compare(password, user.password, (error: NodeJS.ErrnoException, success: boolean) => {
                     if (error) {
-                        throw new Error(errorMessages.serverError)
+                        next(error)
                     }
 
-                    if (response && response.length) {
+                    if (success) {
                         req.session.userId = user._id
                         req.session.error = null
 
                         if (user.hasFinishedQuestionaire) {
-                            res.redirect('/matches_overview')
+                            res.status(200).redirect('/matches_overview')
                         } else {
-                            res.redirect('/questionaire')
+                            res.status(409).redirect('/questionaire')
                         }
                     } else {
-                        throw new Error(errorMessages.serverError)
+                        cusErr.message = errorMessages.generalAuthenticationFailed
+
+                        next(cusErr)
                     }
                 })
             }

@@ -13,7 +13,7 @@ function renderNotFound (
         res: express.Response,
         next: express.NextFunction
 ) {
-    return handleHttpError(req, res, 404, '/', 'not_found', 'The page requested could not be found!', true)
+    return handleHttpError(req, res, 404, '/', 'not_found', 'The page requested could not be found, you have been redirected!', true)
 }
 
 export default renderNotFound

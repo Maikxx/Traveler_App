@@ -38,7 +38,7 @@ async function handleDeleteChat (req: express.Request & {session: SessionType}, 
 
             await Chat.remove({ _id: chatResult._id })
 
-            res.redirect('/chats')
+            res.status(200).redirect('/chats')
         } catch (error) {
             next(error)
         }

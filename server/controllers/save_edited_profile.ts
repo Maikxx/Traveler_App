@@ -38,7 +38,7 @@ async function handleSaveEditedProfile (req: express.Request & {session: Session
             const myProfile = await Profile.findOne({ _id: userId }) as ProfileType
 
             if (!myProfile.hasFinishedQuestionaire) {
-                throw new Error('You have not yet filled in the questionaire!')
+                res.status(409).redirect('/questionaire')
             } else {
                 if (!myProfile.hasFinishedQuestionaire) {
                     cusErr.message = 'You have not yet filled in the questionaire!'
@@ -224,7 +224,7 @@ async function handleSaveEditedProfile (req: express.Request & {session: Session
                                 } else {
                                     fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
                                         if (error) {
-                                            throw error
+                                            next(error)
                                         }
                                     })
                                 }

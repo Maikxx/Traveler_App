@@ -51,7 +51,10 @@ async function handleSignUp (req: express.Request & {session: SessionType}, res:
             if (!lookupProfile) {
                 bcrypt.hash(req.body.password, 10, async (error: NodeJS.ErrnoException, hash: string) => {
                     if (error) {
-                        throw new Error(errorMessages.serverError)
+                        cusErr.code = 500
+                        cusErr.message = errorMessages.serverError
+
+                        next(cusErr)
                     } else {
                         const newUser = new Profile({
                             _id: new mongoose.Types.ObjectId(),
@@ -74,7 +77,10 @@ async function handleSignUp (req: express.Request & {session: SessionType}, res:
                     }
                 })
             } else {
-                throw new Error('You can not sign up a new user with an existing e-mail address.')
+                cusErr.code = 400
+                cusErr.message = 'You can not sign up a new user with an existing e-mail address!'
+
+                next(cusErr)
             }
         } catch (error) {
             next(error)

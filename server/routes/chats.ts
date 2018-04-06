@@ -36,7 +36,7 @@ async function renderChats (req: express.Request & {session: SessionType}, res: 
             const myProfile = await Profile.findOne({ _id: userId }) as ProfileType
 
             if (!myProfile.hasFinishedQuestionaire) {
-                throw new Error('You have not yet filled in the questionaire!')
+                res.status(409).redirect('/questionaire')
             } else {
                 if (myProfile.chats && myProfile.chats.length) {
                     const rawData = await Promise.all(myProfile.chats.map(async (chatId: string, i) => {

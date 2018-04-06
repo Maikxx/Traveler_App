@@ -226,7 +226,7 @@ async function handleQuestionaireSave (req: express.Request & {session: SessionT
                             if (error) {
                                 await fs.unlink(file.path, (error: NodeJS.ErrnoException) => {
                                     if (error) {
-                                        throw error
+                                        next(error)
                                     }
                                 })
                             } else {
@@ -239,10 +239,12 @@ async function handleQuestionaireSave (req: express.Request & {session: SessionT
 
                     await Profile.update({ _id }, queryData)
 
-                    res.redirect('/matches_overview')
+                    res.status(200).redirect('/matches_overview')
                     req.session.error = null
                 } else {
-                    throw new Error('You must submit an image before you are alowed to continue!')
+                    cusErr.message = 'You must submit an image before you are alowed to continue!'
+
+                    handleHttpError(req, res, 400, cusErr.redirectTo, 'questionaire', cusErr.message, cusErr.logOut)
                 }
             }
         } catch (error) {

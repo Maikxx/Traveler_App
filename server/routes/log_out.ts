@@ -25,11 +25,11 @@ function handleLogOut (req: express.Request & {session: SessionType}, res: expre
             if (error) {
                 next(cusErr)
             } else {
-                res.status(204).redirect('/')
+                res.status(204).redirect(cusErr.redirectTo)
             }
         })
     } else {
-        res.status(409).redirect('/')
+        res.status(409).redirect(cusErr.redirectTo)
     }
 }
 

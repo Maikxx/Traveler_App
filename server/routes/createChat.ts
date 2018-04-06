@@ -46,7 +46,7 @@ async function createChat (req: express.Request & {session: SessionType}, res: e
                 await Profile.update({ _id: participantId }, { $push: { chats: chatResult._id } })
             }))
 
-            res.redirect(`/chat/${chatResult._id}`)
+            res.status(201).redirect(`/chat/${chatResult._id}`)
         } catch (error) {
             next(error)
         }
