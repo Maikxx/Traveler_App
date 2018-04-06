@@ -90,28 +90,55 @@ const prefillLocations = (() => {
             .then(parsedData => {
                 if (parsedData) {
                     const locations = parsedData.data
+                    const favouriteHolidayDestinationField = document.querySelector('input[name=favouriteHolidayDestination]')
                     const hometownField = document.querySelector('input[name=livesIn]')
 
-                    const locationPreviewSpan = document.createElement('span')
-                    locationPreviewSpan.classList.add('tl-LocationPreviewText')
-                    hometownField.parentElement.appendChild(locationPreviewSpan)
+                    const favouriteHolidayDestinationFieldPreviewSpan = document.createElement('span')
+                    favouriteHolidayDestinationFieldPreviewSpan.classList.add('tl-LocationPreviewText')
+                    favouriteHolidayDestinationField.parentElement.appendChild(favouriteHolidayDestinationFieldPreviewSpan)
 
-                    let inputValue
-                    let filteredValues
+                    const hometownFieldPreviewSpan = document.createElement('span')
+                    hometownFieldPreviewSpan.classList.add('tl-LocationPreviewText')
+                    hometownField.parentElement.appendChild(hometownFieldPreviewSpan)
 
-                    hometownField.addEventListener('keyup', (e) => {
-                        inputValue = hometownField.value.toLowerCase()
-                        filteredValues = locations.filter(location => location.name.toLowerCase().startsWith(inputValue))
+                    favouriteHolidayDestinationField.addEventListener('keyup', (e) => {
+                        const inputValue = favouriteHolidayDestinationField.value.toLowerCase()
+                        const filteredValues = locations.filter(location => location.name.toLowerCase().startsWith(inputValue) || location.country.toLowerCase().startsWith(inputValue))
 
                         if (inputValue && inputValue.length > 1 && filteredValues && filteredValues.length) {
-                            locationPreviewSpan.classList.remove('hide-text')
-                            locationPreviewSpan.innerText = `${filteredValues[0].name}, ${filteredValues[0].country}`
+                            favouriteHolidayDestinationFieldPreviewSpan.classList.remove('hide-text')
 
-                            locationPreviewSpan.addEventListener('click', (e) => {
+                            if (filteredValues[0].country.toLowerCase().startsWith(inputValue)) {
+                                favouriteHolidayDestinationFieldPreviewSpan.innerText = `${filteredValues[0].country}`
+                            } else {
+                                favouriteHolidayDestinationFieldPreviewSpan.innerText = `${filteredValues[0].name}, ${filteredValues[0].country}`
+                            }
+
+                            favouriteHolidayDestinationFieldPreviewSpan.addEventListener('click', (e) => {
+                                if (filteredValues[0].country.toLowerCase().startsWith(inputValue)) {
+                                    favouriteHolidayDestinationField.value = `${filteredValues[0].country}`
+                                } else {
+                                    favouriteHolidayDestinationField.value = `${filteredValues[0].name}, ${filteredValues[0].country}`
+                                }
+                            })
+                        } else {
+                            favouriteHolidayDestinationFieldPreviewSpan.classList.add('hide-text')
+                        }
+                    })
+
+                    hometownField.addEventListener('keyup', (e) => {
+                        const inputValue = hometownField.value.toLowerCase()
+                        const filteredValues = locations.filter(location => location.name.toLowerCase().startsWith(inputValue))
+
+                        if (inputValue && inputValue.length > 1 && filteredValues && filteredValues.length) {
+                            hometownFieldPreviewSpan.classList.remove('hide-text')
+                            hometownFieldPreviewSpan.innerText = `${filteredValues[0].name}, ${filteredValues[0].country}`
+
+                            hometownFieldPreviewSpan.addEventListener('click', (e) => {
                                 hometownField.value = `${filteredValues[0].name}, ${filteredValues[0].country}`
                             })
                         } else {
-                            locationPreviewSpan.classList.add('hide-text')
+                            hometownFieldPreviewSpan.classList.add('hide-text')
                         }
                     })
                 }
