@@ -28,7 +28,6 @@ import myProfileEditRoute from './routes/my_profile_edit'
 import notFoundRoute from './routes/not_found'
 import questionaireRoute from './routes/questionaire'
 import logOutRoute from './routes/log_out'
-import deleteAccountRoute from './routes/delete_account'
 import locationRoute from './routes/locations'
 
 // Import the controllers (mainly used for forms).
@@ -37,6 +36,7 @@ import signUpController from './controllers/sign_up'
 import sendMessageController from './controllers/send_message'
 import saveEditedProfileController from './controllers/save_edited_profile'
 import deleteChatController from './controllers/delete_chat'
+import deleteAccountController from './controllers/delete_account'
 import questionaireSaveController from './controllers/questionaire_save'
 import handleErrors from './controllers/handle_errors'
 
@@ -85,7 +85,6 @@ app.get('/my_profile', myProfileRoute)
 app.get('/my_profile/edit', myProfileEditRoute)
 app.get('/questionaire', questionaireRoute)
 app.get('/log_out', logOutRoute)
-app.get('/delete_account', deleteAccountRoute)
 app.get('/locations', locationRoute)
 
 // Post Endpoints
@@ -94,6 +93,7 @@ app.post('/sign_up', signUpController)
 app.post('/send_message/:_id', sendMessageController)
 app.post('/save_edited_profile', upload.array('profileImages', 4), saveEditedProfileController)
 app.post('/delete_chat/:_id', deleteChatController)
+app.post('/delete_account', deleteAccountController)
 app.post('/questionaire_save', upload.array('profileImages', 4), questionaireSaveController)
 
 // Route for handling not founds.

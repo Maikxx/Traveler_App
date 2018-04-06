@@ -10,7 +10,10 @@ import { CustomErrorType } from '../types/customErrorType'
 /*
 Route for deleting users.
 
-Note: The reason this is either a get request or a delete has to do with the fact this has to be working without JS.
+Note: The reason this is either a post request or a delete has to do with the fact this has to be working without JS.
+Note 2: Deleting with the mockData crashes the server, because it is trying to delete the only image (available-traveler.jpg) three times.
+With real data this won't happen, because all the images have their own id.
+
 1. The code looks for a valid profile and gets it from the database.
 2. Delete all the profile images of this user, if he has any.
 3. Delete the users account.
@@ -60,6 +63,8 @@ async function handleDeleteAccount (req: express.Request & {session: SessionType
 async function deleteAccount(req: express.Request & {session: SessionType}, res: express.Response, next: express.NextFunction, cusErr: CustomErrorType, userId: string) {
     try {
         await Profile.remove({ _id: userId })
+
+        console.log('Deleting')
 
         req.session.destroy((error: NodeJS.ErrnoException) => {
             if (error) {

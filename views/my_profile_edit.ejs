@@ -703,11 +703,9 @@
                 </footer>
             </form>
 
-            <a href="/delete_account"
-                class="tl-CTA-Button tl-CTA-Button--text tl-CTA-Button--danger"
-            >
-                Delete account (WARNING: You cannot undo this!)
-            </a>
+            <form action="/delete_account" method="POST">
+                <button type="submit" class="tl-CTA-Button tl-CTA-Button--text tl-CTA-Button--danger">Delete account (WARNING: You cannot undo this!)</button>
+            </form>
         </main>
         <script src="/js/index.js"></script>
     </body>

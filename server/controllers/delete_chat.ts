@@ -9,6 +9,7 @@ import { ChatType } from '../types/chatType'
 /*
 Controller which handles deleting chats.
 
+Note: The reason this is either a post request or a delete has to do with the fact this has to be working without JS.
 1. Check if the user has a userId session.
 2. Find a chat which corresponds with the id given by req.params.
 3. Update both the profiles, which are linked to this chat, so that they no longer contain this chatId.
