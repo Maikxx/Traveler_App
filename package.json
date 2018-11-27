@@ -33,7 +33,7 @@
     "copyfiles": "^2.0.0",
     "express-session": "^1.15.6",
     "node-sass-chokidar": "^1.2.2",
-    "nodemon": "^1.17.1",
+    "nodemon": "1.18.7",
     "tslint": "^5.9.1",
     "tslint-eslint-rules": "^5.1.0",
     "typescript": "^2.7.2",
